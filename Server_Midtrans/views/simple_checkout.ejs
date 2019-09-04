@@ -1,0 +1,94 @@
+<html>
+   <head>
+      <title>Simple Snap Example</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- <link rel="stylesheet" href="/static/checkout.css"> -->
+      <script type="text/javascript"
+            src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="<%= clientKey %>"></script>
+      <style>
+        .loader {
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          width: 120px;
+          height: 120px;
+          -webkit-animation: spin 2s linear infinite; /* Safari */
+          animation: spin 2s linear infinite;
+          position: absolute;
+          left: 50%;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+   </head>
+   <body>
+    <div class='cart'>
+      <input type='hidden' id='snap_token' value="<%= token %>"/>
+      <input type='hidden' id='data' value="<%= data %>"/>
+      <div class="loader"></div>
+    </div>
+
+
+    <script>
+      var token = document.querySelectorAll('#snap_token')[0].value;
+      var data = document.querySelectorAll('#data')[0].value
+      var parse = JSON.parse(data)
+      apiToken = parse.token
+      // sendData()
+      console.log(data)
+      // var checkoutBtn = document.querySelectorAll('.checkout')[0];
+      // checkoutBtn.onclick = function(){
+
+        console.log('opening snap popup:');
+        
+        // Open Snap popup with defined callbacks.
+        snap.pay(token, {
+          onSuccess: function(result) {
+            console.log("SUCCESS", result);
+            sendData()
+            // alert("Payment accepted \r\n"+JSON.stringify(result));
+          },
+          onPending: function(result) {
+            console.log("Payment pending", result);
+            alert("Payment pending \r\n"+JSON.stringify(result));
+          },
+          onError: function() {
+            console.log("Payment error");
+          }
+        });
+        // For more advanced use, refer to: https://snap-docs.midtrans.com/#snap-js
+
+      function sendData() {
+      alert('oke')
+
+        fetch('http://35.198.219.220:2121/alfaAPI/c_nup/insertNup/IFCAMOBILE/',{
+          method : "POST",
+          body  : data,
+          headers : new Headers({
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Token' : apiToken.replace(" ","+"),
+          })
+        })
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(myJson) {
+          alert(JSON.stringify(myJson))
+          console.log(myJson);
+        });
+        
+      }
+    </script>
+   </body>
+</html>
