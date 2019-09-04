@@ -317,7 +317,7 @@ export default class Home extends Component {
               <View style={Styles.sectionTransparent}>
                 <View style={Styles.headerBg}>
                   <Text style={Styles.sTitleWhite}>
-                    {"UJP Promo".toUpperCase()}
+                    {"Promo".toUpperCase()}
                   </Text>
                   <Right>
                     <Button
@@ -356,7 +356,7 @@ export default class Home extends Component {
               <View style={Styles.sectionTransparent}>
                 <View style={Styles.headerBg}>
                   <Text style={Styles.sTitleWhite}>
-                    {"UJP News".toUpperCase()}
+                    {"News".toUpperCase()}
                   </Text>
                   <Right>
                     <Button

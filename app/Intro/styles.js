@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
 		alignItems:'center'
 	},
 	signInBtn:{
-		backgroundColor: Colors.loginBlue,
+		// backgroundColor: Colors.loginBlue,
+		backgroundColor: Colors.blueUrban, 
 		height: (Metrics.HEIGHT * 0.08),
 		width: (Metrics.WIDTH * 0.92),
 		borderRadius: 15,
