@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Sep 04 14:30:46 WIB 2019
+#Thu Sep 19 14:58:55 WIB 2019
 2.path=fonts/MaterialCommunityIcons.ttf
 14.set=DEX
 107.baseType=DIRECTORY

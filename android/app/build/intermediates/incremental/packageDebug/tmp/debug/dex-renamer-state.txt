@@ -1,4 +1,4 @@
-#Wed Sep 04 14:30:45 WIB 2019
+#Thu Sep 19 14:58:51 WIB 2019
 base.10=/Users/ifcasoftware/iCloud Drive (Archive)/Documents/Documents - Hany's Macbook Pro/All Project/react-app/urbanmobile/android/app/build/intermediates/transforms/dexMerger/debug/18
 path.31=classes.dex
 path.30=classes.dex

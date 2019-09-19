@@ -14,7 +14,7 @@ import {
   Modal,
   ActivityIndicator,
   Linking,
-  Alert
+  Alert,
 } from "react-native";
 import {
   Container,
@@ -53,6 +53,7 @@ import Styles from "./Style";
 import { WebView } from 'react-native-webview';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import HTML from 'react-native-render-html';
+
 
 //const {width, height} = Dimensions.get('window')
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
@@ -158,7 +159,7 @@ getDataDetails = (item) => {
               amenities : resData.amenities,
               feature : resData.feature,
               overview : resData.overview,
-              project : resData.project
+              project : resData.project,
             }
             console.log('data',data);
             this.setState(data)
@@ -182,6 +183,7 @@ getDataGallery = (item) => {
   }).then((response) => response.json())
   .then((res)=>{
       if(!res.Error){
+          console.log(resData)
           const resData = res.Data
           this.setState({gallery : resData.gallery})
           resData.gallery.map((item)=>{
@@ -382,7 +384,17 @@ showAlert = () => {
             <Text style={Styles.overviewTitle}>Overview</Text>
     
               {this.state.overview ? 
-                <HTML html={this.state.overview[0].overview_info} imagesMaxWidth={Dimensions.get('window').width} />
+               <HTML html={this.state.overview[0].overview_info} imagesMaxWidth={Dimensions.get('window').width} />
+              :<ActivityIndicator /> }
+
+          </View>
+          <View style={Styles.overview}>
+            <Text style={Styles.overviewTitle}>Overview</Text>
+    
+              {this.state.overview ? 
+               <WebView javaScriptEnabled={true} source={{uri:this.state.overview[0].overview_info}}/>
+
+              //  <HTML html={this.state.overview[0].youtube_link} imagesMaxWidth={Dimensions.get('window').width} />
               :<ActivityIndicator /> }
 
           </View>
