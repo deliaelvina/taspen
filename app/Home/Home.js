@@ -141,9 +141,18 @@ export default class Home extends Component {
             />
             <View style={styles.newsTitle}>
               <Text style={styles.newsTitleText} numberOfLines={2}>
+                  { item.subject }
+
+              </Text>
+              <Text style={styles.newsTitleText_small}>
                   { item.descs }
               </Text>
             </View>
+            {/* <View style={styles.newsTitle_small}>
+              <Text style={styles.newsTitleText_small} numberOfLines={2}>
+                  { item.descs }
+              </Text>
+            </View> */}
         </TouchableOpacity>
     );
 }

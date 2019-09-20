@@ -125,12 +125,31 @@ export default StyleSheet.create({
     newsTitleText :{
         backgroundColor: 'transparent',
         color: '#fff',
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: 'bold',
         marginHorizontal: 16,
-        marginVertical : 16
+        // marginVertical : 2
+    },
+    newsTitleText_small :{
+        backgroundColor: 'transparent',
+        color: '#fff',
+        fontSize: 16,
+        // fontWeight: 'bold',
+        marginHorizontal: 16,
+        marginVertical : 4
     },
     newsTitle :{
+        position : 'absolute',
+        borderRadius :5,
+        left : 0,
+        bottom :0,
+        width : dw - 60,
+        backgroundColor : 'rgba(0,0,0,0.5)',
+        justifyContent :'center',
+        alignItems:'center'
+    },
+
+    newsTitle_small :{
         position : 'absolute',
         borderRadius :5,
         left : 0,
