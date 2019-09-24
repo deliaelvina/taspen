@@ -15,6 +15,7 @@ import {
   ActivityIndicator,
   Linking,
   Alert,
+
 } from "react-native";
 import {
   Container,
@@ -41,6 +42,7 @@ import {
   Form,
   Label,
 } from "native-base";
+import MapView from 'react-native-maps';
 import { Actions } from "react-native-router-flux";
 import {urlApi} from '@Config/services';
 import GALLERY from "./Gallery";
@@ -50,7 +52,7 @@ import {_storeData,_getData,_navigate} from '@Component/StoreAsync';
 
 import { Style, Colors } from "../Themes/index";
 import Styles from "./Style";
-import { WebView } from 'react-native-webview';
+
 import ImageViewer from 'react-native-image-zoom-viewer';
 import HTML from 'react-native-render-html';
 
@@ -63,6 +65,9 @@ const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
 
 let isMount = false
 
+
+const API_KEY = "AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8";
+// const API_KEY = "AIzaSyBFhdZb-_5FCA5IhbLhB9-KimWC_QlOKLs";
 
 
 export default class extends React.Component {
@@ -422,17 +427,7 @@ showAlert = () => {
 
           </View>
           
-          <View style={Styles.overview}>
-            <Text style={Styles.overviewTitle}>Overview</Text>
-            
-    
-              {this.state.overview ? 
-               <WebView javaScriptEnabled={true} source={{uri:this.state.overview[0].overview_info}}/>
-
-              //  <HTML html={this.state.overview[0].youtube_link} imagesMaxWidth={Dimensions.get('window').width} />
-              :<ActivityIndicator /> }
-
-          </View>
+          
           <Tabs locked={Platform.OS == 'android' ? true : false} tabBarUnderlineStyle={Styles.tabBorder}>
             <Tab
               tabStyle={Styles.tabGrey}
@@ -492,33 +487,7 @@ showAlert = () => {
                  :<ActivityIndicator/>}
                 </View>
 
-                <View style={Styles.overview}>
-                  <Text style={Styles.overviewTitle}>Unit Plan</Text>
-                  {this.state.plans ?
-                  <FlatList
-                  data={this.state.plans}
-                  horizontal
-                  style={Styles.slider}
-                  showsHorizontalScrollIndicator={false}
-                  keyExtractor={item =>item.line_no}
-                  renderItem={({ item,index }) => (
-                    <TouchableOpacity
-                      underlayColor="transparent"
-                      onPress={() => {
-                        this.setState({isView:true,index:index})
-                      }}
-                    >
-                      <View>
-                        <Image
-                          source={{ uri: item.plan_url }}
-                          style={Styles.sliderImg}
-                        />
-                      </View>
-                    </TouchableOpacity>
-                  )}
-                />  
-                 :<ActivityIndicator/>}
-                </View>
+                
 
                 {/* <View style={Styles.amenities}>
                   <Text style={Styles.amenityTitle}>Facilities</Text>
@@ -546,11 +515,56 @@ showAlert = () => {
               textStyle={Styles.tabText}
               activeTabStyle={Styles.tabSimulasi}
               activeTextStyle={Styles.tabTextActive}
-              heading="Simulasi KPA/R"
+              heading="Unit Plan"
             >
               <List style={Styles.infoTab}>
-                <View style={Styles.overview}>
-                  <Text style={Styles.overviewTitle}>Simulasi Perhitungan KPA/R</Text>
+              <View style={Styles.overview}>
+                  <Text style={Styles.overviewTitle}>Unit Plan</Text>
+                  {this.state.plans ?
+                  <FlatList
+                  data={this.state.plans}
+                  horizontal
+                  style={Styles.slider}
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={item =>item.line_no}
+                  renderItem={({ item,index }) => (
+                    <TouchableOpacity
+                      underlayColor="transparent"
+                      onPress={() => {
+                        this.setState({isView:true,index:index})
+                      }}
+                    >
+                      <View>
+                        <Image
+                          source={{ uri: item.plan_url }}
+                          style={Styles.sliderImg}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                />  
+                 :<ActivityIndicator/>}
+                </View>
+
+                
+
+                  </List>
+            </Tab>
+          </Tabs>
+
+
+          {/* for HR line */}
+          {/* <View
+            style={{
+              borderTopColor: '#b5b5b5',
+              borderTopWidth: 1,
+              marginVertical: 10,
+              marginHorizontal: 10,
+            }}
+          /> */}
+
+          <View style={Styles.overview}>
+                  <Text style={Styles.overviewTitle_surround}>Simulasi Perhitungan KPA/R</Text>
                
                   <TextInput
                     style={Styles.textInput}
@@ -593,20 +607,6 @@ showAlert = () => {
                   </Text>
                   </View>
 
-                  </List>
-            </Tab>
-          </Tabs>
-
-
-          {/* for HR line */}
-          {/* <View
-            style={{
-              borderTopColor: '#b5b5b5',
-              borderTopWidth: 1,
-              marginVertical: 10,
-              marginHorizontal: 10,
-            }}
-          /> */}
           <Text style={Styles.overviewTitle_surround}>Surrounding Area</Text>
           <Tabs locked={Platform.OS == 'android' ? true : false} tabBarUnderlineStyle={Styles.tabBorder}>
               <Tab
@@ -693,6 +693,47 @@ showAlert = () => {
           </Tabs>
           
                
+          <View>
+            <Text style={Styles.overviewTitle_youtube}>Video</Text>
+              
+              {this.state.overview ? 
+  
+               <HTML html={`<iframe src='${this.state.overview[0].youtube_link}'></iframe>`} imagesMaxWidth={Dimensions.get('window').width} />
+              :<ActivityIndicator /> }
+
+              
+             
+          </View>
+                 
+          <View style={Styles.overview_location}>
+            <Text style={Styles.overviewTitle_youtube}>Location</Text>
+            {/* <HTML html = {`<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=17&center=3.1164,101.5950&key=AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8"></iframe>`}></HTML> */}
+                {this.state.project ? 
+  
+                //  <HTML html={`<iframe name="gMap" src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.980392567379!2d98.67400131448191!3d3.591970997386129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x303131c5bb04a5b5:0xc9bead74e038893e!2sThe+Reiz+Condo+Medan!5e0!3m2!1sen!2sid!4v1534232821301&key=${API_KEY}'></iframe>`} imagesMaxWidth={Dimensions.get('window').width} />
+               
+                 //  <HTML html={`<iframe src='${this.state.project[0].coordinat_project}' width="300" height="300" frameborder="0" style="border:0;"></iframe>`} imagesMaxWidth={Dimensions.get('window').width} />
+                //  <HTML html={this.state.project[0].coordinat_project} />
+                <HTML html={`<iframe src="https://goo.gl/maps/idUCFGKtvhrhYGhd6" height="500px" ></iframe>`}></HTML>
+                // <HTML html={`<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8&q=Space+Needle,Seattle+WA"></iframe>`}></HTML>
+                // <HTML html = {`<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=17&center=3.1164,101.5950&key=AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8"></iframe>`}></HTML>
+                // <HTML html = {`<iframe\s*src="https:\/\/www\.google\.com\/maps\/embed\?[^"]+"*\s*[^>]+>*<\/iframe>`}></HTML>  
+
+                :<ActivityIndicator />  }
+
+                {this.state.project ? 
+                <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>{this.state.project[0].project_descs}</Text>
+                <Text style={Styles.overviewTitle}>{this.state.project[0].coordinat_name}</Text>
+                <Text style={Styles.overviewTitle}>{this.state.project[0].coordinat_address}</Text>
+                </View>
+
+                :<ActivityIndicator /> }
+          </View>
+          
+          
+
+          
 
           <View style={Styles.sectionGrey}>
             <View style={Styles.headerBg}>

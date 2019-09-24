@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "945884059945",
+    "firebase_url": "https://urbanmobile-b290f.firebaseio.com",
+    "project_id": "urbanmobile-b290f",
+    "storage_bucket": "urbanmobile-b290f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945884059945:android:6261ce61971702f1c97f38",
+        "android_client_info": {
+          "package_name": "com.ifcasoftware.urban"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945884059945-0treh3o5vujr85pba419nb9dqttt310m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE9JGWdI4zbRw5wLDsRGEBPmUHsHAFkcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945884059945-0treh3o5vujr85pba419nb9dqttt310m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

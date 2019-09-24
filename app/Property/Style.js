@@ -101,10 +101,28 @@ export default {
     paddingHorizontal: 20,
     paddingVertical: 20,
   },
+  overview_location: {
+    flex: 1,
+    paddingHorizontal: 5,
+    paddingVertical: 20,
+  },
+  overview_youtube: {
+    flex: 1,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+  },
+  overviewTitle_youtube: {
+    flex: 1,
+		fontFamily: Fonts.type.sfuiDisplaySemibold,
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    // paddingVertical: 20,
+  },
   overviewTitle: {
     flex: 1,
 		fontFamily: Fonts.type.sfuiDisplaySemibold,
     marginBottom: 10,
+   
   },
   overviewTitle_surround: {
     flex: 1,
