@@ -106,6 +106,13 @@ export default {
 		fontFamily: Fonts.type.sfuiDisplaySemibold,
     marginBottom: 10,
   },
+  overviewTitle_surround: {
+    flex: 1,
+		fontFamily: Fonts.type.sfuiDisplaySemibold,
+    marginBottom: 10,
+    
+    paddingHorizontal: 10,
+  },
   overviewDesc: {
     flex: 1,
     color: '#666',
@@ -224,20 +231,42 @@ export default {
   },
 
   tabBorder: {
-    backgroundColor: '#DAD299',
+    // backgroundColor: '#DAD299',
+    backgroundColor: Colors.blueUrban,
+    borderWidth: 1,
+    borderRadius: 20
   },
   tabGrey: {
     backgroundColor: '#FFF',
+    // backgroundColor: '#9CAEC6'
+  },
+  tabFeature: {
+    // backgroundColor: '#FFF',
+    backgroundColor: Colors.bluegreyUrban,
+    // borderRadius: 20
+  },
+  tabGallery: {
+    // backgroundColor: '#FFF',
+    backgroundColor: Colors.bluegreyUrban,
+    // borderRadius: 20
+  },
+  tabSimulasi: {
+    // backgroundColor: '#FFF',
+    backgroundColor: Colors.bluegreyUrban,
+    // borderRadius: 20
   },
   tabText: {
 		fontFamily: Fonts.type.sfuiDisplaySemibold,
     fontSize: 12,
-    color: '#999',
+    color: Colors.greyUrban,
+    // color: '#fff'
   },
   tabTextActive: {
 		fontFamily: Fonts.type.sfuiDisplaySemibold,
     fontSize: 12,
     color: '#333',
+    // backgroundColor: '#DAD299',
+    // height: 50
   },
   infoTab: {
     paddingVertical: 20,

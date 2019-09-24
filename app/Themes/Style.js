@@ -50,8 +50,8 @@ export default {
         backgroundColor: 'transparent',
         width: '100%',
         borderBottomWidth: 0,
-        borderColor: Colors.headerOrange,
-        backgroundColor: Colors.headerOrange,
+        borderColor: Colors.statusBarNavy,
+        backgroundColor: Colors.statusBarNavy,
         marginTop: StatusBar.currentHeight,
     },
     navigationModal: {

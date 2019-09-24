@@ -40,14 +40,20 @@ const colors = {
     blacktxt: "#363636",
     skyblue: "#71d4ff",
     txtsky: "#83c8e7",
+
     navyUrban: "#12173F",
     blueUrban: "#1E3A60",
     blackUrban: "#221F20",
     redUrban: "#AF3034",
+    bluegreyUrban: "#c0d4f0",
+    greyUrban: "#999",
 
 
     statusBarOrange: "#db5f00",
     headerOrange: "#ff6f00",
+
+    statusBarNavy: "#12173F",
+    headerNavy: "#1E3A60",
 
     //WooCommerce Color
     veryLightGray: "#dcdcdc",

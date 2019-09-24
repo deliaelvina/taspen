@@ -55,6 +55,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import HTML from 'react-native-render-html';
 
 
+
 //const {width, height} = Dimensions.get('window')
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   "window"
@@ -87,6 +88,8 @@ export default class extends React.Component {
         overview : null,
         project : null,
         gallery : null,
+        plans : null,
+
         imagesPreview :[],
         dataPromo:[],
         index : 0
@@ -119,6 +122,7 @@ async componentDidMount() {
       this.getDataDetails(this.props.items)
       this.getDataGallery(this.props.items)
       this.getPromo()
+      this.getDataUnitPlan(this.props.items)
     })
 
 }
@@ -203,6 +207,35 @@ getDataGallery = (item) => {
   :null}
 }
 
+getDataUnitPlan = (item) => {
+  {isMount ?
+  // fetch(urlApi+'c_reservation/getGallery/'+item.entity_cd+'/'+item.project_no,{
+    fetch(urlApi+'c_reservation/getGallery/'+item.db_profile+'/'+item.entity_cd+'/'+item.project_no,{
+      method:'GET',
+      headers : this.state.hd,
+  }).then((response) => response.json())
+  .then((res)=>{
+      if(!res.Error){
+          console.log(resData)
+          const resData = res.Data
+          this.setState({plans : resData.plans})
+          resData.plans.map((item)=>{
+            this.setState(prevState=>({
+              imagesPreview : [...prevState.imagesPreview, {url:item.plan_url}]
+            }))
+          })
+      } else {
+          this.setState({isLoaded: !this.state.isLoaded},()=>{
+              alert(res.Pesan)
+          });
+      }
+      console.log('getData Plans',res);
+  }).catch((error) => {
+      console.log(error);
+  })
+  :null}
+}
+
 sendWa(){
   const noHp = this.props.items.handphone
   const descs = this.state.descs
@@ -242,7 +275,7 @@ showAlert = () => {
     return (
       <Container style={Style.bgMain}>
         <Header style={Style.navigation}>
-          <StatusBar backgroundColor={Colors.statusBarOrange} animated barStyle="light-content" />          
+          <StatusBar backgroundColor={Colors.statusBarNavy} animated barStyle="light-content" />          
 
           <View style={Style.actionBarLeft}>
             <Button
@@ -328,7 +361,7 @@ showAlert = () => {
               }}>
                 <View style={Styles.countCol}>
                   <Image
-                    source={require("@Asset/images/type.png")}
+                    source={require("@Asset/images/icon/findunit.png")}
                     style={{ width: 34, height: 34 }}
                     resizeMode='stretch'
                   />
@@ -346,8 +379,8 @@ showAlert = () => {
               }}>
                 <View style={Styles.countCol}>
                   <Image
-                    source={require("@Asset/images/booking.png")}
-                    style={{ width: 34, height: 34 }}
+                    source={require("@Asset/images/icon/booking.png")}
+                    style={{ width: 34, height: 42 }}
                     resizeMode='stretch'
                   />
                   <View style={Styles.textMenu}>
@@ -361,8 +394,8 @@ showAlert = () => {
               onPress={()=>Actions.ProjectDownloadPage({items:this.props.items})}>
                 <View style={Styles.countCol}>
                   <Image
-                    source={require("@Asset/images/brosur.png")}
-                    style={{ width: 34, height: 34 }}
+                    source={require("@Asset/images/icon/brocure.png")}
+                    style={{ width: 40, height: 32 }}
                     resizeMode='stretch'
                   />
                   <View style={Styles.textMenu}>
@@ -388,8 +421,10 @@ showAlert = () => {
               :<ActivityIndicator /> }
 
           </View>
+          
           <View style={Styles.overview}>
             <Text style={Styles.overviewTitle}>Overview</Text>
+            
     
               {this.state.overview ? 
                <WebView javaScriptEnabled={true} source={{uri:this.state.overview[0].overview_info}}/>
@@ -402,9 +437,9 @@ showAlert = () => {
             <Tab
               tabStyle={Styles.tabGrey}
               textStyle={Styles.tabText}
-              activeTabStyle={Styles.tabGrey}
+              activeTabStyle={Styles.tabFeature}
               activeTextStyle={Styles.tabTextActive}
-              heading="Informations"
+              heading="Features"
             >
               <List style={Styles.infoTab}>
                 <View style={Styles.overview}>
@@ -417,11 +452,14 @@ showAlert = () => {
                     :<ActivityIndicator /> }
                 </View>
               </List>
+
+              
+
             </Tab>
             <Tab
               tabStyle={Styles.tabGrey}
               textStyle={Styles.tabText}
-              activeTabStyle={Styles.tabGrey}
+              activeTabStyle={Styles.tabGallery}
               activeTextStyle={Styles.tabTextActive}
               heading="Gallery"
             >
@@ -453,7 +491,36 @@ showAlert = () => {
                 />  
                  :<ActivityIndicator/>}
                 </View>
-                <View style={Styles.amenities}>
+
+                <View style={Styles.overview}>
+                  <Text style={Styles.overviewTitle}>Unit Plan</Text>
+                  {this.state.plans ?
+                  <FlatList
+                  data={this.state.plans}
+                  horizontal
+                  style={Styles.slider}
+                  showsHorizontalScrollIndicator={false}
+                  keyExtractor={item =>item.line_no}
+                  renderItem={({ item,index }) => (
+                    <TouchableOpacity
+                      underlayColor="transparent"
+                      onPress={() => {
+                        this.setState({isView:true,index:index})
+                      }}
+                    >
+                      <View>
+                        <Image
+                          source={{ uri: item.plan_url }}
+                          style={Styles.sliderImg}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                />  
+                 :<ActivityIndicator/>}
+                </View>
+
+                {/* <View style={Styles.amenities}>
                   <Text style={Styles.amenityTitle}>Facilities</Text>
                   <View>
                     <FlatList
@@ -471,13 +538,13 @@ showAlert = () => {
                       )}
                     />
                   </View>
-                </View>
+                </View> */}
               </List>
             </Tab>
             <Tab
               tabStyle={Styles.tabGrey}
               textStyle={Styles.tabText}
-              activeTabStyle={Styles.tabGrey}
+              activeTabStyle={Styles.tabSimulasi}
               activeTextStyle={Styles.tabTextActive}
               heading="Simulasi KPA/R"
             >
@@ -529,6 +596,103 @@ showAlert = () => {
                   </List>
             </Tab>
           </Tabs>
+
+
+          {/* for HR line */}
+          {/* <View
+            style={{
+              borderTopColor: '#b5b5b5',
+              borderTopWidth: 1,
+              marginVertical: 10,
+              marginHorizontal: 10,
+            }}
+          /> */}
+          <Text style={Styles.overviewTitle_surround}>Surrounding Area</Text>
+          <Tabs locked={Platform.OS == 'android' ? true : false} tabBarUnderlineStyle={Styles.tabBorder}>
+              <Tab
+                tabStyle={Styles.tabGrey}
+                textStyle={Styles.tabText}
+                activeTabStyle={Styles.tabGrey}
+                activeTextStyle={Styles.tabTextActive}
+                heading="Infrastructure"
+                >
+                  <List style={Styles.infoTab}>
+                    <View style={Styles.overview}>
+                      {/* <Text style={Styles.overviewTitle}>Infrastructure</Text> */}
+                        {this.state.amenities ? 
+
+                        // <Text style={Styles.overviewDesc}> 
+                        //   {feature}
+                        // </Text>
+                        <HTML html={this.state.amenities[0].amenities_info} imagesMaxWidth={Dimensions.get('window').width} />
+                        :<ActivityIndicator /> }
+                    </View>
+                  </List>
+              </Tab>
+              <Tab
+                tabStyle={Styles.tabGrey}
+                textStyle={Styles.tabText}
+                activeTabStyle={Styles.tabGrey}
+                activeTextStyle={Styles.tabTextActive}
+                heading="School"
+              >
+                <List style={Styles.infoTab}>
+                  <View style={Styles.overview}>
+                    {/* <Text style={Styles.overviewTitle}>School</Text> */}
+                      {this.state.amenities ? 
+
+                      // <Text style={Styles.overviewDesc}> 
+                      //   {feature}
+                      // </Text>
+                      <HTML html={this.state.amenities[1].amenities_info} imagesMaxWidth={Dimensions.get('window').width} />
+                      :<ActivityIndicator /> }
+                  </View>
+                </List>
+              </Tab>
+              <Tab
+                tabStyle={Styles.tabGrey}
+                textStyle={Styles.tabText}
+                activeTabStyle={Styles.tabGrey}
+                activeTextStyle={Styles.tabTextActive}
+                heading="Hospital"
+              >
+                <List style={Styles.infoTab}>
+                  <View style={Styles.overview}>
+                    {/* <Text style={Styles.overviewTitle}>Infrastructure</Text> */}
+                      {this.state.amenities ? 
+
+                      // <Text style={Styles.overviewDesc}> 
+                      //   {feature}
+                      // </Text>
+                      <HTML html={this.state.amenities[2].amenities_info} imagesMaxWidth={Dimensions.get('window').width} />
+                      :<ActivityIndicator /> }
+                  </View>
+                </List>
+              </Tab>
+              <Tab
+                tabStyle={Styles.tabGrey}
+                textStyle={Styles.tabText}
+                activeTabStyle={Styles.tabGrey}
+                activeTextStyle={Styles.tabTextActive}
+                heading="Other"
+              >
+                <List style={Styles.infoTab}>
+                  <View style={Styles.overview}>
+                    {/* <Text style={Styles.overviewTitle}>Infrastructure</Text> */}
+                      {this.state.amenities ? 
+
+                      // <Text style={Styles.overviewDesc}> 
+                      //   {feature}
+                      // </Text>
+                      <HTML html={this.state.amenities[3].amenities_info} imagesMaxWidth={Dimensions.get('window').width} />
+                      :<ActivityIndicator /> }
+                  </View>
+                </List>
+              </Tab>
+
+          </Tabs>
+          
+               
 
           <View style={Styles.sectionGrey}>
             <View style={Styles.headerBg}>
@@ -585,7 +749,7 @@ showAlert = () => {
           }}>
             <Header style={Style.navigationModal}>
               <StatusBar
-                backgroundColor={Colors.statusBarOrange}
+                backgroundColor={Colors.statusBarNavy}
                 animated
                 barStyle="light-content"
               />
@@ -617,7 +781,7 @@ showAlert = () => {
           }}>
           <Header style={Style.navigationModal}>
           <StatusBar
-            backgroundColor={Colors.statusBarOrange}
+            backgroundColor={Colors.statusBarNavy}
             animated
             barStyle="light-content"
           />
@@ -681,7 +845,7 @@ showAlert = () => {
           </ScrollView>
         </Modal>
         </Content>
-        <Button full style={{ backgroundColor: "#fb5f26" }}  onPress={() =>{
+        <Button full style={{ backgroundColor: "#12173F" }}  onPress={() =>{
           this.state.isLogin ? this.showModal()
           : this.showAlert()
           
