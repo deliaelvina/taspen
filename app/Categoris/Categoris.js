@@ -28,6 +28,8 @@ class Categoris extends React.Component {
 
             properties : []
         }
+
+        console.log('props',props);
     }
 
     async componentDidMount(){
@@ -46,7 +48,7 @@ class Categoris extends React.Component {
     getLotType = () =>{
         const item = this.props.items
         {isMount ?
-            fetch(urlApi+'c_product_info/getLotType/'+item.db_profile+'/'+item.entity_cd+'/'+item.project_no+'/'+item.tower,{
+            fetch(urlApi+'c_product_info/getLotType/'+item.db_profile+'/'+item.entity_cd+'/'+item.project_no+'/'+item.tower+'/'+item.zoneCd,{
                 method:'GET',
                 headers : this.state.hd,
             }).then((response) => response.json())
