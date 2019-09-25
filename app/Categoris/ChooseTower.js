@@ -121,7 +121,7 @@ class Categoris extends React.Component {
     if(this.props.dyn){
       _navigate("UnitEnquiryProjectPage", { prevItems: data }); 
     } else {
-      _navigate("categoris", { items: this.props.items });
+      _navigate("chooseZone", { items: this.props.items });
     }
   }
 
