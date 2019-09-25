@@ -15,7 +15,7 @@ import {
   ActivityIndicator,
   Linking,
   Alert,
-
+WebView
 } from "react-native";
 import {
   Container,
@@ -42,7 +42,7 @@ import {
   Form,
   Label,
 } from "native-base";
-import MapView from 'react-native-maps';
+
 import { Actions } from "react-native-router-flux";
 import {urlApi} from '@Config/services';
 import GALLERY from "./Gallery";
@@ -707,6 +707,7 @@ showAlert = () => {
                  
           <View style={Styles.overview_location}>
             <Text style={Styles.overviewTitle_youtube}>Location</Text>
+          </View>
             {/* <HTML html = {`<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=17&center=3.1164,101.5950&key=AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8"></iframe>`}></HTML> */}
                 {this.state.project ? 
   
@@ -714,10 +715,31 @@ showAlert = () => {
                
                  //  <HTML html={`<iframe src='${this.state.project[0].coordinat_project}' width="300" height="300" frameborder="0" style="border:0;"></iframe>`} imagesMaxWidth={Dimensions.get('window').width} />
                 //  <HTML html={this.state.project[0].coordinat_project} />
-                <HTML html={`<iframe src="https://goo.gl/maps/idUCFGKtvhrhYGhd6" height="500px" ></iframe>`}></HTML>
+                // <HTML html={`<iframe src="https://goo.gl/maps/idUCFGKtvhrhYGhd6" height="500px" ></iframe>`}></HTML>
                 // <HTML html={`<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8&q=Space+Needle,Seattle+WA"></iframe>`}></HTML>
                 // <HTML html = {`<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?zoom=17&center=3.1164,101.5950&key=AIzaSyBY0EdmxQjo65OoFYIlQZ8jQ1FS8VOTFC8"></iframe>`}></HTML>
                 // <HTML html = {`<iframe\s*src="https:\/\/www\.google\.com\/maps\/embed\?[^"]+"*\s*[^>]+>*<\/iframe>`}></HTML>  
+
+                <WebView
+                  scalesPageToFit={true}
+                  bounces={false}
+                  javaScriptEnabled
+                  style={{ height: 300, width: null }}
+                  source={{
+                    html: `
+                          <!DOCTYPE html>
+                          <html>
+                            <head></head>
+                            <body>
+                              <div id="baseDiv"><iframe width="450" height="450" frameborder="0" style="border:0" src='${this.state.project[0].coordinat_project}'></iframe></div>
+                            </body>
+                          </html>
+                    `,
+                  }}
+                  automaticallyAdjustContentInsets={false}
+                />
+
+                
 
                 :<ActivityIndicator />  }
 
@@ -729,7 +751,7 @@ showAlert = () => {
                 </View>
 
                 :<ActivityIndicator /> }
-          </View>
+          {/* </View> */}
           
           
 
