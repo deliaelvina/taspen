@@ -95,6 +95,7 @@ export default class Menu extends React.Component {
         } else {
             Actions[val.URL_angular]()
         }
+        console.log('menu',val);
     }
 
     render() {
@@ -118,7 +119,7 @@ export default class Menu extends React.Component {
                                         <Image source={{uri : urlApi+"images/dashPict/"+val.picture}} style={Styles2.infoIcon} />
                                         <View style={{alignSelf:'center'}} style={{alignSelf:'center'}}>
                                             <Text style={Styles2.infoHeader}>{val.Title}</Text>
-                                            <Text style={Styles2.infoDesc}>{'Account Setting & Change Password'}</Text>
+                                            <Text style={Styles2.infoDesc}>{val.title_descs}</Text>
                                         </View>
 
                                         <Right style={{position:'absolute',right:10}}>
@@ -144,7 +145,7 @@ export default class Menu extends React.Component {
                                     <Image source={{uri : urlApi+"images/dashPict/nup_online.png"}} style={Styles2.infoIcon} />
                                     <View style={{alignSelf:'center'}} style={{alignSelf:'center'}}>
                                         <Text style={Styles2.infoHeader}>NUP Online</Text>
-                                        <Text style={Styles2.infoDesc}>{'Account Setting & Change Password'}</Text>
+                                        <Text style={Styles2.infoDesc}>{'Nomor Urut Pesanan'}</Text>
                                     </View>
 
                                     <Right style={{position:'absolute',right:10}}>

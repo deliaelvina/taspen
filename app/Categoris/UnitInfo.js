@@ -58,7 +58,8 @@ class UnitInfo extends Component {
     this.state = {
       hd : null,
       price : null,
-      isVisible : false
+      isVisible : false,
+      descs : '',
     }
     console.log('props UI',props);
   }
@@ -73,8 +74,12 @@ class UnitInfo extends Component {
       userId : await _getData('@UserId'),
       name : await _getData('@Name'),
       handphone : await _getData('@Handphone'),
-      descs : 'Saya tertarik reservasi ' +this.props.items.project_descs+ '\n\nHubungi saya untuk info detail.',
+      descs : 'Saya tertarik reservasi ' +this.props.prevItems.project_descs+ '\n\nLantai ' +this.props.items.level_no+ ' | ' +this.props.items.descs+ ' | ' +this.props.items.lot_no+'\n\nHubungi saya untuk info detail.',
+      
+      // descs : this.props.prevItems.project_descs,
     }
+
+    console.log('dataImInterested',data);
 
     this.setState(data,()=>{
         this.getPrice()

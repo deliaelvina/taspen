@@ -116,10 +116,12 @@ async componentDidMount() {
       name : await _getData('@Name'),
       handphone : await _getData('@Handphone'),
       isLogin : await _getData('@isLogin'),
-      descs : 'Saya tertarik reservasi ' +this.props.items.project_descs+ '\n\nHubungi saya untuk info detail.',
       title : this.props.items.project_descs,
+      descs : this.props.items.project_descs,
+      // descs : 'Saya tertarik reservasi ' + this.props.items.project_descs + '\n\nHubungi saya untuk info detail.',
       picture_url : this.props.items.picture_url
     }
+    console.log('dataIm',data);
 
     isMount=true
 
@@ -377,7 +379,7 @@ showAlert = () => {
               </TouchableOpacity>
             </View>
             <View style={[Styles.countItem, Styles.countFirst]}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
               onPress={()=>{
                 this.state.isLogin ? Actions.BookingPage({items : this.props.items}) 
                 : this.showAlert()
@@ -392,7 +394,7 @@ showAlert = () => {
                     <Text style={Styles.countText}>Booking Now</Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={[Styles.countItem, Styles.countFirst]}>
               <TouchableOpacity
@@ -721,7 +723,7 @@ showAlert = () => {
                 // <HTML html = {`<iframe\s*src="https:\/\/www\.google\.com\/maps\/embed\?[^"]+"*\s*[^>]+>*<\/iframe>`}></HTML>  
 
                 <WebView
-                  scalesPageToFit={true}
+                  scalesPageToFit={false}
                   bounces={false}
                   javaScriptEnabled
                   style={{ height: 300, width: null }}
@@ -737,6 +739,7 @@ showAlert = () => {
                     `,
                   }}
                   automaticallyAdjustContentInsets={false}
+                 
                 />
 
                 

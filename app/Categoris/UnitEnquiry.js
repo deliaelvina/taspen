@@ -38,15 +38,11 @@ import {
     Spinner
 } from "native-base";
 
-import Interested from "./Interested";
 
 import { Actions } from "react-native-router-flux";
-import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 import {_storeData,_getData} from '@Component/StoreAsync';
 import { Style, Colors } from "../Themes";
-import Styles from "./Style";
 import {urlApi} from '@Config/services';
-import RBSheet from "react-native-raw-bottom-sheet";
 
 // create a component
 class UnitEnquiry extends Component {
@@ -120,6 +116,7 @@ class UnitEnquiry extends Component {
         .then((res)=>{
             if(!res.Error){
                 const resData = res.Data
+                console.log(resData);
     
                 // var arr2 = resData.reduce( (a,b) => {
                 //     var i = a.findIndex( x => x.id === b.id);
@@ -153,11 +150,10 @@ class UnitEnquiry extends Component {
     }
 
     state = {
-        isVisible: false //state of modal default false
+        isVisible: true,  //state of modal default false
     };
 
     render() {
-        const {dataLevel, dataUnit} = this.state;
         const {project_descs} = this.props.prevItems ? this.props.prevItems :this.props.items;
         return (
             <Container style={Style.bgMain}>
@@ -261,7 +257,7 @@ class UnitEnquiry extends Component {
 
                         {!this.state.isLoaded ? <Spinner color={Colors.headerOrange} /> : 
 
-                        this.state.dataLevel.map((level, key)=>
+                        this.state.dataLevel.map((level, key) =>
                             <View key={key} style={{flexDirection:'row',justifyContent:'space-around',flex :1}}>
                                 <View style={[{width :'45%'},styles.GridViewBlockStyle_Left]}>
                                     <Text>{level.descs}</Text>

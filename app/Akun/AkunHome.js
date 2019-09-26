@@ -60,7 +60,10 @@ export default class extends React.Component {
       dashmenu: [],
       fotoProfil: "http://35.198.219.220:2121/alfaAPI/images/profil/avatar.png",
       isLogin: false,
-      isLoaded: false
+      isLoaded: false,
+      emailto: "",
+      emailacc: ""
+
     };
   }
 
@@ -132,6 +135,7 @@ export default class extends React.Component {
   };
 
   handleEmail = () => {
+
     Mailer.mail(
       {
         subject: "IFCA S+ App Feedback",
@@ -287,7 +291,7 @@ export default class extends React.Component {
                   {"Help Center".toUpperCase()}
                 </Text>
                 <Text style={Styles.infoDesc}>
-                  {"Recommend features, report problems, or send feedback"}
+                  {"Report problems or send feedback"}
                 </Text>
               </View>
 
@@ -328,7 +332,7 @@ export default class extends React.Component {
                 <Text style={Styles.infoHeader}>
                   {"About Us".toUpperCase()}
                 </Text>
-                <Text style={Styles.infoDesc}>{"Description about us"}</Text>
+                <Text style={Styles.infoDesc}>{"About Us"}</Text>
               </View>
 
               <Right style={{ position: "absolute", right: 10 }}>
