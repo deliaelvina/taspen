@@ -62,7 +62,11 @@ export default class extends React.Component {
       isLogin: false,
       isLoaded: false,
       emailto: "",
-      emailacc: ""
+      emailacc: "",
+      email_add: "",
+      descs: "",
+      datasysspec: "",
+
 
     };
   }
@@ -84,14 +88,20 @@ export default class extends React.Component {
     this.setState(data, () => {
       if (data.isLogin) {
         this.getProfile();
+        this.getDatasysspec();
       }
     });
 
     setTimeout(() => {
       this.setState({ isLoaded: true });
     }, 2000);
+
+    
   }
 
+ 
+
+  
   receiveProps = async () => {
     const data = {
       name: await _getData("@Name")
@@ -101,6 +111,7 @@ export default class extends React.Component {
       _storeData("@ProfileUpdate", false);
       this.setState(data);
       this.getProfile();
+      this.getDatasysspec();
     }
   };
 
@@ -127,21 +138,49 @@ export default class extends React.Component {
         // ? Agar Gambar Tidak ter cache
         let url = resData.pict + "?random_number=" + new Date().getTime();
         this.setState({ fotoProfil: url });
-        console.log("res Profil", this.state);
+        console.log("res Profileee", this.state);
       })
       .catch(error => {
         console.log(error);
       });
   };
 
+  getDatasysspec = () => {
+    // alert('syspec');
+    
+    fetch(urlApi+'c_profil/getDatasysspec/IFCAMOBILE/' ,{
+        method : "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Token: this.state.token
+        }
+    })
+    .then((response) => response.json())
+    .then((res)=>{
+        if(!res.Error){
+          const resData = res.Data
+  
+          this.setState({datasysspec:resData})
+          console.log('datasysspec',resData);
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+  };
+
   handleEmail = () => {
+    const email_add = this.state.datasysspec[0].email_splus
+    // const descs = this.state.descs
+  
+  console.log('email send', email_add)
 
     Mailer.mail(
       {
-        subject: "IFCA S+ App Feedback",
-        recipients: ["support@example.com"],
-        ccRecipients: ["supportCC@example.com"],
-        bccRecipients: ["supportBCC@example.com"],
+        subject: "",
+        recipients: [`${email_add}`],
+        ccRecipients: [""],
+        bccRecipients: [""],
         body: "",
         isHTML: true
       },

@@ -55,6 +55,7 @@ import Styles from "./Style";
 
 import ImageViewer from 'react-native-image-zoom-viewer';
 import HTML from 'react-native-render-html';
+import Mailer from "react-native-mail";
 
 
 
@@ -97,7 +98,9 @@ export default class extends React.Component {
 
         imagesPreview :[],
         dataPromo:[],
-        index : 0
+        index : 0,
+        wa_no: '',
+        email_add: ''
       };
 
       console.log('props',props);
@@ -117,8 +120,8 @@ async componentDidMount() {
       handphone : await _getData('@Handphone'),
       isLogin : await _getData('@isLogin'),
       title : this.props.items.project_descs,
-      descs : this.props.items.project_descs,
-      // descs : 'Saya tertarik reservasi ' + this.props.items.project_descs + '\n\nHubungi saya untuk info detail.',
+      // descs : this.props.items.project_descs,
+      descs : 'Saya tertarik reservasi ' + this.props.items.project_descs + '\n\nHubungi saya untuk info detail.',
       picture_url : this.props.items.picture_url
     }
     console.log('dataIm',data);
@@ -244,10 +247,50 @@ getDataUnitPlan = (item) => {
 }
 
 sendWa(){
-  const noHp = this.props.items.handphone
+
+  const noHp = this.state.project[0].wa_no
   const descs = this.state.descs
-  Linking.openURL('https://wa.me/'+noHp+'?text='+descs)
+  Linking.openURL('https://wa.me/+62'+noHp+'?text='+descs)
+  console.log('hp wa', noHp);
+
 }
+
+sendEmail(){
+  // noHp = '';
+  const email_add = this.state.project[0].email_add
+  const descs = this.props.items.project_descs
+  
+  // alert(email_add);
+
+console.log('email send add', email_add)
+  Mailer.mail(
+    {
+      subject: "Saya tertarik reservasi " + descs,
+      recipients: [`${email_add}`],
+      ccRecipients: [""],
+      bccRecipients: [""],
+      body: "",
+      isHTML: true
+    },
+    (error, event) => {
+      Alert.alert(
+        error,
+        event,
+        [
+          {
+            text: "Ok",
+            onPress: () => console.log("OK: Email Error Response")
+          },
+          {
+            text: "Cancel",
+            onPress: () => console.log("CANCEL: Email Error Response")
+          }
+        ],
+        { cancelable: true }
+      );
+    }
+  );
+};
 
 showModal(){
   this.setState({isVisible:true})
@@ -895,9 +938,9 @@ showAlert = () => {
               <Label>Reference Email</Label>
               <Input value={this.state.refEmail} onChangeText={(val)=>this.setState({refEmail : val})} />
             </Item>
-            <Body style={{ paddingVertical:32 }} >
+            <Body style={{ paddingVertical:32 }} o>
             <Button rounded success full
-            style={{ marginTop:16 }} >
+            style={{ marginTop:16 }} onPress={()=>this.sendEmail()} >
             <Text>Send Email</Text>
           </Button>
             <Button rounded warning iconRight full

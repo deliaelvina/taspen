@@ -150,7 +150,8 @@ class UnitEnquiry extends Component {
     }
 
     state = {
-        isVisible: true,  //state of modal default false
+        isVisible: false,
+        //state of modal default false
     };
 
     render() {
@@ -257,7 +258,7 @@ class UnitEnquiry extends Component {
 
                         {!this.state.isLoaded ? <Spinner color={Colors.headerOrange} /> : 
 
-                        this.state.dataLevel.map((level, key) =>
+                        this.state.dataLevel.map((level, key)=>
                             <View key={key} style={{flexDirection:'row',justifyContent:'space-around',flex :1}}>
                                 <View style={[{width :'45%'},styles.GridViewBlockStyle_Left]}>
                                     <Text>{level.descs}</Text>

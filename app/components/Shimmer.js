@@ -110,8 +110,8 @@ class Shimmer extends Component {
 Shimmer.defaultProps = {
     width: 200,
     height: 15,
-    widthShimmer: 0.7,
-    duration: 1000,
+    widthShimmer: 0.8,
+    duration: 8000,
     colorShimmer: ['#ebebeb', '#c5c5c5', '#ebebeb'],
     reverse: false,
     autoRun: false,
