@@ -939,12 +939,12 @@ showAlert = () => {
               <Input value={this.state.refEmail} onChangeText={(val)=>this.setState({refEmail : val})} />
             </Item>
             <Body style={{ paddingVertical:32 }} o>
-            <Button rounded success full
-            style={{ marginTop:16 }} onPress={()=>this.sendEmail()} >
+            <Button rounded sucscess full
+            style={{ marginTop:16, backgroundColor: Colors.blueUrban }} onPress={()=>this.sendEmail()} >
             <Text>Send Email</Text>
           </Button>
             <Button rounded warning iconRight full
-            style={{ marginTop:16 }} onPress={()=>this.sendWa()}>
+            style={{ marginTop:16, backgroundColor: Colors.loginGreen }} onPress={()=>this.sendWa()}>
             <Text>Send via WhatsApp</Text>
             <Icon name='whatsapp' 
             type="FontAwesome5"/>

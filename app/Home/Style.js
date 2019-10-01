@@ -400,7 +400,8 @@ export default {
     color: '#FFF',
   },
   sLink: {
-    color: '#666',
+    // color: '#666',
+    color: Colors.redUrban,
     fontSize: 10,
 		fontFamily: Fonts.type.sfuiDisplaySemibold,
   },

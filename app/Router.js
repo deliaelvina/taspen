@@ -93,7 +93,8 @@ import Menu from './Menu/Menu';
 const TabIcon = ({ focused, iconName }) => {
   var color = focused ? "#ad1819" : "#7f8c8d";
   return (
-    <Icon name={iconName} color={color} size={24} style={{ marginTop: 8 }} />
+    <Icon name={iconName} color={color} size={24} style={{ marginTop: 8 }} textStyle={color} />
+
   );
 };
 
@@ -133,6 +134,7 @@ class Routes extends Component{
           <Scene key="root" headerLayoutPreset="center">
             <Scene key="Login" initial={!this.state.hasLogin} component={Login} hideNavBar={true} title="" />
             <Scene key="tabbar" initial={this.state.hasLogin} hideNavBar translucent={true} tabs={true}>
+              
               <Scene
                 key="home"
                 component={Home}
@@ -140,12 +142,15 @@ class Routes extends Component{
                 hideNavBar={true}
                 title=""
                 tabBarLabel="Home"
-                activeTintColor='#ad1819'
-                inactiveTintColor="#fff" 
+                // titleStyle=""
+                // labelStyle={{color: "#ad1819"}}
+                // activeTintColor="#ad1819"
+                // inactiveTintColor="#fff" 
                 iconName="home"
                 icon={TabIcon}
-                color="#ad1819"
-                tintColor="#ad1819"
+                // color="#ad1819"
+                // tintColor="#ad1819"
+                
               />
               <Scene
                 key="ListingProjectPage"

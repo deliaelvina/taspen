@@ -119,7 +119,8 @@ cHeader: {
 },
 sBtn: {
     padding: 1,
-    backgroundColor: "#fb5f26",
+    // backgroundColor: "#fb5f26",
+    backgroundColor: Colors.blueUrban,
     color: '#FFF',
     width : 120
 },

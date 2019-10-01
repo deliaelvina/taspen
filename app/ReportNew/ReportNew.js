@@ -65,6 +65,7 @@ class ReportNew extends Component {
             name: "",
             project: [],
             selected: "",
+            title: "",
 
             accesStorage :false
         }
@@ -114,6 +115,7 @@ class ReportNew extends Component {
 
     getFile = (type) =>{
         const items = this.props.items
+        let {db_profile, entity_cd, project_no, tower} = this.props.prevItems ? this.props.prevItems : this.props.items;
 
         {isMount ?
             
@@ -220,13 +222,13 @@ class ReportNew extends Component {
 
                         <ScrollView>
                             <View style={Styles.overview}>
-                                <Text style={Styles.projectTitle}>{item.title}</Text>
+                                <Text style={Styles.projectTitle}>{this.state.title}</Text>
                             </View>
 
                             <View style={Styles.overview}>
                                 <Image
                                     style={[Styles.picWidth,{ height: 190, borderRadius: 10, marginTop: 5 }]}
-                                    source={{uri : item.picture_path}}
+                                    source={{uri : this.state.picture_path}}
                                 />
                             </View>
 

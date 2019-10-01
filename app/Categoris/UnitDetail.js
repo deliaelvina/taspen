@@ -203,7 +203,7 @@ class UnitDetail extends React.Component {
             </View>
             
     </Content>
-    <Button full style={{ backgroundColor: "#fb5f26" }}
+    <Button full style={{ backgroundColor: Colors.statusBarNavy }}
     onPress={() => {
         this.clickChouseFloor();
       }}>

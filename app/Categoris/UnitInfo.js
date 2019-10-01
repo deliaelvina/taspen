@@ -194,7 +194,7 @@ class UnitInfo extends Component {
           }}>
           <Header style={Style.navigationModal}>
           <StatusBar
-            backgroundColor={Colors.statusBarOrange}
+            backgroundColor={Colors.statusBarNavy}
             animated
             barStyle="light-content"
           />

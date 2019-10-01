@@ -261,7 +261,7 @@ class UnitEnquiry extends Component {
                         this.state.dataLevel.map((level, key)=>
                             <View key={key} style={{flexDirection:'row',justifyContent:'space-around',flex :1}}>
                                 <View style={[{width :'45%'},styles.GridViewBlockStyle_Left]}>
-                                    <Text>{level.descs}</Text>
+                                    <Text style={{color: "#ffffff"}}>{level.descs}</Text>
                                 </View>
                                 <ScrollView style={{width:'55%'}} horizontal showsHorizontalScrollIndicator={false}>
                                     {this.state.dataUnit.map((unit,key)=>{
@@ -423,7 +423,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         height: 55,
         // marginTop: 5,
-        backgroundColor: "#ff720d",
+        // backgroundColor: "#ff720d",
+        backgroundColor: Colors.navyUrban,
         borderBottomColor: "grey",
         borderBottomWidth: 1
     },
