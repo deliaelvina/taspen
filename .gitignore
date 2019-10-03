@@ -58,7 +58,7 @@ buck-out/
 *.jsbundle
 
 # IOS
-ios/Pods/
+ios/Pods
 
 yarn.lock
 package.json.lock

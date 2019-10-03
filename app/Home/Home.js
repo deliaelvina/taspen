@@ -303,7 +303,7 @@ export default class Home extends Component {
         <StatusBar
           translucent={true}
           backgroundColor={"rgba(0, 0, 0, 0.3)"}
-          barStyle={"dark-content"}
+          barStyle={"light-content"}
         />
         {this.gradient}
         <ScrollView

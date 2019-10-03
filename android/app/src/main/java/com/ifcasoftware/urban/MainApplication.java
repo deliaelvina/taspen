@@ -3,6 +3,7 @@ package com.ifcasoftware.urban;
 import android.app.Application;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.chirag.RNMail.RNMail;
 
 import io.invertase.firebase.RNFirebasePackage;
@@ -40,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FBSDKPackage(),
             new RNMail(),
           new RNFirebasePackage(),
           new RNFirebaseAuthPackage(),

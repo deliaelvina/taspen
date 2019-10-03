@@ -1,6 +1,20 @@
 PODS:
   - BVLinearGradient (2.5.4):
     - React
+  - FBSDKCoreKit (5.7.0):
+    - FBSDKCoreKit/Basics (= 5.7.0)
+    - FBSDKCoreKit/Core (= 5.7.0)
+  - FBSDKCoreKit/Basics (5.7.0)
+  - FBSDKCoreKit/Core (5.7.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.7.0):
+    - FBSDKLoginKit/Login (= 5.7.0)
+  - FBSDKLoginKit/Login (5.7.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKShareKit (5.7.0):
+    - FBSDKShareKit/Share (= 5.7.0)
+  - FBSDKShareKit/Share (5.7.0):
+    - FBSDKCoreKit (~> 5.0)
   - GoogleSignIn (4.4.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -17,6 +31,20 @@ PODS:
   - QBImagePickerController (3.4.0)
   - React (0.59.0):
     - React/Core (= 0.59.0)
+  - react-native-fbsdk (1.0.4):
+    - React
+    - react-native-fbsdk/Core (= 1.0.4)
+    - react-native-fbsdk/Login (= 1.0.4)
+    - react-native-fbsdk/Share (= 1.0.4)
+  - react-native-fbsdk/Core (1.0.4):
+    - FBSDKCoreKit (~> 5.5)
+    - React
+  - react-native-fbsdk/Login (1.0.4):
+    - FBSDKLoginKit (~> 5.5)
+    - React
+  - react-native-fbsdk/Share (1.0.4):
+    - FBSDKShareKit (~> 5.5)
+    - React
   - react-native-mail (4.0.0):
     - React
   - react-native-webview (5.12.0):
@@ -66,6 +94,7 @@ PODS:
 
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
+  - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-mail (from `../node_modules/react-native-mail`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
@@ -87,6 +116,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - GoogleSignIn
     - GoogleToolboxForMac
     - GTMSessionFetcher
@@ -98,6 +130,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-linear-gradient"
   React:
     :path: "../node_modules/react-native"
+  react-native-fbsdk:
+    :path: "../node_modules/react-native-fbsdk"
   react-native-mail:
     :path: "../node_modules/react-native-mail"
   react-native-webview:
@@ -113,11 +147,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BVLinearGradient: 8cbc5155c978f2e43098818c91d206d07aae6d30
+  FBSDKCoreKit: 0d2d450fe9447e204fa6e912e0df76dd36693699
+  FBSDKLoginKit: 4127e8260b96e0e4cc8ba0c10c95ee63941aa24a
+  FBSDKShareKit: 0dc4bd06e11eb2ad30d165132c6c879b8d449ae3
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
   GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: 0d6c719d9549bea0bd5676f8170b0e5c56e2c3c7
+  react-native-fbsdk: 45e28bbab3e905cbc635c0bdd3444b372e933ae9
   react-native-mail: 7e37dfbe93ff0d4c7df346b738854dbed533e86f
   react-native-webview: 8b2761a9bf84bbbbe7f90f49743b9b74c7cb11e7
   RNDeviceInfo: 75dac2d7cd6b638b512cc9266ce48a39661fed0e
@@ -126,6 +164,6 @@ SPEC CHECKSUMS:
   RSKImageCropper: 98296ad26b41753f796b6898d015509598f13d97
   yoga: 26673abd38bbdf0c33e134ad9e690c5fbf16e8fc
 
-PODFILE CHECKSUM: 71baa0d1d835ec11bcb894d257da30e1a0b6c59f
+PODFILE CHECKSUM: 9dae8a20eac7550eb8f2fcfba5faee168512164a
 
-COCOAPODS: 1.7.4
+COCOAPODS: 1.6.0

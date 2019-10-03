@@ -39,6 +39,8 @@ target 'Splus' do
 
   pod 'react-native-mail', :path => '../node_modules/react-native-mail'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'SplusTests' do
     inherit! :search_paths
     # Pods for testing
