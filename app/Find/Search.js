@@ -42,7 +42,7 @@ export default class Search extends React.Component {
     render() {
         return (
         <Container style={Style.bgMain}>
-    
+            <StatusBar backgroundColor="rgba(0,0,0,0)" animated barStyle="dark-content" />
             <Content style={Style.layoutContent} >
             <ScrollView
                 scrollEventThrottle={200}

@@ -24,33 +24,34 @@ target 'Splus' do
   ]
   
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
-
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
-
-  
-
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
-
-
-
   pod 'RNImageCropPicker', :path => '../node_modules/react-native-image-crop-picker'
-
   pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
-
   pod 'react-native-mail', :path => '../node_modules/react-native-mail'
-
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
   target 'SplusTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
   post_install do |installer|
+    fix_fb
     installer.pods_project.targets.each do |target|
       if target.name == "React"
         target.remove_from_project
       end
     end
   end
+
+  def fix_fb
+    node_modules_path = '../node_modules'
+    patched_text = File.read("./RCTFBSDKLoginButtonManager.m.patch")
+
+    File.open("#{node_modules_path}/react-native-fbsdk/ios/RCTFBSDK/login/RCTFBSDKLoginButtonManager.m", "w") {|file| file.puts patched_text}
+  end
+
 
 end
 
