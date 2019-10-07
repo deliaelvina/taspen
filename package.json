@@ -10,7 +10,7 @@
     "bundle-release": "cd ./android && ./gradlew clean && ./gradlew bundleRelease",
     "clean-android": "cd ./android && ./gradlew clean",
     "ios": "open ios/Splus.xcworkspace",
-    "android": "react-native run-android",
+    "android": "npx jetify && react-native run-android",
     "clean": "rm -rf ./node_modules/ && yarn",
     "clean-ios": "cd ./ios && rm -rf ./Pods/ && pod install",
     "clean:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && rm -vrf android/app/src/main/res/drawable*"
@@ -74,6 +74,7 @@
     "@babel/runtime": "^7.3.4",
     "babel-jest": "^24.5.0",
     "jest": "^24.5.0",
+    "jetifier": "^1.6.4",
     "metro-react-native-babel-preset": "^0.53.0",
     "react-test-renderer": "16.8.3"
   },
