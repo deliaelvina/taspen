@@ -237,7 +237,7 @@ class ProspectPage extends Component {
                                         paddingHorizontal: 10,
                                         paddingVertical: 10,
                                         borderRadius: 10,
-                                        flex: 1,
+                                        flex: 1, 
                                         alignItems: "flex-start",
                                     }}>
                                     <View style={{flexDirection: "row"}}>
