@@ -152,6 +152,20 @@ export default class Menu extends React.Component {
                                         <Icon name="ios-arrow-dropright" style={{fontSize: 30,}} />
                                     </Right>
                                 </ListItem>
+
+                                <ListItem style={Styles2.infoItemLast} onPress={()=>this.goToFeed({URL_angular : "ProspectPage",isProject:0}) }>
+                                    <Image source={{uri : urlApi+"images/dashPict/nup_online.png"}} style={Styles2.infoIcon} />
+                                    <View style={{alignSelf:'center'}} style={{alignSelf:'center'}}>
+                                        <Text style={Styles2.infoHeader}>My Prospect</Text>
+                                        <Text style={Styles2.infoDesc}>{'Prospect Project'}</Text>
+                                    </View>
+
+                                    <Right style={{position:'absolute',right:10}}>
+                                        <Icon name="ios-arrow-dropright" style={{fontSize: 30,}} />
+                                    </Right>
+                                </ListItem>
+
+
                             </List>
 
 

@@ -53,10 +53,27 @@ import RNPickerSelect from "react-native-picker-select";
 import numFormat from "@Component/numFormat";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import WebView from '@Component/WebView';
+import { existsTypeAnnotation } from "@babel/types";
+
 let isMount = false;
 const buttonStepStyle = {
-    
+
 }
+
+const sports = [
+    {
+        label: 'Football',
+        value: 'football',
+    },
+    {
+        label: 'Baseball',
+        value: 'baseball',
+    },
+    {
+        label: 'Hockey',
+        value: 'hockey',
+    },
+];
 // create a component
 class NUPPage extends Component {
     constructor(props) {
@@ -67,31 +84,34 @@ class NUPPage extends Component {
             email: "",
             name: "",
             no_hp: "",
-            no_hp_alt : "",
-            no_telp_alt : "",
-            ktp : "",
-            npwp : "",
-            cons : "",
+            no_hp_alt: "",
+            no_telp_alt: "",
+            ktp: "",
+            npwp: "",
+            cons: "",
 
             // ? Section 2
-            fotoKtp : require('@Asset/images/upload.png'),
-            fotoNpwp : require('@Asset/images/upload.png'),
-            
+            fotoKtp: require('@Asset/images/upload.png'),
+            fotoNpwp: require('@Asset/images/upload.png'),
+
             // ? Section 3
-            property : "",
-            nuptype : "",
-            descs : "",
-            nupprice : "",
-            paymentMethod : "",
-            nupqty : "",
-            media : "",
-            token : "",
+            property: "",
+            nuptype: "",
+            descs: "",
+            nupprice: "",
+            paymentMethod: "",
+            nupqty: "",
+            media: "",
+            token: "",
+            project_name: "",
 
             isVisible: false,
-            isValid : false,
-            errors : false,
+            isValid: false,
+            errors: false,
 
-            selMedia : ""
+            selMedia: "",
+            dataMedia: [],
+            getMedia: []
         };
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -105,18 +125,22 @@ class NUPPage extends Component {
         const data = {
             email: await _getData("@User"),
             name: await _getData("@Name"),
-            no_hp : await _getData("@Handphone"),
-            token : await _getData("@Token"),
-            property : nup.project_no,
-            nuptype : nup.nup_type,
-            nupprice : nup.nup_amt,
-            nupqty : nup.qty,
-            cons : nup.db_profile,
-            descs : nup.descs,
-            media : ""
+            no_hp: await _getData("@Handphone"),
+            token: await _getData("@Token"),
+            property: nup.project_no,
+            project_name: nup.project_name,
+
+            nuptype: nup.nup_type,
+            nupprice: nup.nup_amt,
+            nupqty: nup.qty,
+            cons: nup.db_profile,
+            descs: nup.descs,
+            media: ""
         };
 
-        this.setState(data);
+        this.setState(data, () => {
+            this.getMedia()
+        });
     }
 
     showAlert = (key) => {
@@ -124,80 +148,183 @@ class NUPPage extends Component {
             'Select a Photo',
             'Choose the place where you want to get a photo',
             [
-              {text: 'Gallery',onPress: () => this.fromGallery(key)},
-              {text: 'Camera', onPress: () => this.fromCamera(key)},
-              {text: 'Cancel', onPress: () => console.log('User Cancel'),style: 'cancel'},
+                { text: 'Gallery', onPress: () => this.fromGallery(key) },
+                { text: 'Camera', onPress: () => this.fromCamera(key) },
+                { text: 'Cancel', onPress: () => console.log('User Cancel'), style: 'cancel' },
             ],
-            {cancelable: false},
+            { cancelable: false },
         );
     }
 
     fromCamera(key) {
 
         ImagePicker.openCamera({
-          cropping: true,
-          width : 200,
-          height : 200,
+            cropping: true,
+            width: 200,
+            height: 200,
         }).then(image => {
-          console.log('received image', image);
+            console.log('received image', image);
 
-          this.setState({[key]:{uri:image.path}},()=>
-            console.log('oke')
-            // this.uploadPhoto()
-          )
-      
+            this.setState({ [key]: { uri: image.path } }, () =>
+                console.log('oke')
+                // this.uploadPhoto()
+            )
+
         }).catch(e => console.log('tag', e));
     }
 
     fromGallery(key) {
 
         ImagePicker.openPicker({
-        multiple : false,
-        width : 200,
-        height : 200,
+            multiple: false,
+            width: 200,
+            height: 200,
         }).then(image => {
-          console.log('received image', image);
+            console.log('received image', image);
 
-          this.setState({[key]:{uri:image.path}},()=>
-            // this.uploadPhoto()
-            console.log('oke')
-          )
-      
+            this.setState({ [key]: { uri: image.path } }, () =>
+                // this.uploadPhoto()
+                console.log('oke')
+            )
+
         }).catch(e => console.log('tag', e));
     }
 
-    onNext(step){
-        const {name,email,no_hp,ktp,fotoKtp,fotoNpwp} =this.state
+    onNext(step) {
+        const { name, email, no_hp, ktp, fotoKtp, fotoNpwp } = this.state
 
-        if(step == 1 ){
-            if(name && email && no_hp && ktp){
-                this.setState({errors : false})
+        if (step == 1) {
+            if (name && email && no_hp && ktp) {
+                this.setState({ errors: false })
             } else {
-                this.setState({errors : true})
+                this.setState({ errors: true })
                 alert("Please fill red star form")
             }
         } else {
-            if(fotoKtp || fotoNpwp){
-                this.setState({errors : false})
+            if (fotoKtp || fotoNpwp) {
+                this.setState({ errors: false })
             } else {
-                this.setState({errors : true})
+                this.setState({ errors: true })
             }
         }
     }
 
-    onSubmit(){
-        this.setState({isVisible : true})
+    onSubmit() {
+        const {
+            email,
+            name,
+            no_hp,
+            no_hp_alt,
+            no_telp_alt,
+            property,
+            nupqty,
+            nupprice,
+            nuptype,
+            ktp,
+            npwp,
+
+            media,
+            fotoKtp,
+            fotoNpwp
+        } = this.state
+
+        const formData = {
+
+            no_hp_alt: no_hp_alt,
+            no_telp_alt: no_telp_alt,
+            property: property,
+            nupqty: nupqty,
+            nupprice: nupprice,
+            nuptype: nuptype,
+            email: email,
+            no_hp: no_hp,
+            name: name,
+            ktp: ktp,
+            npwp: npwp,
+
+            cons: 'IFCAPB',
+
+            media: media,
+
+
+            fotoKtp: require('@Asset/images/upload.png'),
+            fotoNpwp: require('@Asset/images/upload.png'),
+        }
+        console.log('saveFormNUP', formData);
+
+        // this.setState({isVisible : true})
+        fetch(urlApi + 'c_nup/insertNup/IFCAMOBILE/', {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Token': this.state.token
+            }
+        })
+            .then((response) => response.json())
+            .then((res) => {
+                if (!res.Error) {
+                    alert(res.Pesan)
+
+                }
+                console.log('saveSuksesNUP', res)
+
+            }).catch((error) => {
+                // alert(res.Pesan)
+                console.log(error);
+            });
     }
 
-    onValueChange (value: string) {
+    onValueChange(value: string) {
         this.setState({
-            selMedia : value
+            selMedia: value
         });
     }
 
-    selectPhotoTapped(){
+    selectPhotoTapped() {
         console.log('oke');
     }
+
+    getMedia = () => {
+        {
+            isMount ?
+                // const {entity_cd,project_no} = this.props.items
+                fetch(urlApi + 'c_media/getMedia/', {
+                    method: "GET",
+                })
+                    .then((response) => response.json())
+                    .then((res) => {
+                        if (!res.Error) {
+                            const resData = res.Data
+                            //   resData.map((data)=>{
+                            //     this.setState(prevState=>({
+                            //         dataMedia : [...prevState.dataMedia, {label: data.label, value:data.value}]
+                            //     }))
+                            //   })
+                            this.setState({ dataMedia: resData })
+                            console.log('dataMedia', res);
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                : null
+        }
+    }
+
+    chooseMedia = (val) => {
+
+        if (val) {
+            this.setState(this.state.selMedia, val)
+        }
+        // if(val){
+        //     this.setState({selMedia : val},()=>{
+        //         this.getAgentDT(val)
+        //         this.getComission(val,'')
+        //     })
+        // }
+    }
+
 
     render() {
         return (
@@ -241,59 +368,143 @@ class NUPPage extends Component {
                     contentContainerStyle={Style.layoutContent}
                 >
                     <ProgressSteps>
-                        <ProgressStep label={`Profile`} onNext={()=>this.onNext(1)} errors={this.state.errors}>
+                        <ProgressStep label={`Profile`} onNext={() => this.onNext(1)} errors={this.state.errors}>
                             <View>
-                                <Item rounded>
-                                    <Icon name='user' type="FontAwesome5" />
-                                    <Input placeholder='Enter Your Name' value={this.state.name} />
-                                    <Icon solid name='star' style={{fontSize: 15,color : 'red'}} type="FontAwesome5" />
+                                {/* <Item>
+                                <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+
+                                <Text style={{fontSize: 20, lineHeight: 30}}>Time is 10</Text>
+                               
+                                <Text style={{fontSize: 15, lineHeight: 18}}>am</Text>
+                                <Text style={{fontSize: 20, lineHeight: 30}}> and I am late or the class</Text>
+                                </View>
+                                </Item> */}
+
+                                <Item rounded style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                                        <Icon name='user' type="FontAwesome5" style={Styles.iconColor} />
+                                    </View>
+                                    <Input placeholder='Enter Your Name' value={this.state.name} style={Styles.positionTextInput} editable={false} />
                                 </Item>
 
-                                <Item rounded  style={styles.nbInput}>
-                                    <Icon name='envelope' type="FontAwesome5" />
-                                    <Input placeholder='Email' value={this.state.email} onChangeText={(email) => this.setState({email})} />
-                                    <Icon solid name='star' style={{fontSize: 15,color : 'red'}} type="FontAwesome5" />
-                                </Item>
-                                
-                                <Item rounded  style={styles.nbInput}>
-                                    <Icon name='mobile' type="FontAwesome5" />
-                                    <Input placeholder='No Handphone' value={this.state.no_hp} onChangeText={(no_hp) => this.setState({no_hp})} />
-                                    <Icon solid name='star' style={{fontSize: 15,color : 'red'}} type="FontAwesome5" />
+                                <Item rounded style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                                        <Icon name='envelope' type="FontAwesome5" style={Styles.iconColor} />
+                                    </View>
+                                    <Input placeholder='Email' value={this.state.email} onChangeText={(email) => this.setState({ email })} style={Styles.positionTextInput} />
                                 </Item>
 
-                                <Item rounded  style={styles.nbInput}>
-                                    <Icon name='mobile-alt' type="FontAwesome5" />
-                                    <Input placeholder='No Hp Alternative' value={this.state.no_hp_alt} onChangeText={(no_hp_alt) => this.setState({no_hp_alt})} />
+                                <Item rounded style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                                        <Icon name='mobile' type="FontAwesome5" style={Styles.iconColor} />
+                                    </View>
+                                    <Input placeholder='No Handphone' value={this.state.no_hp} onChangeText={(no_hp) => this.setState({ no_hp })} style={Styles.positionTextInput} />
+
                                 </Item>
 
-                                <Item rounded  style={styles.nbInput}>
-                                    <Icon name='phone' type="FontAwesome5" />
-                                    <Input placeholder='No Telp Alternative' value={this.state.no_telp_alt} onChangeText={(no_telp_alt) => this.setState({no_telp_alt})} />
+                                <Item rounded style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        {/* <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />  */}
+                                        <Icon name='mobile-alt' type="FontAwesome5" style={Styles.iconColor} />
+                                    </View>
+                                    <Input placeholder='No Hp Alternative' value={this.state.no_hp_alt} onChangeText={(no_hp_alt) => this.setState({ no_hp_alt })} style={Styles.positionTextInput} />
                                 </Item>
 
-                                <Item rounded  style={styles.nbInput}>
-                                    <Icon name='id-card' type="FontAwesome5" />
-                                    <Input placeholder='ID Card(KTP)' value={this.state.ktp} onChangeText={(ktp) => this.setState({ktp})} />
-                                    <Icon solid name='star' style={{fontSize: 15,color : 'red'}} type="FontAwesome5" />
+                                <Item rounded style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        {/* <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />  */}
+                                        <Icon name='phone' type="FontAwesome5" style={{ color: Colors.navyUrban, left: 15, fontSize: 18 }} />
+                                    </View>
+
+                                    <Input placeholder='No Telp Alternative' value={this.state.no_telp_alt} onChangeText={(no_telp_alt) => this.setState({ no_telp_alt })} style={Styles.positionTextInput} />
                                 </Item>
 
-                                <Item rounded  style={styles.nbInput}>
-                                    <Icon name='id-card-alt' type="FontAwesome5" />
-                                    <Input placeholder='NPWP' value={this.state.npwp} onChangeText={(npwp) => this.setState({npwp})} />
-                                    <Icon solid name='star' style={{fontSize: 15,color : 'red'}} type="FontAwesome5" />
+                                <Item rounded style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                                        <Icon name='id-card' type="FontAwesome5" style={Styles.iconColor} />
+                                    </View>
+                                    <Input placeholder='ID Card(KTP)' value={this.state.ktp} onChangeText={(ktp) => this.setState({ ktp })} style={Styles.positionTextInput} />
                                 </Item>
 
+                                <Item rounded style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                                        <Icon name='id-card-alt' type="FontAwesome5" style={Styles.iconColor} />
+                                    </View>
+
+                                    <Input placeholder='NPWP' value={this.state.npwp} onChangeText={(npwp) => this.setState({ npwp })} style={Styles.positionTextInput} />
+
+                                </Item>
+
+
+
+                                {/* <Item rounded  style={styles.nbInput} style={Styles.marginround}>
+                                    <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+                                        
+                                        <Icon name='newspaper' type="FontAwesome5" style={{color: Colors.navyUrban, left: 15,fontSize: 23}}/>
+                                    </View>
+                                    
+                                    
+                                    <Input value={this.state.media} onChangeText={(media)=>this.setState({media})} placeholder="Media" style={Styles.positionTextInput}></Input>
+                                    
+                                </Item> */}
+
+                                <CardItem style={{ height: 40, marginBottom: 4, borderColor: '#333', width: '100%', paddingRight: 0, marginTop: 2 }}
+
+
+                                >
+
+                                    {/* left title media */}
+                                    <Left>
+                                        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                            <Icon name='newspaper' type="FontAwesome5" style={{ color: Colors.navyUrban, left: 10, fontSize: 23 }} />
+                                        </View>
+                                        <Text style={Styles.positionTextInput}>Media</Text>
+                                    </Left>
+                                    {/* end left title media */}
+
+                                    {/* right picker media */}
+                                    <Right style={{ paddingRight: 0, marginRight: 0 }}>
+                                        {/* <Item rounded>
+                                                <Input style={{textAlign : 'right'}} value={this.state.media} onChangeText={(media)=>this.setState({media})} placeholder="media"></Input>
+                                            </Item> */}
+                                        <Item rounded style={Styles.marginround}>
+                                            {/* <RNPickerSelect
+                                                items={this.state.dataMedia}
+                                                onValueChange={(val)=>this.chooseMedia(val)}
+                                            /> */}
+                                            <Picker
+
+                                                iosHeader="Select one"
+                                                mode="dropdown"
+                                                style={{ width: 200 }}
+                                                selectedValue={this.state.dataMedia}
+                                            // onValueChange={(val)=>this.setState({dataMedia:val})}
+                                            >
+                                                {this.state.dataMedia.map((data, key) =>
+                                                    <Picker.Item key={key} label={data.label} value={data.value} />
+                                                )}
+                                            </Picker>
+                                        </Item>
+                                    </Right>
+                                    {/* end right picker media */}
+                                </CardItem>
+                                <Text></Text>
                             </View>
                         </ProgressStep>
                         <ProgressStep label={`File Attachment`}>
                             <ScrollView
                                 contentContainerStyle={{ alignItems: "center" }}
                             >
-                                
+
                                 <View style={styles.container}>
                                     {/* <Text>{this.state.progress}</Text> */}
                                     <TouchableOpacity
-                                        onPress={()=>this.showAlert("fotoKtp")}
+                                        onPress={() => this.showAlert("fotoKtp")}
                                     >
                                         <View
                                             style={[
@@ -315,11 +526,11 @@ class NUPPage extends Component {
                                     </TouchableOpacity>
                                 </View>
 
-                                
-                                <View style={[styles.container,{marginTop:5}]}>
+
+                                <View style={[styles.container, { marginTop: 5 }]}>
                                     {/* <Text>{this.state.progress}</Text> */}
                                     <TouchableOpacity
-                                        onPress={()=>this.showAlert("fotoNpwp")}
+                                        onPress={() => this.showAlert("fotoNpwp")}
                                     >
                                         <View
                                             style={[
@@ -340,10 +551,11 @@ class NUPPage extends Component {
                                 </View>
                             </ScrollView>
                         </ProgressStep>
-                        <ProgressStep label={`Product & Payment`} onSubmit={this.onSubmit} finishBtnText={`Checkout`} >
-                            <View style={{marginHorizontal:10}}>
+                        {/* <ProgressStep label={`Product & Payment`} onSubmit={this.onSubmit} finishBtnText={`Checkout`} > */}
+                        <ProgressStep label={`Summary`} onSubmit={this.onSubmit} finishBtnText={`Submit`} >
+                            <View style={{ marginHorizontal: 10 }}>
                                 <Card>
-                                    <CardItem header style={{borderBottomWidth : 1 / PixelRatio.get()}}>
+                                    <CardItem header style={{ borderBottomWidth: 1 / PixelRatio.get() }}>
                                         <Text>Product Detail</Text>
                                     </CardItem>
                                     <CardItem>
@@ -351,7 +563,7 @@ class NUPPage extends Component {
                                             <Text>Project</Text>
                                         </Left>
                                         <Right>
-                                            <Text>{this.state.property}</Text>
+                                            <Text>{this.state.project_name}</Text>
                                         </Right>
                                     </CardItem>
                                     <CardItem>
@@ -367,7 +579,7 @@ class NUPPage extends Component {
                                             <Text>Price</Text>
                                         </Left>
                                         <Right>
-                                            <Text>{numFormat(Math.round(this.state.nupprice))}</Text>
+                                            <Text>Rp. {numFormat(Math.round(this.state.nupprice))}</Text>
                                         </Right>
                                     </CardItem>
                                     <CardItem>
@@ -383,32 +595,12 @@ class NUPPage extends Component {
                                             <Text>Total</Text>
                                         </Left>
                                         <Right>
-                                            <Text>{numFormat(this.state.nupprice * this.state.nupqty)}</Text>
+                                            <Text>Rp. {numFormat(this.state.nupprice * this.state.nupqty)}</Text>
                                         </Right>
                                     </CardItem>
-                                    <CardItem>
-                                        <Left>
-                                            <Text>Media</Text>
-                                        </Left>
-                                        <Right>
-                                            <Item rounded>
-                                                <Input style={{textAlign : 'right'}} value={this.state.media} onChangeText={(media)=>this.setState({media})} placeholder="media"></Input>
-                                            </Item>
-                                            {/* <Picker
-                                            iosHeader="Select one"
-                                            mode="dropdown"
-                                            style={{ width: 120 }}
-                                            selectedValue={this.state.selMedia}
-                                            onValueChange={this.onValueChange.bind(this)}>
-                                                <Picker.Item label="Cats" value="key0" />
-                                                <Picker.Item label="Dogs" value="key1" />
-                                                <Picker.Item label="Birds" value="key2" />
-                                                <Picker.Item label="Elephants" value="key3" />
-                                            </Picker> */}
-                                        </Right>
-                                    </CardItem>
+
                                 </Card>
-                                
+
                             </View>
                         </ProgressStep>
                     </ProgressSteps>
@@ -418,9 +610,9 @@ class NUPPage extends Component {
                     transparent={false}
                     visible={this.state.isVisible}
                     onRequestClose={() => {
-                        this.setState({isVisible: !this.state.isVisible})
+                        this.setState({ isVisible: !this.state.isVisible })
                     }}>
-                    <View style={{flex :1}}>
+                    <View style={{ flex: 1 }}>
                         <WebView item={this.state} />
                     </View>
                 </Modal>
@@ -437,9 +629,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#f3f3f3",
     },
-    nbInput :{
-        marginTop  : 5
-    },  
+    nbInput: {
+        marginTop: 5
+    },
     input: {
         height: 40,
         borderColor: "gray",
@@ -462,7 +654,7 @@ const styles = StyleSheet.create({
         borderColor: "gray",
         borderBottomWidth: 1,
         borderRadius: 10,
-        marginHorizontal : 8
+        marginHorizontal: 8
     },
     avatarContainer: {
         borderColor: "#9B9B9B",
@@ -470,16 +662,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "transparent",
-        padding : 10,
-        width : 250,
-        height : 200
+        padding: 10,
+        width: 250,
+        height: 200
     },
     avatar: {
         // borderRadius: 75,
-        flex :1,
-        width : null,
-        height : null,
-        aspectRatio : 1.5,
+        flex: 1,
+        width: null,
+        height: null,
+        aspectRatio: 1.5,
         // justifyContent: 'center',
         // alignItems: 'center',
     }

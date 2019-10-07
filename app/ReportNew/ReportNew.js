@@ -114,12 +114,12 @@ class ReportNew extends Component {
     }
 
     getFile = (type) =>{
-        const items = this.props.items
-        let {db_profile, entity_cd, project_no, tower} = this.props.prevItems ? this.props.prevItems : this.props.items;
+        // const items = this.props.items
+        // let {db_profile, entity_cd, project_no, tower} = this.props.prevItems ? this.props.prevItems : this.props.items;
 
         {isMount ?
             
-            fetch(urlApi+'c_download2/getReportNew/'+items.db_profile+'/'+type,{
+            fetch(urlApi+'c_download2/getReportNew/IFCAPB/'+type,{
                 method:'POST',
                 headers : this.state.hd,
             }).then((response) => response.json())

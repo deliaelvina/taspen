@@ -58,7 +58,8 @@ class MyBillingPage extends Component {
         user : "",
         name : "",
         project : [],
-        dataRow : []
+        dataRow : [],
+        entity: []
     }
 
       console.log('props cf',props);
@@ -91,6 +92,7 @@ class MyBillingPage extends Component {
             date_end : date_end,
             name : name
         }
+
 
         {isMount ?
             

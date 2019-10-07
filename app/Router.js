@@ -88,6 +88,11 @@ import {_storeData,_getData} from '@Component/StoreAsync';
 
 import Menu from './Menu/Menu';
 
+//prospect
+import ProspectPage from './Prospect/Prospect';
+import AddProspect from './Prospect/AddProspect';
+
+
 
 
 
@@ -426,6 +431,18 @@ class Routes extends Component{
                 <Scene
                   key="NUPTerm"
                   component={NUPTerm}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="ProspectPage"
+                  component={ProspectPage}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="AddProspect"
+                  component={AddProspect}
                   hideNavBar={true}
                   title=""
                 />

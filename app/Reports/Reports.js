@@ -87,7 +87,7 @@ class ReportProject extends Component {
 
         const token = base64.encode(item.db_profile+'-$-'+item.entity_cd+'-$-'+item.project_no+'-$-'+this.state.token)
         const data = urlApi+"dash_"+type+"/index/"+token
-        console.log('data',data);
+        console.log('dataReport',data);
         Actions.Dashboard({url:data})
     }
 

@@ -79,9 +79,14 @@ class NUPPage extends Component {
         name : await _getData('@UserId'),
         project : await _getData('@UserProject')
       }
+      
+
+      isMount=true
 
       this.setState(data,()=>{
           this.getNup()
+          this.getMedia()
+
       })
     }
 
@@ -108,6 +113,26 @@ class NUPPage extends Component {
             })
         :null}
     }
+
+    getMedia = () => {
+        {isMount ?
+        // const {entity_cd,project_no} = this.props.items
+        fetch(urlApi+'c_media/getMedia/',{
+            method : "GET",
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+              const resData = res.Data
+      
+              this.setState({dataMedia:resData})
+              console.log('dataMedia',resData);
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
+        :null}
+      }
 
     handleBuy = (msg) => {
         // this.setModalVisible(true)

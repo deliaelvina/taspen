@@ -141,4 +141,18 @@ export default {
     btnBuy : {
         backgroundColor : Colors.yellow,
     }
+    ,
+    marginround :{
+        height: 40, marginBottom: 4,marginLeft: 4, marginRight: 4
+    },
+    iconSub : {
+        fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: -2
+    },
+    iconColor : {
+        color: Colors.navyUrban, left: 15,
+        fontSize: 20
+    },
+    positionTextInput: {
+        fontSize: 15,left: 5
+    }
 };
