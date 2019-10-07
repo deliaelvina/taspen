@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "945884059945-0ga4c6kcjiauacrdmv0li899fu4g2n4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifcasoftware.urban",
+            "certificate_hash": "081539665cbd90ad2d69435339f03c65670205a2"
+          }
+        },
+        {
+          "client_id": "945884059945-hqucn74rqjsbmec0a98ib6aifcg23a9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifcasoftware.urban",
+            "certificate_hash": "02fbe38d279b9d964422f3221b2c8ce8b7c361f0"
+          }
+        },
+        {
           "client_id": "945884059945-0treh3o5vujr85pba419nb9dqttt310m.apps.googleusercontent.com",
           "client_type": 3
         }

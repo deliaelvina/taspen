@@ -378,7 +378,7 @@ class SignupGuest extends React.Component {
                                         );
                                     })}
                                 </View>
-                                <View style={[styles.containPassword]}>
+                                <View style={[styles.containImage]}>
                                     <Text
                                         style={[
                                             Style.textBlack,

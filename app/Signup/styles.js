@@ -60,7 +60,7 @@ const styles = {
     inputFieldStyles: {
 		// height: Metrics.HEIGHT * 0.45,
 		flex : 1,
-        justifyContent: "space-around",
+        // justifyContent: "space-start",
         alignItems: "center"
     },
 
@@ -95,7 +95,17 @@ const styles = {
     },
     containPassword: {
         backgroundColor: "#fff",
-        // height: Metrics.HEIGHT * 0.08,
+        height: Metrics.HEIGHT * 0.08,
+        width: Metrics.WIDTH * 0.92,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignSelf: "center",
+        elevation: 3
+    },
+    containImage: {
+        backgroundColor: "#fff",
         width: Metrics.WIDTH * 0.92,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
