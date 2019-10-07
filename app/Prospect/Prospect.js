@@ -24,6 +24,8 @@ import { Actions } from "react-native-router-flux";
 import TabBar from '@Component/TabBar';
 import Styles from "./Style";
 import {_storeData,_getData} from '@Component/StoreAsync';
+import { urlApi } from "@Config/services";
+import Shimmer from '@Component/Shimmer';
 // import styles, { colors } from "./styles/index";
 
 // const navState = {
@@ -49,10 +51,12 @@ class ProspectPage extends Component {
         super(props)
 
         this.state = {
-            menuStatus : []
+            menuStatus : [],
+            status : []
         }
     }
     async componentDidMount(){
+        isMount = true;
         const data = {
         
             menuStatus : await _getData('@MenuStatus') ? await _getData('@MenuStatus') : []
@@ -65,6 +69,40 @@ class ProspectPage extends Component {
             //     Actions[val.URL_angular]()
             // }
             console.log('menu',val);
+        }
+
+        this.setState(data, () => {
+            this.getStatus();
+        });
+    };
+
+    getStatus = () => {
+        {
+            isMount
+                ? fetch(urlApi + "c_status/getStatus/", {
+                      method: "GET",
+                    //   headers: this.state.hd
+                  })
+                      .then(response => response.json())
+                      .then(res => {
+                          if (!res.Error) {
+                              const resData = res.Data;
+                            this.setState({status:resData})
+                            console.log('getstatus',res);
+                          } else {
+                              this.setState(
+                                  { isLoaded: !this.state.isLoaded },
+                                  () => {
+                                      alert(res.Pesan);
+                                  }
+                              );
+                          }
+                          console.log("getstatus", res);
+                      })
+                      .catch(error => {
+                          console.log(error);
+                      })
+                : null;
         }
     }
 
@@ -154,115 +192,70 @@ class ProspectPage extends Component {
 
                 <View style={{borderBottomWidth: 1}}> 
                 </View> 
+
                
-                
-                <ListItem
-                    style={Styles.infoItem}
-                    // onPress={() => Actions.SimulasiPage()}
-                    onPress={() => alert('Dalam pembuatan')}
-                    >
-                    <Image
-                        source={require("@Asset/icon/calculator.png")}
-                        style={Styles.infoIcon}
-                    />
-                    <View style={{ alignSelf: "center" }}>
-                        <Text style={Styles.infoHeader}>
-                        {"Low".toUpperCase()}
-                        </Text>
-                        <Text style={Styles.infoDesc}>
-                        {"Low Prospect"}
-                        </Text>
-                    </View>
 
-                    <Right style={{ position: "absolute", right: 10 }}>
-                        <Icon name="ios-arrow-dropright" style={{ fontSize: 30 }} />
-                    </Right>
-                </ListItem>
-                <ListItem
-                    style={Styles.infoItem}
-                    // onPress={() => Actions.SimulasiPage()}
-                    onPress={() => alert('Dalam pembuatan')}
-                    >
-                    <Image
-                        source={require("@Asset/icon/calculator.png")}
-                        style={Styles.infoIcon}
-                    />
-                    <View style={{ alignSelf: "center" }}>
-                        <Text style={Styles.infoHeader}>
-                        {"Medium".toUpperCase()}
-                        </Text>
-                        <Text style={Styles.infoDesc}>
-                        {"Medium Prospect"}
-                        </Text>
-                    </View>
 
-                    <Right style={{ position: "absolute", right: 10 }}>
-                        <Icon name="ios-arrow-dropright" style={{ fontSize: 30 }} />
-                    </Right>
-                </ListItem>
-                <ListItem
-                    style={Styles.infoItem}
-                    // onPress={() => Actions.SimulasiPage()}
-                    onPress={() => alert('Dalam pembuatan')}
-                    >
-                    <Image
-                        source={require("@Asset/icon/calculator.png")}
-                        style={Styles.infoIcon}
-                    />
-                    <View style={{ alignSelf: "center" }}>
-                        <Text style={Styles.infoHeader}>
-                        {"Hard".toUpperCase()}
-                        </Text>
-                        <Text style={Styles.infoDesc}>
-                        {"Hard Prospect"}
-                        </Text>
-                    </View>
-
-                    <Right style={{ position: "absolute", right: 10 }}>
-                        <Icon name="ios-arrow-dropright" style={{ fontSize: 30 }} />
-                    </Right>
-                </ListItem>
-                
                 <View>
-                        <ScrollView>
-                            <View style={Styles.overview}>
+                    <ScrollView>
+                        <View style={Styles.overview}>
+                        {this.state.status.length == 0 ? 
+                                <View style={Styles.city}>
+                                   <Shimmer autoRun={true} style={Styles.btnCity} />
+                                    
+                                </View>
+                            :
+                           
+                            <TouchableOpacity onPress={() => alert('Dalam pembuatan')} >
                                 
+                            {this.state.status.map((data, key) => (
                                 <Card style={{
-                                        height: null,
-                                        backgroundColor: 'white',
-                                        shadowOffset: { width: 1, height: 1 },
-                                        shadowColor: "#37BEB7",
-                                        shadowOpacity: 0.5,
-                                        elevation: 5,
-                                        paddingHorizontal: 10,
-                                        paddingVertical: 10,
-                                        borderRadius: 10,
-                                        flex: 1, 
-                                        alignItems: "flex-start",
-                                    }}>
-                                    <View style={{flexDirection: "row"}}>
-                                        <Image
-                                                source={require("@Asset/icon/calculator.png")}
-                                                style={Styles.infoIcon}
-                                            />
-                                            <View style={{ alignSelf: "center" }}>
-                                                <Text style={Styles.infoHeader}>
-                                                {"Low".toUpperCase()}
-                                                </Text>
-                                                <Text style={Styles.infoDesc}>
-                                                {"Low Prospect"}
-                                                </Text>
+                                    height: null,
+                                    backgroundColor: 'white',
+                                    shadowOffset: { width: 1, height: 1 },
+                                    shadowColor: "#37BEB7",
+                                    shadowOpacity: 0.5,
+                                    elevation: 5,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    borderRadius: 10,
+                                    flex: 1, 
+                                    alignItems: "flex-start",
+                                    // backgroundColor: 'red'
+                                }} 
+                                key={key}
+                                >
+                                <View style={{flexDirection: "row"}}>
+                                    <Image
+                                            source={require("@Asset/icon/calculator.png")}
+                                            style={Styles.infoIcon}
+                                        />
+                                        <View style={{ alignSelf: "center" }}>
+                                            <Text style={Styles.infoHeader}>
+                                            {data.status_cd}
+                                            </Text>
+                                            <Text style={Styles.infoDesc}>
+                                            {data.descs}
+                                            </Text>
+                                            <View style={Styles.badge}>
+                                              <Text style={{color: '#fff',}}>(01)</Text>
                                             </View>
+                                            
+                                        </View>
+                                        <View>
+                                            
+                                        </View>
 
-                                    </View>
-                                        
+                                </View>
+                                    
 
-                                        {/* <Right style={{ position: "absolute", right: 10 }}>
-                                            <Icon name="ios-arrow-dropright" style={{ fontSize: 30 }} />
-                                        </Right> */}
-                                </Card>
-
-                            </View>
+                                   
+                            </Card>
+                           ))}
+                                
+                            </TouchableOpacity>
+                        }
+                        </View>
                     </ScrollView>
                 </View>
                 

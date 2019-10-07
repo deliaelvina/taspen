@@ -71,6 +71,35 @@ export default {
         paddingVertical: 5,
     
       },
+      city: {
+        flex : 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingHorizontal: 20,
+        justifyContent: 'space-between'
+    },
+      cardshimmer: {
+        width: 100,
+        height: 100,
+      
+        marginBottom: 10,
+        borderRadius: 5,
+        backgroundColor:'#f3f3f3',
+
+    },
+    badge: {
+      position: 'absolute', 
+      left: 170, 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      top: 0, 
+      bottom: 0, 
+      backgroundColor: Colors.navyUrban,
+      
+      borderRadius: 15,
+      // height: null,
+      width: 50
+    }
 
 
 }
