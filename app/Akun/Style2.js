@@ -457,15 +457,15 @@ export default {
   btnSetting: {
     position: "absolute",
     right: 10,
-    top: 10 + StatusBar.currentHeight,
+    top: Platform.OS == "android" ? 10 + StatusBar.currentHeight : 10,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     elevation: 10,
     padding: 7,
+    shadowColor: 'rgba(0,0,0,0.5)',
+    shadowOffset: { width: 1, height: 1 },
     backgroundColor: "#fff",
-    // borderColor: '#333',
-    // borderWidth : 3,
     borderRadius: 25
   }
 };

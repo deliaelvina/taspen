@@ -11,7 +11,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 import Home from "./Home/Home";
 import Login from "./Intro/Intro";
-import Signup from './Signup/Signup';
+import SignupGuest from './Signup/SignupGuest';
+import SignupAgent from './Signup/SignupAgent';
 import Reset from './ResetPass/Reset';
 import Search from "./Find/Search";
 import Calcu from "./Calcu/Calcu";
@@ -375,8 +376,14 @@ class Routes extends Component{
                   title=""
                 />
                 <Scene
-                  key="Signup"
-                  component={Signup}
+                  key="SignupGuest"
+                  component={SignupGuest}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="SignupAgent"
+                  component={SignupAgent}
                   hideNavBar={true}
                   title=""
                 />

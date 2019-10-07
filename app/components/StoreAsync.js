@@ -3,8 +3,10 @@ import { Actions } from "react-native-router-flux";
 
 export const _storeData = async (name,data) =>{
     try {
-        await AsyncStorage.setItem(name,JSON.stringify(data))
-        console.log('Data Stored');
+        if(data !== null && data !== "" && data !== undefined){
+            await AsyncStorage.setItem(name,JSON.stringify(data))
+            console.log(name);
+        }
     } catch (error) {
         console.log('ErrorStoreData', error)
     }
