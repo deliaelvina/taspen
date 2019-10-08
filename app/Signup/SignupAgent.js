@@ -1,5 +1,5 @@
-import React from "react";
 //import react in project
+import React from "react";
 import {
     PermissionsAndroid,
     Text,
@@ -26,9 +26,10 @@ import {
     Left,
     Body,
     Title,
-    ListItem,
-    CheckBox
+    ListItem
+    // CheckBox
 } from "native-base";
+import { CheckBox } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import all the required component
 import AppIntroSlider from "react-native-app-intro-slider";
@@ -42,6 +43,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { ScrollView } from "react-native-gesture-handler";
 import ImagePicker from "react-native-image-crop-picker";
 import RNFetchBlob from "rn-fetch-blob";
+
 const userType = [
     {
         key: 1,
@@ -69,7 +71,8 @@ class SignupGuest extends React.Component {
             nohp: "",
             pictUrl: require("../../assets/images/ktp.png"),
 
-            selectedType: ""
+            selectedType: "",
+            selectedProject: []
         };
     }
 
@@ -97,6 +100,34 @@ class SignupGuest extends React.Component {
             });
     };
 
+    validating = validationData => {
+        const keys = Object.keys(validationData);
+        const errorKey = [];
+        let isValid = false;
+
+        keys.map((data, key) => {
+            if (validationData[data].require) {
+                let isError =
+                    !this.state[data] || this.state[data].length == 0
+                        ? true
+                        : false;
+                let error = "error" + data;
+                errorKey.push(isError);
+                this.setState({ [error]: isError });
+            }
+        });
+
+        for (var i = 0; i < errorKey.length; i++) {
+            if (errorKey[i]) {
+                isValid = false;
+                break;
+            }
+            isValid = true;
+        }
+
+        return isValid;
+    };
+
     submit = () => {
         const {
             selectedType,
@@ -105,7 +136,7 @@ class SignupGuest extends React.Component {
             nik,
             nohp,
             pictUrl,
-            dataProject
+            selectedProject
         } = this.state;
 
         const frmData = {
@@ -115,14 +146,23 @@ class SignupGuest extends React.Component {
             nomor_induk: nik,
             phone_no: nohp,
             pictUrl: pictUrl,
-            projek: dataProject,
-            filename: "KTP_RegisAgent.png"
+            projek: selectedProject,
+            filename: "KTP_RegisAgent_" + email + ".png"
         };
+
+        const isValid = this.validating({
+            email: { require: true },
+            fullname: { require: true },
+            nik: { require: true },
+            nohp: { require: true },
+            selectedType: { require: true },
+            selectedProject: { require: true }
+        });
 
         let fileName = "KTP_RegisAgent.png";
         let fileImg = "";
 
-        if (pictUrl.uri) {
+        if (pictUrl.uri && isValid ) {
             fileImg = RNFetchBlob.wrap(
                 this.state.pictUrl.uri.replace("file://", "")
             );
@@ -146,7 +186,7 @@ class SignupGuest extends React.Component {
                 }
             });
         } else {
-            alert("Please assign your ID Picture")
+            alert("Please assign your ID Picture");
         }
     };
 
@@ -163,9 +203,12 @@ class SignupGuest extends React.Component {
             }
         });
 
-        this.setState({ dataProject }, () =>
-            console.log("dataProject", this.state.dataProject)
-        );
+        this.setState({ dataProject }, () => {
+            const selectedProject = this.state.dataProject.filter(
+                item => item.checked
+            );
+            this.setState({ selectedProject });
+        });
     };
 
     showAlert = () => {
@@ -269,6 +312,19 @@ class SignupGuest extends React.Component {
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.email}
                                     />
+                                    {this.state.erroremail ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! Email Required
+                                        </Text>
+                                    ) : null}
                                 </View>
                                 <View style={styles.containMid}>
                                     <Input
@@ -289,6 +345,19 @@ class SignupGuest extends React.Component {
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.fullname}
                                     />
+                                    {this.state.errorfullname ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! Full Name Required
+                                        </Text>
+                                    ) : null}
                                 </View>
                                 <View style={styles.containMid}>
                                     <Input
@@ -310,6 +379,19 @@ class SignupGuest extends React.Component {
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.nik}
                                     />
+                                    {this.state.errornik ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! NIK Required
+                                        </Text>
+                                    ) : null}
                                 </View>
                                 <View style={styles.containMid}>
                                     <Input
@@ -332,6 +414,19 @@ class SignupGuest extends React.Component {
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.nohp}
                                     />
+                                    {this.state.errornohp ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! No Hp Required
+                                        </Text>
+                                    ) : null}
                                 </View>
                                 <View style={[styles.containMid]}>
                                     <RNPickerSelect
@@ -346,6 +441,19 @@ class SignupGuest extends React.Component {
                                         }}
                                         useNativeAndroidPickerStyle={false}
                                     />
+                                    {this.state.errorselectedType ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! Select User Type Required
+                                        </Text>
+                                    ) : null}
                                 </View>
                                 <View
                                     style={[
@@ -360,23 +468,39 @@ class SignupGuest extends React.Component {
                                                 key={key}
                                             >
                                                 <CheckBox
-                                                    style={{ width: 20 }}
                                                     onPress={() =>
                                                         this.handleCheck(data)
                                                     }
                                                     checked={data.checked}
+                                                    title={data.descs}
+                                                    iconType="material"
+                                                    checkedIcon="check-circle"
+                                                    uncheckedIcon="check-circle"
+                                                    checkedColor="green"
                                                 />
-                                                <Text
+                                                {/* <Text
                                                     style={{
-                                                        paddingLeft: 18,
                                                         fontSize: 16
                                                     }}
                                                 >
                                                     {data.descs}
-                                                </Text>
+                                                </Text> */}
                                             </View>
                                         );
                                     })}
+                                    {this.state.errorselectedProject ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! Select Project Required
+                                        </Text>
+                                    ) : null}
                                 </View>
                                 <View style={[styles.containImage]}>
                                     <Text
