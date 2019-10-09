@@ -63,13 +63,65 @@ export default {
         flexWrap: "wrap",
         width: dw * 0.65
       },
-
-
+      overviewTitles: {
+        flex: 1,
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        left: 15,
+      },
+      overviewTitle: {
+        flex: 1,
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+      },
       overview: {
         flex: 1,
         paddingHorizontal: 20,
         paddingVertical: 5,
-    
+      },
+      textInput: {
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        borderBottomWidth: 0,
+        borderColor: '#DDD',
+        backgroundColor: '#f0f0f0',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        fontSize: 12,
+        width: '100%',
+        marginBottom: 10,
+        borderRadius: 5,
+        textAlignVertical: 'top',
+      },
+      iconSub : {
+        fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: 3
+      },
+      iconColor : {
+        color: Colors.navyUrban, left: 15,
+        fontSize: 20
+      },
+      textInputArea: {
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        borderBottomWidth: 0,
+        borderColor: '#DDD',
+        backgroundColor: '#f0f0f0',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        fontSize: 12,
+        width: '100%',
+        marginBottom: 10,
+        borderRadius: 5,
+        textAlignVertical: 'top',
+      },
+      dateInput: {
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        borderBottomWidth: 0,
+        borderColor: '#DDD',
+        backgroundColor: '#f0f0f0',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        fontSize: 12,
+        width: '100%',
+        marginBottom: 10,
+        borderRadius: 5,
+        textAlignVertical: 'top',
       },
 
 

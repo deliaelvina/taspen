@@ -3,6 +3,7 @@ import {
     StatusBar,
     StyleSheet,
     View,
+    TextInput,
     TouchableHighlight,
     TouchableOpacity,
     Image,
@@ -16,31 +17,18 @@ import {
     Text,
     ListItem,
     Right,
+    Content,
+    Picker,
+    DatePicker
 } from "native-base";
+import Styles from "./Style";
 import { Style, Colors } from "../Themes";
 import { Actions } from "react-native-router-flux";
-import TabBar from '@Component/TabBar';
-import Styles from "./Style";
+import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import {_storeData,_getData} from '@Component/StoreAsync';
-// const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
-// import styles, { colors } from "./styles/index";
+import TabBar from '@Component/TabBar';
 
-// const navState = {
-//     index: 0,
-//     routes: [
-//       { key: 'nup', title: 'NUP Online' },
-//       { key: 'status', title: 'Status' },
-//       { key: 'history', title: 'History' },
-//     ]
-// }
-
-// const navScene = {
-//     nup: NUP,
-//     status: NUPStatus,
-//     history : NUPHistory
-// }
-
-
+let isMount = false;
 
 class AddProspect extends Component {
 
@@ -48,22 +36,32 @@ class AddProspect extends Component {
         super(props)
 
         this.state = {
-            menuStatus : []
+            errors: false,
+            selected: "",
+
+            business: "",
+            classess: "",
+            vips: "",
         }
     }
-    async componentDidMount(){
-        const data = {
-        
-            menuStatus : await _getData('@MenuStatus') ? await _getData('@MenuStatus') : []
-        
-        }
-        goToFeed = (val) =>{
-            // if(val.isProject == 1){
-            //     Actions.project({goTo : val.URL_angular})
-            // } else {
-            //     Actions[val.URL_angular]()
-            // }
-            console.log('menu',val);
+
+
+    onValueChange(value) {
+        this.setState({
+            selected: value
+        })
+    }
+
+    onNext(step) {
+        const { business, classess, vips } = this.state
+
+        if (step == 1) {
+            if (business && classess && vips) {
+                this.setState({ errors: false })
+            } else {
+                this.setState({ errors: true })
+                alert("Please fill red star form")
+            }
         }
     }
 
@@ -100,64 +98,225 @@ class AddProspect extends Component {
                     <View style={Style.actionBarRight} />
 
                 </Header>
-
-                {/* <Button
-                    small
-                    rounded
-                    style={Styles.sBtnHead}
-                    onPress={()=>Actions.ListingProjectPage()}>
-                    <Text style={Styles.sLinkHead}>ALL PROJECT</Text>
-                </Button> */}
-
-                {/* <View
-                    style={{
-                        justifyContent: "flex-start",
-                        flexDirection: "row",
-                        flex: 1,
-                        paddingLeft: 16,
-                        // paddingBottom: 20,
-                        // marginBottom: -10
-                    }}
-                    >
-                    <Button
-                        small
-                        rounded
-                        style={Styles.sBtnHead}
-                        onPress={()=>Actions.ListingProjectPage()}>
-                        <Text style={Styles.sLinkHead}>All Prospect</Text>
-                    </Button>
-                </View> */}
-
-            
+                
 
 
-                <View
-                    style={{
-                        justifyContent: "flex-end",
-                        flexDirection: "row",
-                        right: 5,
-                        top: 10,
-                        marginBottom: 20,
-                    }}
-                    >
-                    <Button
-                        small
-                        rounded
-                        style={Styles.sBtnHeadAdd}
-                        onPress={()=>Actions.AddProspect()}>
-                        {/* <Text style={Styles.sLinkHead}>Add Prospect</Text> */}
-                        <Icon name='user-plus' type="FontAwesome5" style={{color: '#fff', fontSize: 18}}/>
-                        {/* plus */}
-                    </Button>
+                <Content
+                 style={Style.layoutInner}
+                 contentContainerStyle={Style.layoutContent}
+                >
+
+    <View style={{ flex: 1 }}>
+        <ProgressSteps>
+          <ProgressStep label="Prospect Type" onNext={this.onNextStep} errors={this.state.errors}>
+            {/* <View style={{ alignItems: 'center' }}> */}
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Business Type</Text>
+                     </View>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="Company" value="C" />
+                            <Picker.Item label="Individu" value="I" />
+                        </Picker>
                 </View>
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Class</Text>
+                     </View>
+                        <Picker note 
+                            mode="dropdown"
+                            style={Styles.textInput}
+                            selectedValue={this.state.selected}
+                            onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="Apartement" value="A" />
+                            <Picker.Item label="Ruko" value="R" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>VIP</Text>
+                     </View>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="Yes" value="Y" />
+                            <Picker.Item label="No" value="N" />
+                        </Picker>
+                </View>
+            {/* </View> */}
+          </ProgressStep>
+          <ProgressStep label="Detail Information">
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Salutation</Text>
+                     </View>
+                     <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="Bapak" value="B" />
+                            <Picker.Item label="Ibu" value="P" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Name</Text>
+                     </View>
+                    <TextInput style={Styles.textInput} />
+                </View>
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Address</Text>
+                     </View>
+                    <TextInput 
+                        style={Styles.textInputArea}
+                        numberOfLines={7}
+                        multiline={true} />
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>Post Code</Text>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="-" value="code" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>Village</Text>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="-" value="vill" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>District</Text>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="-" value="distr" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>City</Text>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="-" value="city" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>Province</Text>
+                        <Picker note 
+                                mode="dropdown"
+                                style={Styles.textInput}
+                                selectedValue={this.state.selected}
+                                onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="-" value="prov" />
+                        </Picker>
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>Telephone</Text>
+                    <TextInput keyboardType="number-pad" style={Styles.textInput} />
+                </View>
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Handphone / Whatsapp</Text>
+                     </View>
+                    <TextInput keyboardType="number-pad" style={Styles.textInput} />
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>Alternatif Handphone</Text>
+                    <TextInput keyboardType="number-pad" style={Styles.textInput} />
+                </View>
+                <View style={Styles.overview}>
+                    <Text style={Styles.overviewTitle}>Alternatif Handphone 2</Text>
+                    <TextInput keyboardType="number-pad" style={Styles.textInput} />
+                </View>
+                <View style={Styles.overview}>
+                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Email</Text>
+                     </View>
+                    <TextInput keyboardType="email-address" style={Styles.textInput} />
+                </View>
+          </ProgressStep>
+        
+        <ProgressStep label="Other Information">
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Birth Date</Text>
+                <View style={Styles.dateInput}>
+                <DatePicker />
+                </View>
+            </View>
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Married</Text>
+                <TextInput style={Styles.textInput} />
+            </View>
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Sex</Text>
+                <TextInput style={Styles.textInput} />
+            </View>
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Spouse Name</Text>
+                <TextInput style={Styles.textInput} />
+            </View>
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Company Name</Text>
+                <TextInput style={Styles.textInput} />
+            </View>
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Occupation</Text>
+                <TextInput style={Styles.textInput} />
+            </View>
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Contact</Text>
+                <TextInput style={Styles.textInput} />
+            </View>
+            <View style={Styles.overview}>
+                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Media</Text>
+                </View>
+                <TextInput style={Styles.textInput} />
+            </View>
+        </ProgressStep>
 
-                <View style={{borderBottomWidth: 1}}> 
-                </View> 
-               
-                
-                
-                
-
+        </ProgressSteps>
+      </View>
+                    
+                </Content>
                     
             </Container>
 
@@ -166,7 +325,7 @@ class AddProspect extends Component {
 }
 export default AddProspect;
 
-const navStyles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
       flex: 1,
     },
