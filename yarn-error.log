@@ -1,20 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn
+  /usr/local/Cellar/node/12.6.0/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add react-native-textinput-effectscc
 
 PATH: 
-  /usr/local/opt/icu4c/bin:/opt/local/bin:/opt/local/sbin:/Users/ifcasoftware/Library/Android/sdk//tools:/Users/ifcasoftware/Library/Android/sdk//platform-tools:/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/Library/gradle/gradle-3.2/bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/development/flutter/bin:/Users/hanan/Library/Android/sdk/emulator:/Users/hanan/Library/Android/sdk/tools:/Users/hanan/Library/Android/sdk/tools/bin:/Users/hanan/Library/Android/sdk/platform-tools:/Users/hanan/Library/Android/sdk/emulator:/Users/hanan/Library/Android/sdk/tools:/Users/hanan/Library/Android/sdk/tools/bin:/Users/hanan/Library/Android/sdk/platform-tools
 
 Yarn version: 
-  1.15.2
+  1.17.3
 
 Node version: 
-  10.15.1
+  12.6.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, rmdir '/Users/ifcasoftware/iCloud Drive (Archive)/Documents/Documents - Hany's Macbook Pro/All Project/react-app/urbanmobile/node_modules/fsevents/lib/binding'
+  Error: https://registry.yarnpkg.com/react-native-textinput-effectscc: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:66830:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:140464:22)
+      at Request.emit (events.js:203:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:141436:10)
+      at Request.emit (events.js:203:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:141358:12)
+      at Object.onceWrapper (events.js:291:20)
+      at IncomingMessage.emit (events.js:208:15)
+      at endReadableNT (_stream_readable.js:1154:12)
+      at processTicksAndRejections (internal/process/task_queues.js:77:11)
 
 npm manifest: 
   {
@@ -29,7 +39,7 @@ npm manifest:
       "bundle-release": "cd ./android && ./gradlew clean && ./gradlew bundleRelease",
       "clean-android": "cd ./android && ./gradlew clean",
       "ios": "open ios/Splus.xcworkspace",
-      "android": "react-native run-android",
+      "android": "npx jetify && react-native run-android",
       "clean": "rm -rf ./node_modules/ && yarn",
       "clean-ios": "cd ./ios && rm -rf ./Pods/ && pod install",
       "clean:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && rm -vrf android/app/src/main/res/drawable*"
@@ -51,6 +61,7 @@ npm manifest:
       "react-native-custom-radio-group": "^1.0.1",
       "react-native-device-info": "2.1.2",
       "react-native-elements": "^1.1.0",
+      "react-native-fbsdk": "^1.0.4",
       "react-native-firebase": "^5.5.5",
       "react-native-gesture-handler": "^1.1.0",
       "react-native-google-signin": "^2.0.0",
@@ -59,6 +70,7 @@ npm manifest:
       "react-native-image-zoom-viewer": "^2.2.26",
       "react-native-linear-gradient": "^2.5.4",
       "react-native-mail": "^4.0.0",
+      "react-native-maps": "^0.25.0",
       "react-native-modal": "^9.0.0",
       "react-native-modal-overlay": "^1.3.1",
       "react-native-modalbox": "^1.7.1",
@@ -77,6 +89,7 @@ npm manifest:
       "react-native-svg": "^9.3.3",
       "react-native-tab-view": "^2.0.3",
       "react-native-table-component": "^1.2.0",
+      "react-native-textinput-effects": "^0.5.1",
       "react-native-vector-icons": "^6.4.1",
       "react-native-webview": "^5.12.0",
       "react-navigation": "^3.4.1",
@@ -91,6 +104,7 @@ npm manifest:
       "@babel/runtime": "^7.3.4",
       "babel-jest": "^24.5.0",
       "jest": "^24.5.0",
+      "jetifier": "^1.6.4",
       "metro-react-native-babel-preset": "^0.53.0",
       "react-test-renderer": "16.8.3"
     },
@@ -3779,6 +3793,11 @@ Lockfile:
       import-local "^2.0.0"
       jest-cli "^24.8.0"
   
+  jetifier@^1.6.4:
+    version "1.6.4"
+    resolved "https://registry.yarnpkg.com/jetifier/-/jetifier-1.6.4.tgz#6159db8e275d97980d26162897a0648b6d4a3222"
+    integrity sha512-+f/4OLeqY8RAmXnonI1ffeY1DR8kMNJPhv5WMFehchf7U71cjMQVKkOz1n6asz6kfVoAqKNWJz1A/18i18AcXA==
+  
   "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -5544,6 +5563,11 @@ Lockfile:
       react-native-ratings "^6.3.0"
       react-native-status-bar-height "^2.2.0"
   
+  react-native-fbsdk@^1.0.4:
+    version "1.0.4"
+    resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-1.0.4.tgz#ecc0faf235e12de4423af9908f56b999cf144422"
+    integrity sha512-s0fBRDi/k6jfWFRnmwQwJA4WTriKhyes71tYO6LdXF6nAI7k+7DCdFZqIA7PqtTUA7WwEjSP6qjKTibCDWOwLw==
+  
   react-native-firebase@^5.5.5:
     version "5.5.5"
     resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.5.5.tgz#d5c7e02eb6ea5650f9ebbb23c2cd796f83e7ca45"
@@ -5610,6 +5634,11 @@ Lockfile:
     version "4.0.0"
     resolved "https://registry.yarnpkg.com/react-native-mail/-/react-native-mail-4.0.0.tgz#f98fe5f99001e3d47d8bd45bbe1c70d81705fd22"
     integrity sha512-G6lLrWFj0JwKeMR/rXCFQu7dXLm1tbG0nnezMt9xTRXikvKFbz0BMp6JICOb/wO4VJf+FkCEoRHuouPEA1dPww==
+  
+  react-native-maps@^0.25.0:
+    version "0.25.0"
+    resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.25.0.tgz#81bc51eb50e33811a9e1c345cc48869413ead67d"
+    integrity sha512-PFJuW1pt+HnnnN0m0OGk29RSvICFVkK/DScX6cUk0SuCSN2DAHx0y6y57lZyYXcYqU4J4usNpfxgp/ccjASDiw==
   
   react-native-modal-overlay@^1.3.1:
     version "1.3.1"
@@ -5784,6 +5813,11 @@ Lockfile:
     version "1.2.0"
     resolved "https://registry.yarnpkg.com/react-native-table-component/-/react-native-table-component-1.2.0.tgz#d4dff88abb58648086ba52a801ba9a1ab1825c03"
     integrity sha512-j9AEryfGSStJ9vbcfj63uaMxL8Ek+Xn0+rIA4o2Dvovo7C9fAGMEJxJiL57jmNIX65jRtWNwko9GqeaXXzjJVw==
+  
+  react-native-textinput-effects@^0.5.1:
+    version "0.5.1"
+    resolved "https://registry.yarnpkg.com/react-native-textinput-effects/-/react-native-textinput-effects-0.5.1.tgz#52b54bb56b58a4b67b5d3fa4ffccba3d288cd8c9"
+    integrity sha512-9ywFH1S4WV/IkYcGwFYZrOYx5j84WvbhzWbLO52rN1PxgjI1tfZu8c5Ju8fsA7eLKuXt7YRen4iVTYYahrFq1w==
   
   react-native-vector-icons@6.1.0:
     version "6.1.0"

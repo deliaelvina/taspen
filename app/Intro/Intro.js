@@ -296,7 +296,7 @@ export default class Intro extends React.Component {
         try {
             await GoogleSignin.configure({
                 webClientId:
-                    "1043761356860-hojmsl1rebh78a3ilbna6ckrdbcjciaa.apps.googleusercontent.com",
+                    "945884059945-0treh3o5vujr85pba419nb9dqttt310m.apps.googleusercontent.com",
                 offlineAccess: true
             });
             await GoogleSignin.hasPlayServices();

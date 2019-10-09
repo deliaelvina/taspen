@@ -63,3 +63,4 @@ ios/Pods
 yarn.lock
 package.json.lock
 
+.DS_Store
