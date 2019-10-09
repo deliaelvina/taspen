@@ -91,6 +91,8 @@ import Menu from './Menu/Menu';
 //prospect
 import ProspectPage from './Prospect/Prospect';
 import AddProspect from './Prospect/AddProspect';
+import ListProspect from './Prospect/ListProspect';
+import DetailProspect from './Prospect/DetailProspect';
 
 
 
@@ -443,6 +445,18 @@ class Routes extends Component{
                 <Scene
                   key="AddProspect"
                   component={AddProspect}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="ListProspect"
+                  component={ListProspect}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="DetailProspect"
+                  component={DetailProspect}
                   hideNavBar={true}
                   title=""
                 />

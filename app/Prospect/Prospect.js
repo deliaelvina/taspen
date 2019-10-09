@@ -52,16 +52,24 @@ class ProspectPage extends Component {
 
         this.state = {
             menuStatus : [],
-            status : []
+            status : [],
+            countstatus: '',
+            agentcd : [],
+            email : ''
         }
     }
     async componentDidMount(){
         isMount = true;
         const data = {
         
-            menuStatus : await _getData('@MenuStatus') ? await _getData('@MenuStatus') : []
+            menuStatus : await _getData('@MenuStatus') ? await _getData('@MenuStatus') : [],
+            // agentcd : await _getData('@AgentCd') ? await _getData('@AgentCd') : [],
+            email :  await _getData('@User')
+            // email : await _getData('@AgentCd') ? await _getData('@AgentCd') : []
+
         
         }
+        console.log('email prospect', data)
         goToFeed = (val) =>{
             // if(val.isProject == 1){
             //     Actions.project({goTo : val.URL_angular})
@@ -73,7 +81,10 @@ class ProspectPage extends Component {
 
         this.setState(data, () => {
             this.getStatus();
+          
         });
+
+       
     };
 
     getStatus = () => {
@@ -84,11 +95,13 @@ class ProspectPage extends Component {
                     //   headers: this.state.hd
                   })
                       .then(response => response.json())
+                      
                       .then(res => {
                           if (!res.Error) {
                               const resData = res.Data;
-                            this.setState({status:resData})
+                            
                             console.log('getstatus',res);
+                            this.setState({status:resData});
                           } else {
                               this.setState(
                                   { isLoaded: !this.state.isLoaded },
@@ -104,6 +117,12 @@ class ProspectPage extends Component {
                       })
                 : null;
         }
+    }
+
+    ListProspect(data) {
+        console.log('data status prospect',data);
+        Actions.ListProspect({datas : data});
+        this.setState({ click : true})
     }
 
  
@@ -190,8 +209,8 @@ class ProspectPage extends Component {
                     </Button>
                 </View>
 
-                <View style={{borderBottomWidth: 1}}> 
-                </View> 
+                {/* <View style={{borderBottomWidth: 1}}> 
+                </View>  */}
 
                
 
@@ -206,9 +225,11 @@ class ProspectPage extends Component {
                                 </View>
                             :
                            
-                            <TouchableOpacity onPress={() => alert('Dalam pembuatan')} >
+                            <View  >
                                 
                             {this.state.status.map((data, key) => (
+                                <TouchableOpacity  onPress={() => this.ListProspect(data)}
+                                key={key}>
                                 <Card style={{
                                     height: null,
                                     backgroundColor: 'white',
@@ -223,14 +244,14 @@ class ProspectPage extends Component {
                                     alignItems: "flex-start",
                                     // backgroundColor: 'red'
                                 }} 
-                                key={key}
+                               
                                 >
                                 <View style={{flexDirection: "row"}}>
-                                    <Image
+                                        {/* <Image
                                             source={require("@Asset/icon/calculator.png")}
                                             style={Styles.infoIcon}
-                                        />
-                                        <View style={{ alignSelf: "center" }}>
+                                        /> */}
+                                        <View style={{ alignSelf: "center",width: '100%' }}>
                                             <Text style={Styles.infoHeader}>
                                             {data.status_cd}
                                             </Text>
@@ -238,7 +259,7 @@ class ProspectPage extends Component {
                                             {data.descs}
                                             </Text>
                                             <View style={Styles.badge}>
-                                              <Text style={{color: '#fff',}}>(01)</Text>
+                                              <Text style={{color: '#fff',fontSize: 15}}> {data.cnt} </Text>
                                             </View>
                                             
                                         </View>
@@ -247,13 +268,11 @@ class ProspectPage extends Component {
                                         </View>
 
                                 </View>
-                                    
-
-                                   
                             </Card>
+                            </TouchableOpacity>
                            ))}
                                 
-                            </TouchableOpacity>
+                            </View>
                         }
                         </View>
                     </ScrollView>

@@ -71,6 +71,12 @@ export default {
         paddingVertical: 5,
     
       },
+      overview_detail: {
+        flex: 1,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+    
+      },
       city: {
         flex : 1,
         flexDirection: 'row',
@@ -89,7 +95,9 @@ export default {
     },
     badge: {
       position: 'absolute', 
-      left: 170, 
+      // left: 200,
+      right: 5,
+      // left: 0, 
       justifyContent: 'center', 
       alignItems: 'center', 
       top: 0, 
@@ -99,7 +107,62 @@ export default {
       borderRadius: 15,
       // height: null,
       width: 50
-    }
+    },
+    accordionTab: {
+      flexDirection: 'row',
+      padding: 15,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#f0f0f0',
+      borderRadius: 8,
+      marginBottom: 1,
+    },
+    accordionTabText: {
+      color: '#333',
+      fontSize: 12,
+      fontFamily: 'Montserrat-SemiBold',
+    },
+    accordionTabIcon: {
+      fontSize: 14,
+      color: '#666',
+    },
+    accordionContent: {
+      paddingVertical: 10,
+    },
+    formBg: {
+      width: '100%',
+      paddingHorizontal: 15,
+      paddingTop: 30,
+      paddingBottom: 10,
+    },
+    accordion: {
+      width: '100%',
+    },
+    textInputArea: {
+      fontFamily: Fonts.type.sfuiDisplaySemibold,
+      borderBottomWidth: 0,
+      borderColor: '#DDD',
+      backgroundColor: '#f0f0f0',
+      paddingHorizontal: 20,
+      paddingVertical: 15,
+      fontSize: 12,
+      width: '100%',
+      marginBottom: 10,
+      borderRadius: 5,
+      textAlignVertical: 'top',
+    },
+    textInput: {
+      fontFamily: 'Montserrat-Regular',
+      borderBottomWidth: 1,
+      borderColor: '#CCC',
+      fontSize: 14,
+      width: '100%',
+      borderRadius: 5,
+      textAlignVertical: 'bottom',
+      paddingVertical: .5,
+      paddingHorizontal: 20,
+      color: '#666',
+    },
 
 
 }
