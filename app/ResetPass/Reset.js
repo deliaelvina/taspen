@@ -47,8 +47,10 @@ class Reset extends React.Component {
             })
             .then((response) => response.json())
             .then((res)=>{
-                // alert(res.Pesan)
-                console.log('save profile',res)
+                alert(res.Pesan)
+                if(!res.Error){
+                    Actions.pop()
+                }
                 
             }).catch((error) => {
                 console.log(error);
