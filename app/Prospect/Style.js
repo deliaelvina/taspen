@@ -163,6 +163,17 @@ export default {
       paddingHorizontal: 20,
       color: '#666',
     },
+    actionBarMiddle: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 6,
+  },
+  actionBarText: {
+    color: '#FFFFFF',
+fontFamily: "Montserrat-Regular",
+    fontSize: 14,
+    textAlign: 'center',
+},
 
 
 }

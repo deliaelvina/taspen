@@ -92,7 +92,10 @@ import Menu from './Menu/Menu';
 import ProspectPage from './Prospect/Prospect';
 import AddProspect from './Prospect/AddProspect';
 import ListProspect from './Prospect/ListProspect';
-import DetailProspect from './Prospect/DetailProspect';
+
+import FollowupProspect from './Prospect/FollowupProspect';
+import DetailProspect from './Prospect/Detail';
+
 
 
 
@@ -454,12 +457,23 @@ class Routes extends Component{
                   hideNavBar={true}
                   title=""
                 />
+               
+               
                 <Scene
-                  key="DetailProspect"
+                  key="FollowupProspect"
+                  component={FollowupProspect}
+                  hideNavBar={true}
+                  title=""
+                />
+
+                <Scene
+                  key="Detail"
                   component={DetailProspect}
                   hideNavBar={true}
                   title=""
                 />
+                
+
           </Scene>
         </Router>
       );

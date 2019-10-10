@@ -112,7 +112,8 @@ class ListProspect extends Component {
 
     DetailProspect(data) {
         console.log('data status prospect',data);
-        Actions.DetailProspect({datas : data});
+        Actions.Detail({datas : data});
+        // Actions.IndexProspect
         this.setState({ click : true})
     }
 
