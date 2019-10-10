@@ -14,6 +14,7 @@ export default {
         width: '100%',
     },
     layoutContent:{
+        color: '#fff'
     },
     layoutCenter: {
         flexGrow: 1,
