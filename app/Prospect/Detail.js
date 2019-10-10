@@ -32,6 +32,7 @@ import {
    Tab,
    Tabs,
     Item,
+    
 } from "native-base";
 // import {Icon} from "react-native-elements";
 import { Style, Colors } from "../Themes";
@@ -42,7 +43,8 @@ import {_storeData,_getData} from '@Component/StoreAsync';
 import { urlApi } from "@Config/services";
 import Shimmer from '@Component/Shimmer';
 import { Input } from "react-native-elements";
-
+import SearchableDropdown from 'react-native-searchable-dropdown';
+import RNPickerSelect from 'react-native-picker-select';
 // import { DetailPage } from './DetailPage';
 // import { FollowupProspect } from './FollowupProspect';
 // import styles, { colors } from "./styles/index";
@@ -62,7 +64,19 @@ import { Input } from "react-native-elements";
    
 // }
 
-    
+var items = [
+    //name key is must.It is to show the text in front
+    { id: 1, name: 'angellist' },
+    { id: 2, name: 'codepen' },
+    { id: 3, name: 'envelope' },
+    { id: 4, name: 'etsy' },
+    { id: 5, name: 'facebook' },
+    { id: 6, name: 'foursquare' },
+    { id: 7, name: 'github-alt' },
+    { id: 8, name: 'github' },
+    { id: 9, name: 'gitlab' },
+    { id: 10, name: 'instagram' },
+  ];
    
 
 
@@ -78,6 +92,8 @@ class DetailProspect extends Component {
             detail: [],
             classCd: [],
             class_cd: '',
+            prov: [],
+            prov2: [],
 
             getSalutation: [],
             salutation_cd: '',
@@ -113,6 +129,8 @@ class DetailProspect extends Component {
             contact_person: '', //contact
             media: '',
 
+            selProv : "",
+
         };
         this.renderAccordionHeader = this.renderAccordionHeader.bind(this)
         this.renderAccordionContent = this.renderAccordionContent.bind(this)
@@ -137,7 +155,10 @@ class DetailProspect extends Component {
             this.getDataListProspect(this.props.datas)
             this.getClassCode(this.props.datas)
             this.getSalutation();
-            this.getPostCode();
+            this.getProvince();
+            this.getProvince2();
+            // this.getPostCode();
+            
         });
     };
 
@@ -275,10 +296,10 @@ class DetailProspect extends Component {
         // });
     }
 
-    getPostCode = () =>{
+    getProvince = () =>{
         const item = this.props.items
         {isMount ?
-            fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB/',{
+            fetch(urlApi+'c_prospect/get_province/IFCAPB/',{
                 method:'GET',
                 // headers : this.state.hd,
             }).then((response) => response.json())
@@ -287,23 +308,95 @@ class DetailProspect extends Component {
                     const resData = res.Data
                     // resData.map((data)=>{
                     //     this.setState(prevState=>({
-                    //         postCode : [...prevState.postCode, {label: data.post_cd, value:data.post_cd}]
+                    //         prov : [...prevState.prov, {label: data.descs, value:data.province_cd}]
                     //     }))
                     // })
-                    this.setState({postCode:resData});
-                    console.log('postcode',res);
+                    // this.setState({
+                    //     prov: [...this.state.prov, ...resData.results]});
+                    this.setState({prov:resData});
+                    console.log('prov',res);
                 } else {
                     this.setState({isLoaded: !this.state.isLoaded},()=>{
                         alert(res.Pesan)
                     });
                 }
-                console.log('postcode',res);
+                console.log('prov',res);
             }).catch((error) => {
                 console.log(error);
             })
         :null}
         
     }
+    
+    getProvince2 = () =>{
+        const item = this.props.items
+        {isMount ?
+            fetch(urlApi+'c_prospect/zoom_province/IFCAPB/',{
+                method:'GET',
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         prov2 : [...prevState.prov2, {label:data.descs, value:data.province_cd}]
+                    //     }))
+                    // })
+                    // this.setState({
+                    //     prov: [...this.state.prov, ...resData.results]});
+                    this.setState({prov2:resData});
+                    console.log('prov',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                console.log('prov',res);
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+        
+    }
+    chooseProv = (val)=>{
+        // if(val){
+        //     this.setState({selProv : val},()=>{
+        //         // this.getAgentDT(val)
+        //         // this.getComission(val,'')
+        //     })
+        // }
+    }
+
+    // getPostCode = () =>{
+    //     const item = this.props.items
+    //     {isMount ?
+    //         fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB/',{
+    //             method:'GET',
+    //             // headers : this.state.hd,
+    //         }).then((response) => response.json())
+    //         .then((res)=>{
+    //             if(!res.Error){
+    //                 const resData = res.Data
+    //                 // resData.map((data)=>{
+    //                 //     this.setState(prevState=>({
+    //                 //         postCode : [...prevState.postCode, {label: data.post_cd, value:data.post_cd}]
+    //                 //     }))
+    //                 // })
+    //                 this.setState({postCode:resData});
+    //                 console.log('postcode',res);
+    //             } else {
+    //                 this.setState({isLoaded: !this.state.isLoaded},()=>{
+    //                     alert(res.Pesan)
+    //                 });
+    //             }
+    //             console.log('postcode',res);
+    //         }).catch((error) => {
+    //             console.log(error);
+    //         })
+    //     :null}
+        
+    // }
 
     renderAccordionHeader(item, expanded) {
         return (
@@ -451,21 +544,32 @@ class DetailProspect extends Component {
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
-                                <Text style={{fontSize: 12}}>Post Code</Text>
+                                <Text style={{fontSize: 12}}>Province</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/>
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Village</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/>
-                        </View> 
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>District</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/>
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={province} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                            <Item rounded style={{height: 35}}>
+                                <Picker 
+                                placeholder="Gender"
+                                selectedValue={this.state.prov}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                // onValueChange={(val)=>this.setState({descs:val})}
+                                >
+                                     {this.state.prov.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                </Picker>
+                               
+                            </Item>
+                            }
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
@@ -475,9 +579,21 @@ class DetailProspect extends Component {
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
-                                <Text style={{fontSize: 12}}>Province</Text>
+                                <Text style={{fontSize: 12}}>Village</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Province'} value={province} onChangeText={(val)=>{this.setState({province:val})}}/>
+                            <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/>
+                        </View>
+                        <View style={{ paddingVertical: 10}}>
+                            <Label>
+                                <Text style={{fontSize: 12}}>District</Text>
+                            </Label>
+                            <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/>
+                        </View> 
+                        <View style={{ paddingVertical: 10}}>
+                            <Label>
+                                <Text style={{fontSize: 12}}>Post Code</Text>
+                            </Label>
+                            <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/>
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
@@ -594,36 +710,58 @@ class DetailProspect extends Component {
                             <ActivityIndicator />
                         :
                     <View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Project</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-                        </View>  
-                        <View style={{paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Property</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({descs:val})}}/>
-                        </View>
-                        <View style={{paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Lot No</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(val)=>{this.setState({vip:val})}} />
-                        </View>
-                        <View style={{paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Rent</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({vip:val})}} />
-                        </View> 
-                        <View style={{paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Buy</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({vip:val})}} />
-                        </View> 
+                            <List >
+                                <ListItem >                               
+                                    <View style={{alignSelf:'flex-start',width: '100%'}} >
+                                        <View>
+                                            <Label>
+                                                <Text style={{fontSize: 12}}>Project</Text>
+                                            </Label>
+                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
+
+                                        </View>
+                                        <View>
+                                            <Label>
+                                                <Text style={{fontSize: 12}}>Property</Text>
+                                            </Label>
+                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
+
+                                        </View>
+                                        <View>
+                                            <Label>
+                                                <Text style={{fontSize: 12}}>Lot No</Text>
+                                            </Label>
+                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
+
+                                        </View>
+                                        <View>
+                                            <Label>
+                                                <Text style={{fontSize: 12}}>Rent</Text>
+                                            </Label>
+                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
+
+                                        </View>
+                                        <View>
+                                            <Label>
+                                                <Text style={{fontSize: 12}}>Buy</Text>
+                                            </Label>
+                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
+
+                                        </View>
+                                       
+                                       {/* <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>this.DetailProspect(data) } */}
+                                       <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>alert('add project') }>
+                                           <Text style={{fontSize: 12}}>Add Project</Text>
+                                       </Button>
+
+                                        
+                                    </View>
+                                    
+                                    
+                                </ListItem>
+                                
+                            </List>
+                        
                     </View>
                     }
                 </View>
