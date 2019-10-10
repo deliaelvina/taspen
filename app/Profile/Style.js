@@ -227,7 +227,7 @@ export default {
   },
   formBtnIcon: {
     color: '#333',
-    fontSize: 24,
+    fontSize: 20,
   },
 
   overview: {

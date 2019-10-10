@@ -34,12 +34,8 @@ import { Actions } from "react-native-router-flux";
 import { _storeData, _getData } from "@Component/StoreAsync";
 import DeviceInfo from "react-native-device-info";
 import { urlApi } from "@Config/services";
-import {
-    GoogleSignin,
-    GoogleSigninButton,
-    statusCodes
-} from "react-native-google-signin";
 import FBLoginButton from "../components/LoginFB";
+import GoogleLoginButton from "../components/LoginGoogle";
 
 let isMount = false;
 
@@ -78,10 +74,7 @@ export default class Intro extends React.Component {
                 }
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("You can use the camera");
-            } else {
-                console.log("Camera permission denied");
-            }
+            } 
         } catch (err) {
             console.warn(err);
         }
@@ -89,18 +82,11 @@ export default class Intro extends React.Component {
 
     async componentDidMount() {
         const isIntro = await _getData("@isIntro");
-        // if(isMount){
-        //   BackHandler.addEventListener('hardwareBackPress', function() {
-        //     Actions.home()
-        //     return true;
-        //   })
-        // }
         this.setState({ showRealApp: isIntro });
     }
 
     componentWillUnmount() {
         isMount = false;
-        // BackHandler.removeEventListener('hardwareBackPress')
     }
 
     clickHome() {
@@ -109,16 +95,12 @@ export default class Intro extends React.Component {
     }
 
     _onDone = () => {
-        // After user finished the intro slides. Show real app through
-        // navigation or simply by controlling state
         this.setState({ showRealApp: true }, () => {
             _storeData("@isIntro", true);
         });
     };
 
     _onSkip = () => {
-        // After user skip the intro slides. Show real app through
-        // navigation or simply by controlling state
         this.setState({ showRealApp: true }, () => {
             _storeData("@isIntro", true);
         });
@@ -136,10 +118,8 @@ export default class Intro extends React.Component {
             device: Platform.OS,
             mac: mac
         };
-        console.log("formData", formData);
         var lengthPass = this.state.password.length;
         if (lengthPass < 4) {
-            // this.setState({isCorrect:false,titleButtonAlert:"Try Again"});
             alert("Wrong password !!!");
         } else {
             this.setState({ isLogin: true }, () => {
@@ -150,7 +130,6 @@ export default class Intro extends React.Component {
 
     doLogin(value) {
         this.setState({ isLoaded: !this.state.isLoaded });
-        console.log("value", value);
         data = JSON.stringify(value);
 
         fetch(urlApi + "c_auth/Login", {
@@ -175,7 +154,6 @@ export default class Intro extends React.Component {
                         alert(res.Pesan);
                     });
                 }
-                console.log("Login Result", res);
             })
             .catch(error => {
                 console.log(error);
@@ -185,7 +163,12 @@ export default class Intro extends React.Component {
             });
     }
 
-    doLoginSosMed = data => {
+    doLoginSosMed = async data => {
+
+        data.ipAddress = await DeviceInfo.getIPAddress().then(mac => mac);
+
+        console.log('data',data);
+
         fetch(urlApi + "c_auth/LoginWithSosmed", {
             method: "POST",
             headers: {
@@ -196,13 +179,16 @@ export default class Intro extends React.Component {
         })
             .then(response => response.json())
             .then(res => {
-                console.log("Login Result", res);
-                if (res.Error) {
-                    Actions.SignupGuest({ sosmed: true, data });
-                } else {
-                    this.setState({ isLogin: true }, () => {
-                        this.getTower(res);
-                    });
+                try {
+                    if (res.Error) {
+                        Actions.SignupGuest({ sosmed: true, data });
+                    } else {
+                        this.setState({ isLogin: true }, () => {
+                            this.getTower(res);
+                        });
+                    }
+                } catch (error) {
+                    console.log('error',error);
                 }
             })
             .catch(error => {
@@ -214,7 +200,6 @@ export default class Intro extends React.Component {
     };
 
     getTower = res => {
-        console.log("res", res);
         let result = res.Data;
         const email = result.user;
         fetch(urlApi + "c_product_info/getData/IFCAMOBILE/" + email + "/S", {
@@ -246,7 +231,6 @@ export default class Intro extends React.Component {
     };
 
     signIn = async res => {
-        console.log("res Login", res);
         try {
             _storeData("@DashMenu", res.DashMenu);
             _storeData("@UserId", res.UserId);
@@ -272,9 +256,6 @@ export default class Intro extends React.Component {
     };
 
     skipLogin = async () => {
-        // this.setState({email : 'guest@ifca.co.id',password : 'pass1234'},()=>{
-        //   this.btnLoginClick()
-        // })
         const mac = await DeviceInfo.getMACAddress().then(mac => {
             return mac;
         });
@@ -292,48 +273,11 @@ export default class Intro extends React.Component {
         });
     };
 
-    signInGoogle = async () => {
-        try {
-            await GoogleSignin.configure({
-                webClientId:
-                    "945884059945-0treh3o5vujr85pba419nb9dqttt310m.apps.googleusercontent.com",
-                offlineAccess: true
-            });
-            await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn();
-
-            const data = {
-                Email: userInfo.user.email,
-                Medsos: 1,
-                LoginId: userInfo.user.id,
-                device: Platform.OS,
-                Token: userInfo.idToken,
-                Name : userInfo.user.givenName + ' ' + userInfo.user.familyName
-            };
-            this.doLoginSosMed(data);
-        } catch (error) {
-            this.setState({ GoogleLogin: false });
-
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                console.log("Cancel ", statusCodes.SIGN_IN_CANCELLED);
-                // user cancelled the login flow
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                console.log("InProgress ", statusCodes.IN_PROGRESS);
-                // operation (f.e. sign in) is in progress already
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-                console.log(
-                    "Not Available ",
-                    statusCodes.PLAY_SERVICES_NOT_AVAILABLE
-                );
-                // play services not available or outdated
-            } else {
-                console.log("Error ", error);
-            }
-        }
+    signInGoogle = (data) => {
+        this.doLoginSosMed(data);
     };
 
     signInFacebook = async data => {
-        console.log("datas", data);
         this.doLoginSosMed(data);
     };
 
@@ -450,16 +394,11 @@ export default class Intro extends React.Component {
                         </View>
                         <Text
                             style={styles.forgotPassword}
-                            //  onPress={() => alert("Forgot Password")}
                         >
                             OR
                         </Text>
                         <View style={styles.signInGoogle}>
-                            <GoogleSigninButton
-                                style={{ width: 192, height: 50 }}
-                                size={GoogleSigninButton.Size.Wide}
-                                onPress={() => this.signInGoogle()}
-                            />
+                            <GoogleLoginButton onPress={this.signInGoogle} />
                             <FBLoginButton onPress={this.signInFacebook} />
                         </View>
                         <View style={styles.socialSec}>
@@ -473,13 +412,10 @@ export default class Intro extends React.Component {
                 </Container>
             );
         } else {
-            //Intro slides
             return (
                 <AppIntroSlider
                     slides={slides}
-                    //comming from the JsonArray below
                     onDone={this._onDone}
-                    //Handler for the done On last slide
                     showSkipButton={true}
                     onSkip={this._onSkip}
                 />

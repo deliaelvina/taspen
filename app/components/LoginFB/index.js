@@ -6,7 +6,7 @@ import {
     StyleSheet,
     Platform
 } from "react-native";
-import { Colors } from "../../Themes";
+import { Style,Colors } from "../../Themes";
 import { Icon } from "native-base";
 const FBSDK = require("react-native-fbsdk");
 const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
@@ -41,7 +41,6 @@ export default class FBLoginButton extends Component {
                                 );
                             }
                         );
-                        // Start the graph request.
                         new GraphRequestManager()
                             .addRequest(infoRequest)
                             .start();
@@ -78,7 +77,7 @@ export default class FBLoginButton extends Component {
                 onPress={this.handleLogin}
             >
                 <Icon name="facebook" style={styles.icon} type="FontAwesome5" />
-                <Text style={styles.text}>Sign in with facebook</Text>
+                <Text style={[Style.textWhite,styles.text]}>Sign in with facebook</Text>
             </TouchableOpacity>
         );
     }
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     },
     text: {
         // fontFamily: "Montserrat-Regular.ttf",
+        fontSize: 12,
         color: "#fff"
     },
     icon: {
