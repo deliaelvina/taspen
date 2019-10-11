@@ -55,7 +55,64 @@ class FollowupProspect extends Component {
     render() {
         return (
             <Container style={Style.bgMain}>
-                
+                 <View>
+                    <ScrollView>
+                        <View style={Styles.overview}>
+                        
+                           
+                            <View  >
+                                
+                            
+                                <TouchableOpacity  onPress={() => alert('tes')}
+                                >
+                                <Card style={{
+                                    height: null,
+                                    backgroundColor: 'white',
+                                    shadowOffset: { width: 1, height: 1 },
+                                    shadowColor: "#37BEB7",
+                                    shadowOpacity: 0.5,
+                                    elevation: 5,
+                                    paddingHorizontal: 10,
+                                    paddingVertical: 10,
+                                    borderRadius: 10,
+                                    flex: 1, 
+                                    alignItems: "flex-start",
+                                    // backgroundColor: 'red'
+                                }} 
+                               
+                                >
+                                <View style={{flexDirection: "row"}}>
+                                        {/* <Image
+                                            source={require("@Asset/icon/calculator.png")}
+                                            style={Styles.infoIcon}
+                                        /> */}
+                                        <View style={{ alignSelf: "center",width: '100%' }}>
+                                            <Text style={Styles.infoHeader}>
+                                          tes
+                                            
+                                            </Text>
+                                            <Text style={Styles.infoDesc}>
+                                          tes
+                                            </Text>
+                                            <View style={Styles.badge}>
+                                              <Text style={{color: '#fff',fontSize: 15}}>tes </Text>
+                                            </View>
+                                            
+                                        </View>
+                                        <View>
+                                            
+                                        </View>
+
+                                </View>
+                            </Card>
+                            </TouchableOpacity>
+                           
+                                
+                            </View>
+                        
+                        </View>
+                    </ScrollView>
+                </View>
             </Container>
 
         );

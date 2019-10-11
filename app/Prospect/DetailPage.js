@@ -83,6 +83,11 @@ class DetailPage extends Component {
             prov: [],
             prov2: [],
             getstatus: [],
+            getcity: [],
+            getdistrict: [],
+            getvillage: [],
+            getpostcode: [],
+            getmedia: [],
 
 
             salutationcd: [],
@@ -119,7 +124,10 @@ class DetailPage extends Component {
             contact_person: '', //contact
             media: '',
 
-            selProv : "",
+            selProv : '',
+            selCity: '',
+            selDistrict: '',
+            selVillage: '',
 
         };
         this.renderAccordionHeader = this.renderAccordionHeader.bind(this)
@@ -182,8 +190,13 @@ class DetailPage extends Component {
             this.getClassCode(dataProspect)
             this.getSalutation(dataProspect)
             this.getStatus(dataProspect)
-            this.getProvince();
-            this.getProvince2();
+            this.getProvince(dataProspect)
+            this.getCity(dataProspect,'')
+            this.getDistrict(dataProspect,'','')
+            this.getVillage(dataProspect,'','','')
+            this.getPostCode(dataProspect,'','','','')
+            this.getMedia(dataProspect)
+            // this.getProvince2();
             // this.getPostCode();
             
         });
@@ -312,7 +325,6 @@ class DetailPage extends Component {
             })
             :null}
     }
-    
 
     save = () => {
         const {business_id,descs,vip,salutation} = this.state
@@ -361,43 +373,47 @@ class DetailPage extends Component {
         // });
     }
 
-    getProvince = () =>{
-        // const item = this.props.items
+    getProvince = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {province_cd} = dataProspect
+        console.log('province _getdata 1', province_cd);
         {isMount ?
-            fetch(urlApi+'c_prospect/get_province/IFCAPB/',{
-                method:'GET',
+            fetch(urlApi + 'c_prospect/get_province/IFCAPB2/',{
+                method: 'GET',
+                // method:'POST',
+                // body: JSON.stringify({province_cd})
                 // headers : this.state.hd,
             }).then((response) => response.json())
             .then((res)=>{
                 if(!res.Error){
                     const resData = res.Data
-                    // resData.map((data)=>{
-                    //     this.setState(prevState=>({
-                    //         prov : [...prevState.prov, {label: data.descs, value:data.province_cd}]
-                    //     }))
-                    // })
-                    // this.setState({
-                    //     prov: [...this.state.prov, ...resData.results]});
+                   
+                    console.log('getprov',res);
                     this.setState({prov:resData});
-                    console.log('prov',res);
                 } else {
                     this.setState({isLoaded: !this.state.isLoaded},()=>{
                         alert(res.Pesan)
                     });
                 }
-                // console.log('prov',res);
+                // console.log('salutation',res);
             }).catch((error) => {
                 console.log(error);
             })
-        :null}
+            :null}
         
     }
     
-    getProvince2 = () =>{
-        // const item = this.props.items
+    getCity = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {province_cd} = dataProspect
+        console.log('province _getdata 2', province_cd);
+        // const province = this.props.items
         {isMount ?
-            fetch(urlApi+'c_prospect/zoom_province/IFCAPB/',{
-                method:'GET',
+            fetch(urlApi+'c_prospect/zoom_city/IFCAPB/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({province_cd})
+
                 // headers : this.state.hd,
             }).then((response) => response.json())
             .then((res)=>{
@@ -405,32 +421,203 @@ class DetailPage extends Component {
                     const resData = res.Data
                     // resData.map((data)=>{
                     //     this.setState(prevState=>({
-                    //         prov2 : [...prevState.prov2, {label:data.descs, value:data.province_cd}]
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
                     //     }))
                     // })
-                    // this.setState({
-                    //     prov: [...this.state.prov, ...resData.results]});
-                    this.setState({prov2:resData});
-                    console.log('prov',res);
+                    this.setState({getcity:resData});
+                    console.log('zoom city',res);
                 } else {
                     this.setState({isLoaded: !this.state.isLoaded},()=>{
                         alert(res.Pesan)
                     });
                 }
-                // console.log('prov',res);
+                
             }).catch((error) => {
                 console.log(error);
             })
         :null}
-        
     }
+    getDistrict = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {province_cd} = dataProspect
+        const {city} = dataProspect
+        console.log('province _getdata 3', city);
+        // const province = this.props.items
+        {isMount ?
+            fetch(urlApi+'c_prospect/zoom_district/IFCAPB/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({province_cd,city})
+
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                    //     }))
+                    // })
+                    this.setState({getdistrict:resData});
+                    console.log('zoom district',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+    }
+    getVillage = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {province_cd} = dataProspect
+        const {city} = dataProspect
+        const {district} = dataProspect
+        console.log('district _getdata 3', district);
+        // const province = this.props.items
+        {isMount ?
+            fetch(urlApi+'c_prospect/zoom_village/IFCAPB/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({province_cd,city,district})
+
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                    //     }))
+                    // })
+                    this.setState({getvillage:resData});
+                    console.log('zoom village',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+    }
+
+    getPostCode = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {province_cd} = dataProspect
+        const {city} = dataProspect
+        const {district} = dataProspect
+        const {village} = dataProspect
+        console.log('village _getdata 3', village);
+        // const province = this.props.items
+        {isMount ?
+            fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({province_cd,city,district,village})
+
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                    //     }))
+                    // })
+                    this.setState({getpostcode:resData});
+                    console.log('zoom postcode',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+    }
+
+    getMedia = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {media} = dataProspect
+        
+        console.log('media _getdata', media);
+        // const province = this.props.items
+        {isMount ?
+            fetch(urlApi+'c_media/getMedia/IFCAPB/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({media})
+
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                    //     }))
+                    // })
+                    this.setState({getmedia:resData});
+                    console.log('media',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+    }
+
     chooseProv = (val)=>{
-        // if(val){
-        //     this.setState({selProv : val},()=>{
-        //         // this.getAgentDT(val)
-        //         // this.getComission(val,'')
-        //     })
-        // }
+        if(val){
+            this.setState({selProv : val},()=>{
+                this.getCity(val)
+                
+                // this.getComission(val,'')
+            })
+        }
+    }
+    chooseCity= (val)=>{
+        if(val){
+            this.setState({selCity : val},()=>{
+                this.getDistrict(val)
+                
+                // this.getComission(val,'')
+            })
+        }
+    }
+    chooseDistrict= (val)=>{
+        if(val){
+            this.setState({selDistrict : val},()=>{
+                this.getVillage(val)
+                
+                // this.getComission(val,'')
+            })
+        }
+    }
+    chooseVillage= (val)=>{
+        if(val){
+            this.setState({selVillage : val},()=>{
+                this.getPostCode(val)
+                
+                // this.getComission(val,'')
+            })
+        }
     }
 
     AddProspect() {
@@ -631,7 +818,7 @@ class DetailPage extends Component {
                                 
     }
     renderAccordionContentDetail() {
-        let {salutation,name,addr1,post_cd,district,village,city,province,tel_no,hp,hp2,handphone,email_addr,salutation_cd} = this.state
+        let {salutation,name,addr1,post_cd,district,village,city,province_cd,tel_no,hp,hp2,handphone,email_addr,salutation_cd} = this.state
         return <View style={Styles.overview_detail}>
                     {this.state.detail.length == 0 ?
                             <ActivityIndicator />
@@ -687,17 +874,18 @@ class DetailPage extends Component {
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={province} />
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} />
                                     </View>
                                 </TouchableOpacity>
                             :
                             <Item rounded style={{height: 35}}>
                                 <Picker 
                                 placeholder="Gender"
-                                selectedValue={this.state.prov}
+                                selectedValue={this.state.province_cd}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                // onValueChange={(val)=>this.setState({descs:val})}
+                                // onValueChange={(val)=>this.setState({province_cd:val})}
+                                onValueChange={(val)=>this.chooseProv(val)}
                                 >
                                      {this.state.prov.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -713,25 +901,122 @@ class DetailPage extends Component {
                             <Label>
                                 <Text style={{fontSize: 12}}>City</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/>
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={city} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                            <Item rounded style={{height: 35}}>
+                                <Picker 
+                                placeholder="Gender"
+                                selectedValue={this.state.city}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                // onValueChange={(val)=>this.setState({city:val})}
+                                onValueChange={(val)=>this.chooseCity(val)}
+                                >
+                                     {this.state.getcity.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                </Picker>
+                               
+                            </Item>
+                            }
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                        </View>
+                        <View style={{ paddingVertical: 10}}>
+                            <Label>
+                                <Text style={{fontSize: 12}}>City</Text>
+                            </Label>
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={district} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                            <Item rounded style={{height: 35}}>
+                                <Picker 
+                                placeholder="Gender"
+                                selectedValue={this.state.district}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                // onValueChange={(val)=>this.setState({city:val})}
+                                onValueChange={(val)=>this.chooseCity(val)}
+                                >
+                                     {this.state.getdistrict.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                </Picker>
+                               
+                            </Item>
+                            }
+                               
+                            <TextInput style={Styles.textInput} placeholder={'Province'} value={district} onChangeText={(val)=>{this.setState({province:val})}}/>
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Village</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/>
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={village} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                            <Item rounded style={{height: 35}}>
+                                <Picker 
+                                placeholder="Gender"
+                                selectedValue={this.state.village}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                onValueChange={(val)=>this.setState({village:val})}
+                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                >
+                                     {this.state.getvillage.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                </Picker>
+                               
+                            </Item>
+                            }
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>District</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/>
-                        </View> 
+                       
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Post Code</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/>
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={post_cd} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                            <Item rounded style={{height: 35}}>
+                                <Picker 
+                                placeholder="Gender"
+                                selectedValue={this.state.post_cd}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                onValueChange={(val)=>this.setState({post_cd:val})}
+                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                >
+                                     {this.state.getpostcode.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                </Picker>
+                               
+                            </Item>
+                            }
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
@@ -772,7 +1057,7 @@ class DetailPage extends Component {
     }
     
     renderAccordionContentOther() {
-       let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media} = this.state.detail[0]
+       let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media} = this.state
 
         return <View style={Styles.overview_detail}>
                     {this.state.detail.length == 0 ?
@@ -832,19 +1117,38 @@ class DetailPage extends Component {
                             </Label>
                             <TextInput style={Styles.textInput} placeholder={'Contact'} value={contact_person} onChangeText={(val)=>{this.setState({vip:val})}} />
                         </View>
-                        <View style={{paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                <Text style={Styles.overviewTitles_Small}>Media</Text>
-                            </View>
-                            <TextInput style={Styles.textInput} placeholder={'Media'} value={media} onChangeText={(val)=>{this.setState({vip:val})}} />
+                        <View style={{ paddingVertical: 10}}>
+                            <Label>
+                                <Text style={{fontSize: 12}}>Media</Text>
+                            </Label>
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Media'} value={media} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                                <Picker 
+                                placeholder="Gender"
+                                selectedValue={this.state.media}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                onValueChange={(val)=>this.setState({media:val})}>
+                                    {this.state.getmedia.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                    {/* <Item label="Male" value="Male" />
+                                    <Item label="Female" value="Female" /> */}
+                                </Picker>
+                            }
+                            {/* <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} /> */}
                         </View> 
                     </View>
                     }
                 </View>
     }
     renderAccordionContentInterest() {
-        let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media} = this.state.detail[0]
+        let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media} = this.state
 
         return <View style={Styles.overview_detail}>
                     {this.state.detail.length == 0 ?

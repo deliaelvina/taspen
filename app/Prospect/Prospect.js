@@ -253,10 +253,11 @@ class ProspectPage extends Component {
                                         /> */}
                                         <View style={{ alignSelf: "center",width: '100%' }}>
                                             <Text style={Styles.infoHeader}>
-                                            {data.status_cd}
+                                            {data.descs}
+                                            
                                             </Text>
                                             <Text style={Styles.infoDesc}>
-                                            {data.descs}
+                                            {data.status_cd}
                                             </Text>
                                             <View style={Styles.badge}>
                                               <Text style={{color: '#fff',fontSize: 15}}> {data.cnt} </Text>

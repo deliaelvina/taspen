@@ -95,6 +95,7 @@ class DetailProspect extends Component {
 
             },
             status_cd:'',
+            descs: '',
         }
 
        
@@ -105,6 +106,7 @@ class DetailProspect extends Component {
         Actions.refresh({ backTitle: () => dataProspect.status_cd });
         const data = {
             status_cd : dataProspect.status_cd,
+            descs : dataProspect.descs,
 
         }
         console.log('ambil data statuscd', data);
@@ -144,9 +146,10 @@ class DetailProspect extends Component {
                     </View>
                     <View style={Style.actionBarMiddle}>
                         <Text style={Style.actionBarText}>
-                            {/* {"Low".toUpperCase()} */}
-                            {/* {dataProspect.status_cd.toUpperCase()} */}
-                            {this.state.status_cd.toUpperCase()}
+                            {"Detail & Follow Up".toUpperCase()}
+                            {/* {dataProspect.descs.toUpperCase()} */}
+                            {/* {this.state.status_cd.toUpperCase()}
+                            {this.state.descs.toUpperCase()} */}
                         </Text>
                     </View>
                     <View style={Style.actionBarRight} />

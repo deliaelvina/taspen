@@ -62,6 +62,7 @@ class ListProspect extends Component {
             email: '',
             detail: [],
             handphone: '',
+            descs: '',
 
 
         }
@@ -71,12 +72,14 @@ class ListProspect extends Component {
         Actions.refresh({ backTitle: () => this.props.status_cd });
         const data = {
             status_cd : this.props.datas.status_cd,
+            descs : this.props.datas.descs,
             email : await _getData('@User'),
         }
-        console.log('data', data);
+        console.log('data di list', data);
         isMount = true;
         this.setState(data, () => {
             this.getDataListProspect(this.props.datas)
+            // this.getStatus()
         });
     };
 
@@ -112,6 +115,8 @@ class ListProspect extends Component {
         :null}
     }
 
+    
+
     async DetailProspect(data) {
         console.log('_storedata di list prospect',data);
         _storeData("statusProspect",data);
@@ -133,6 +138,7 @@ class ListProspect extends Component {
         return (
             <Container style={Style.bgMain}>
                 <Header style={Style.navigation}>
+                    
                     <StatusBar
                         backgroundColor={Colors.statusBarOrange}
                         animated
@@ -157,7 +163,9 @@ class ListProspect extends Component {
                     <View style={Style.actionBarMiddle}>
                         <Text style={Style.actionBarText}>
                             {/* {"Low".toUpperCase()} */}
-                            {this.state.status_cd.toUpperCase()}
+                            {/* {data.descs} */}
+                            {/* {this.state.status_cd.toUpperCase()} */}
+                            {this.state.descs.toUpperCase()}
                         </Text>
                     </View>
                     <View style={Style.actionBarRight} />
