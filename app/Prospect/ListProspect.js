@@ -6,7 +6,8 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-    ScrollView
+    ScrollView,
+    Linking,
     
 
 } from "react-native";
@@ -59,7 +60,8 @@ class ListProspect extends Component {
         this.state = {
             status_cd : '',
             email: '',
-            detail: []
+            detail: [],
+            handphone: '',
 
 
         }
@@ -110,14 +112,20 @@ class ListProspect extends Component {
         :null}
     }
 
-    DetailProspect(data) {
-        console.log('data status prospect',data);
+    async DetailProspect(data) {
+        console.log('_storedata di list prospect',data);
+        _storeData("statusProspect",data);
         Actions.Detail({datas : data});
         // Actions.IndexProspect
         this.setState({ click : true})
     }
 
-
+    callphone(){
+        const noHp = this.state.detail[0].handphone
+        // alert(noHp);
+        // const noHp = "82236203286"
+        Linking.openURL('tel:'+noHp)
+    }
     
 
  
@@ -169,7 +177,7 @@ class ListProspect extends Component {
                                     <Text style={{fontFamily: "Montserrat-Regular",alignSelf:'flex-start',color: "#333",marginBottom: 5,fontSize: 15}}>Follow Up Date : 08-09-2019</Text>
                                 </View>
                                 <Right style={{position:'absolute',right:30}} >
-                                    <Icon color="green" name="phone" style={{fontSize: 30,color: 'green'}} type="FontAwesome" onPress={()=>alert('tlp') }/>
+                                    <Icon color="green" name="phone" style={{fontSize: 30,color: 'green'}} type="FontAwesome" onPress={()=>this.callphone()}/>
                                 </Right>
                             </ListItem>
                         ))}

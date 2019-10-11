@@ -68,10 +68,18 @@ export default {
         fontFamily: Fonts.type.sfuiDisplaySemibold,
         left: 15,
       },
+      overviewTitles_Small : {
+        flex: 1,
+        // fontFamily: Fonts.type.sfuiDisplaySemibold,
+        left: 13,
+        fontSize: 13,
+        bottom: 5
+      },
       overviewTitle: {
         flex: 1,
         fontFamily: Fonts.type.sfuiDisplaySemibold,
       },
+
       overview: {
         flex: 1,
         paddingHorizontal: 20,
@@ -92,6 +100,9 @@ export default {
       },
       iconSub : {
         fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: 3
+      },
+      iconSub2 : {
+        fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: -5
       },
       iconColor : {
         color: Colors.navyUrban, left: 15,
@@ -184,7 +195,7 @@ export default {
     formBg: {
       width: '100%',
       paddingHorizontal: 15,
-      paddingTop: 30,
+      paddingTop: 15,
       paddingBottom: 10,
     },
     accordion: {
@@ -226,6 +237,19 @@ fontFamily: "Montserrat-Regular",
     fontSize: 14,
     textAlign: 'center',
 },
+buttonContact: {
+  flexDirection: 'row', 
+  width: '100%', 
+  flex: 1, 
+  backgroundColor: 'transparent',
+   borderColor: Colors.navyUrban, 
+   borderWidth: 1,
+   marginHorizontal: 3,
+   marginVertical: 3,
+   borderRadius: 5,
+   height: 38, 
+   justifyContent: 'center'
+}
 
 
 }
