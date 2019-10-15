@@ -46,6 +46,7 @@ import { Input } from "react-native-elements";
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import RNPickerSelect from 'react-native-picker-select';
 import Mailer from "react-native-mail";
+import InterestProjectProspect from './InterestProjectProspect';
 
 // import styles, { colors } from "./styles/index";
 
@@ -123,6 +124,7 @@ class DetailPage extends Component {
             occupation: '',
             contact_person: '', //contact
             media: '',
+            media_cd: '',
 
             selProv : '',
             selCity: '',
@@ -177,6 +179,7 @@ class DetailPage extends Component {
             occupation: dataProspect.occupation,
             contact_person: dataProspect.contact_person, //contact
             media: dataProspect.media,
+            media_cd: dataProspect.media_cd,
             
 
             email : await _getData('@User'),
@@ -378,7 +381,7 @@ class DetailPage extends Component {
         const {province_cd} = dataProspect
         console.log('province _getdata 1', province_cd);
         {isMount ?
-            fetch(urlApi + 'c_prospect/get_province/IFCAPB2/',{
+            fetch(urlApi + 'c_prospect/zoom_province/IFCAPB2/',{
                 method: 'GET',
                 // method:'POST',
                 // body: JSON.stringify({province_cd})
@@ -403,16 +406,16 @@ class DetailPage extends Component {
         
     }
     
-    getCity = async() =>{
+    getCity = async(val) =>{
         const dataProspect = await _getData("statusProspect");
         const {province_cd} = dataProspect
         console.log('province _getdata 2', province_cd);
         // const province = this.props.items
         {isMount ?
-            fetch(urlApi+'c_prospect/zoom_city/IFCAPB/',{
+            fetch(urlApi+'c_prospect/zoom_city/IFCAPB2/',{
                 // method:'GET',
                 method:'POST',
-                body: JSON.stringify({province_cd})
+                body: JSON.stringify({province_cd:val})
 
                 // headers : this.state.hd,
             }).then((response) => response.json())
@@ -441,13 +444,13 @@ class DetailPage extends Component {
         const dataProspect = await _getData("statusProspect");
         const {province_cd} = dataProspect
         const {city} = dataProspect
-        console.log('province _getdata 3', city);
+        console.log('city _getdata 3', city);
         // const province = this.props.items
         {isMount ?
             fetch(urlApi+'c_prospect/zoom_district/IFCAPB/',{
                 // method:'GET',
                 method:'POST',
-                body: JSON.stringify({province_cd,city})
+                body: JSON.stringify({city,province_cd})
 
                 // headers : this.state.hd,
             }).then((response) => response.json())
@@ -549,15 +552,15 @@ class DetailPage extends Component {
 
     getMedia = async() =>{
         const dataProspect = await _getData("statusProspect");
-        const {media} = dataProspect
+        const {media_cd} = dataProspect
         
-        console.log('media _getdata', media);
+        console.log('media _getdata', media_cd);
         // const province = this.props.items
         {isMount ?
-            fetch(urlApi+'c_media/getMedia/IFCAPB/',{
+            fetch(urlApi+ 'c_media/getMedia/IFCAPB2/',{
                 // method:'GET',
                 method:'POST',
-                body: JSON.stringify({media})
+                body: JSON.stringify({media_cd})
 
                 // headers : this.state.hd,
             }).then((response) => response.json())
@@ -584,19 +587,29 @@ class DetailPage extends Component {
     }
 
     chooseProv = (val)=>{
+        console.log('prov change',val);
+        
+        // alert(val);
+        
+        
+        // alert(val);
         if(val){
-            this.setState({selProv : val},()=>{
-                this.getCity(val)
+            this.setState({province_cd : val},()=>{
+                // alert(selProv);
+                this.getCity(val);
                 
                 // this.getComission(val,'')
             })
         }
+       
     }
     chooseCity= (val)=>{
+        // alert(val);
         if(val){
-            this.setState({selCity : val},()=>{
+            
+            this.setState({province_cd: val},()=>{
+                // alert(val);
                 this.getDistrict(val)
-                
                 // this.getComission(val,'')
             })
         }
@@ -680,6 +693,11 @@ class DetailPage extends Component {
         alert(noHp);
         // const noHp = "82236203286"
         // Linking.openURL('tel:'+noHp)
+    }
+    AddProject(){
+        Actions.InterestProjectProspect();
+        // Actions.IndexProspect
+        this.setState({ click : true})
     }
 
     // getPostCode = () =>{
@@ -770,7 +788,8 @@ class DetailPage extends Component {
                                 selectedValue={this.state.class_cd}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({descs:val})}
+                                onValueChange={(val)=>this.setState({class_cd:val})}
+                                // onValueChange={(val)=>alert(val)}
                                 >
                                      {this.state.classCd.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -851,7 +870,7 @@ class DetailPage extends Component {
                                
                             </Item>
                             }
-                            <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} onChangeText={(val)=>{this.setState({salutation:val})}}/>
+                            {/* <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} onChangeText={(val)=>{this.setState({salutation:val})}}/> */}
                         </View>  
                         <View style={{ paddingVertical: 10}}>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
@@ -885,7 +904,9 @@ class DetailPage extends Component {
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 // onValueChange={(val)=>this.setState({province_cd:val})}
+                                // onValueChange={(val)=>alert(val)}
                                 onValueChange={(val)=>this.chooseProv(val)}
+                                // onValueChange={this.chooseProv}
                                 >
                                      {this.state.prov.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -897,25 +918,28 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View>
+                        
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>City</Text>
                             </Label>
+                            
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={city} />
+                                        <TextInput style={Styles.textInput} placeholder={'City'} value={city} />
                                     </View>
                                 </TouchableOpacity>
                             :
                             <Item rounded style={{height: 35}}>
                                 <Picker 
-                                placeholder="Gender"
+                                placeholder="City"
                                 selectedValue={this.state.city}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                // onValueChange={(val)=>this.setState({city:val})}
-                                onValueChange={(val)=>this.chooseCity(val)}
+                                onValueChange={(val)=>this.setState({city:val})}
+                                // onValueChange={(val)=>alert(val)}
+                                // onValueChange={(val)=>this.chooseCity(val)}
                                 >
                                      {this.state.getcity.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -925,27 +949,28 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                            <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/>
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
-                                <Text style={{fontSize: 12}}>City</Text>
+                                <Text style={{fontSize: 12}}>District</Text>
                             </Label>
+                           
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={district} />
+                                        <TextInput style={Styles.textInput} placeholder={'District'} value={district} />
                                     </View>
                                 </TouchableOpacity>
                             :
                             <Item rounded style={{height: 35}}>
                                 <Picker 
                                 placeholder="Gender"
-                                selectedValue={this.state.district}
+                                selectedValue={district}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                // onValueChange={(val)=>this.setState({city:val})}
-                                onValueChange={(val)=>this.chooseCity(val)}
+                                onValueChange={(val)=>this.setState({district:val})}
+                                // onValueChange={(val)=>this.chooseCity(val)}
                                 >
                                      {this.state.getdistrict.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -955,7 +980,7 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            <TextInput style={Styles.textInput} placeholder={'Province'} value={district} onChangeText={(val)=>{this.setState({province:val})}}/>
+                            {/* <TextInput style={Styles.textInpust} placeholder={'Province'} value={district} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
@@ -1055,38 +1080,44 @@ class DetailPage extends Component {
                     }
                 </View>
     }
-    
     renderAccordionContentOther() {
-       let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media} = this.state
+       let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media,media_cd} = this.state
 
         return <View style={Styles.overview_detail}>
                     {this.state.detail.length == 0 ?
                             <ActivityIndicator />
                         :
                     <View>
+                        
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Sex</Text>
                             </Label>
                             {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()}>
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
+                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={sex} />
                                     </View>
                                 </TouchableOpacity>
                             :
+                            <Item rounded style={{height: 35}}>
                                 <Picker 
                                 placeholder="Gender"
                                 selectedValue={this.state.sex}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({sex:val})}>
-                                    <Item label="Male" value="Male" />
+                                onValueChange={(val)=>this.setState({sex:val})}
+                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                >
+                                     <Item label="Male" value="Male" />
                                     <Item label="Female" value="Female" />
                                 </Picker>
+                               
+                            </Item>
                             }
-                            {/* <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} /> */}
-                        </View>  
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                        </View> 
                         <View style={{paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Name</Text>
@@ -1118,31 +1149,38 @@ class DetailPage extends Component {
                             <TextInput style={Styles.textInput} placeholder={'Contact'} value={contact_person} onChangeText={(val)=>{this.setState({vip:val})}} />
                         </View>
                         <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Media</Text>
-                            </Label>
+                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                <Text style={Styles.overviewTitles_Small}>Media</Text>
+                            </View>
                             {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()}>
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
                                         <TextInput style={Styles.textInput} placeholder={'Media'} value={media} />
                                     </View>
                                 </TouchableOpacity>
                             :
+                            <Item rounded style={{height: 35}}>
                                 <Picker 
-                                placeholder="Gender"
-                                selectedValue={this.state.media}
+                                placeholder="Media"
+                                selectedValue={this.state.media_cd}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({media:val})}>
-                                    {this.state.getmedia.map((data, key) =>
+                                onValueChange={(val)=>this.setState({media_cd:val})}
+                                // onValueChange={(val)=>alert(val)}
+                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                >
+                                     {this.state.getmedia.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
                                     )}
-                                    {/* <Item label="Male" value="Male" />
-                                    <Item label="Female" value="Female" /> */}
                                 </Picker>
+                               
+                            </Item>
                             }
-                            {/* <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} /> */}
-                        </View> 
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={media_cd} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                        </View>
+                        
                     </View>
                     }
                 </View>
@@ -1244,7 +1282,7 @@ class DetailPage extends Component {
                                     
                                 </ListItem>
 
-                                <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>this.AddProspect() }>
+                                <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>this.AddProject() }>
                                        {/* <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>alert('add project') }> */}
                                            <Text style={{fontSize: 12}}>Add Project</Text>
                                        </Button>

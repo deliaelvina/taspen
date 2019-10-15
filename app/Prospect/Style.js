@@ -85,6 +85,9 @@ export default {
         paddingHorizontal: 20,
         paddingVertical: 5,
       },
+      overview_padhorizontal: {
+        flex: 1,paddingHorizontal: 10,paddingVertical: 5,
+      },
       textInput: {
         fontFamily: Fonts.type.sfuiDisplaySemibold,
         borderBottomWidth: 0,
