@@ -108,7 +108,7 @@ class ListProspect extends Component {
                     alert(res.Pesan)
                 });
             }
-            console.log('datalistprospect',res);
+            
         }).catch((error) => {
             console.log(error);
         })

@@ -273,7 +273,7 @@ class AddProject extends Component {
                             <View style={{alignSelf: 'center'}}>
                                 <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 40, marginVertical: 10}} onPress={()=>this.AddProject() }>
                                 {/* <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>alert('add project') }> */}
-                                    <Text style={{fontSize: 14}}>Submit</Text>
+                                    <Text style={{fontSize: 14}}>Edit</Text>
                                 </Button>
                             </View>
 

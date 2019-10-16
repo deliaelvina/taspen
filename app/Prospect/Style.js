@@ -72,7 +72,7 @@ export default {
         flex: 1,
         // fontFamily: Fonts.type.sfuiDisplaySemibold,
         left: 13,
-        fontSize: 13,
+        fontSize: 12,
         bottom: 5
       },
       overviewTitle: {
@@ -86,7 +86,7 @@ export default {
         paddingVertical: 5,
       },
       overview_padhorizontal: {
-        flex: 1,paddingHorizontal: 10,paddingVertical: 5,
+        flex: 1,paddingHorizontal: 0, width: '100%',paddingVertical: 5
       },
       textInput: {
         fontFamily: Fonts.type.sfuiDisplaySemibold,

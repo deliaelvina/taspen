@@ -89,7 +89,8 @@ class DetailPage extends Component {
             getvillage: [],
             getpostcode: [],
             getmedia: [],
-
+            getocupation: [],
+            
 
             salutationcd: [],
             salutation_cd: '',
@@ -122,6 +123,7 @@ class DetailPage extends Component {
             spouse_hp: '',
             co_name: '', //company name
             occupation: '',
+            occupation_cd: '',
             contact_person: '', //contact
             media: '',
             media_cd: '',
@@ -130,6 +132,18 @@ class DetailPage extends Component {
             selCity: '',
             selDistrict: '',
             selVillage: '',
+            zoomprovince: '',
+            zoomcity: '',
+            zoomdistrict: '',
+            zoomvillage: '',
+
+            //tab Interest
+            datainterest: [],
+            property_cd : '',
+            project_name: '',
+            lot_no: '',
+            rent: '',
+            buy: '',
 
         };
         this.renderAccordionHeader = this.renderAccordionHeader.bind(this)
@@ -194,11 +208,13 @@ class DetailPage extends Component {
             this.getSalutation(dataProspect)
             this.getStatus(dataProspect)
             this.getProvince(dataProspect)
-            this.getCity(dataProspect,'')
-            this.getDistrict(dataProspect,'','')
-            this.getVillage(dataProspect,'','','')
-            this.getPostCode(dataProspect,'','','','')
+            this.getCity()
+            this.getDistrict()
+            this.getVillage()
+            this.getPostCode()
             this.getMedia(dataProspect)
+            this.getOccupation(dataProspect)
+            this.getInterest()
             // this.getProvince2();
             // this.getPostCode();
             
@@ -406,148 +422,293 @@ class DetailPage extends Component {
         
     }
     
-    getCity = async(val) =>{
-        const dataProspect = await _getData("statusProspect");
-        const {province_cd} = dataProspect
-        console.log('province _getdata 2', province_cd);
-        // const province = this.props.items
-        {isMount ?
-            fetch(urlApi+'c_prospect/zoom_city/IFCAPB2/',{
-                // method:'GET',
-                method:'POST',
-                body: JSON.stringify({province_cd:val})
+    getCity = async(zoomprovince) =>{
 
-                // headers : this.state.hd,
-            }).then((response) => response.json())
-            .then((res)=>{
-                if(!res.Error){
-                    const resData = res.Data
-                    // resData.map((data)=>{
-                    //     this.setState(prevState=>({
-                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
-                    //     }))
-                    // })
-                    this.setState({getcity:resData});
-                    console.log('zoom city',res);
-                } else {
-                    this.setState({isLoaded: !this.state.isLoaded},()=>{
-                        alert(res.Pesan)
-                    });
-                }
-                
-            }).catch((error) => {
-                console.log(error);
-            })
-        :null}
+        // console.log('zoom province when getcity', {province_cd:zoomprovince})
+        if(zoomprovince == '' || zoomprovince == null){
+            const dataProspect = await _getData("statusProspect");
+            const {province_cd} = dataProspect
+            console.log('zoom province when getcity null', {province_cd})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_city/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({province_cd})
+    
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        this.setState({getcity:resData});
+                        console.log('zoom city',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
+        }else{
+            // const {province_cd} = zoomprovince
+            console.log('zoom province when getcity not null', {province_cd:zoomprovince})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_city/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({province_cd:zoomprovince})
+    
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        this.setState({getcity:resData});
+                        console.log('zoom city',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
+        }
+        // const dataProspect = await _getData("statusProspect");
+        // const {province_cd} = dataProspect
+        // console.log('province _getdata 2', province_cd);
+        // const province = this.props.items
+        
     }
-    getDistrict = async() =>{
-        const dataProspect = await _getData("statusProspect");
-        const {province_cd} = dataProspect
-        const {city} = dataProspect
-        console.log('city _getdata 3', city);
+    getDistrict = async(zoomcity) =>{
+        // const dataProspect = await _getData("statusProspect");
+        // const {province_cd} = dataProspect
+        // const {city} = dataProspect
+        // console.log('city _getdata 3', city);
         // const province = this.props.items
-        {isMount ?
-            fetch(urlApi+'c_prospect/zoom_district/IFCAPB/',{
-                // method:'GET',
-                method:'POST',
-                body: JSON.stringify({city,province_cd})
-
-                // headers : this.state.hd,
-            }).then((response) => response.json())
-            .then((res)=>{
-                if(!res.Error){
-                    const resData = res.Data
-                    // resData.map((data)=>{
-                    //     this.setState(prevState=>({
-                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
-                    //     }))
-                    // })
-                    this.setState({getdistrict:resData});
-                    console.log('zoom district',res);
-                } else {
-                    this.setState({isLoaded: !this.state.isLoaded},()=>{
-                        alert(res.Pesan)
-                    });
-                }
-                
-            }).catch((error) => {
-                console.log(error);
-            })
-        :null}
+        
+        if(zoomcity == '' | zoomcity == null){
+            const dataProspect = await _getData("statusProspect");
+            const {province_cd} = dataProspect
+            const {city} = dataProspect
+            console.log('zoom city when getdistrict null', {province_cd,city})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_district/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({city,province_cd})
+    
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        // resData.map((data)=>{
+                        //     this.setState(prevState=>({
+                        //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                        //     }))
+                        // })
+                        this.setState({getdistrict:resData});
+                        console.log('zoom district',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
+        }else{
+            console.log('zoom city when getdistrict not null', {city:zoomcity,province_cd:this.state.province_cd})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_district/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({city:zoomcity,province_cd:this.state.province_cd})
+    
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        // resData.map((data)=>{
+                        //     this.setState(prevState=>({
+                        //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                        //     }))
+                        // })
+                        this.setState({getdistrict:resData});
+                        console.log('zoom district',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
+        }
+        
     }
-    getVillage = async() =>{
-        const dataProspect = await _getData("statusProspect");
-        const {province_cd} = dataProspect
-        const {city} = dataProspect
-        const {district} = dataProspect
-        console.log('district _getdata 3', district);
-        // const province = this.props.items
-        {isMount ?
-            fetch(urlApi+'c_prospect/zoom_village/IFCAPB/',{
-                // method:'GET',
-                method:'POST',
-                body: JSON.stringify({province_cd,city,district})
+    getVillage = async(zoomdistrict) =>{
+        if(zoomdistrict=='' || zoomdistrict== null){
+            const dataProspect = await _getData("statusProspect");
+            const {province_cd} = dataProspect
+            const {city} = dataProspect
+            const {district} = dataProspect
+            console.log('zoom district when getvillage null', {province_cd,city,district})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_village/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({province_cd,city,district})
 
-                // headers : this.state.hd,
-            }).then((response) => response.json())
-            .then((res)=>{
-                if(!res.Error){
-                    const resData = res.Data
-                    // resData.map((data)=>{
-                    //     this.setState(prevState=>({
-                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
-                    //     }))
-                    // })
-                    this.setState({getvillage:resData});
-                    console.log('zoom village',res);
-                } else {
-                    this.setState({isLoaded: !this.state.isLoaded},()=>{
-                        alert(res.Pesan)
-                    });
-                }
-                
-            }).catch((error) => {
-                console.log(error);
-            })
-        :null}
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        // resData.map((data)=>{
+                        //     this.setState(prevState=>({
+                        //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                        //     }))
+                        // })
+                        this.setState({getvillage:resData});
+                        console.log('zoom village',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
+        }else{
+            console.log('zoom district when getvillage not null', {province_cd:this.state.province_cd,city:this.state.city,district:zoomdistrict})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_village/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({province_cd:this.state.province_cd,city:this.state.city,district:zoomdistrict})
+    
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        // resData.map((data)=>{
+                        //     this.setState(prevState=>({
+                        //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                        //     }))
+                        // })
+                        this.setState({getvillage:resData});
+                        console.log('zoom village',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
+        }
+        // const dataProspect = await _getData("statusProspect");
+        // const {province_cd} = dataProspect
+        // const {city} = dataProspect
+        // const {district} = dataProspect
+        // console.log('district _getdata 3', district);
+        // const province = this.props.items
+        
     }
+    getPostCode = async(zoomvillage) =>{
 
-    getPostCode = async() =>{
-        const dataProspect = await _getData("statusProspect");
-        const {province_cd} = dataProspect
-        const {city} = dataProspect
-        const {district} = dataProspect
-        const {village} = dataProspect
-        console.log('village _getdata 3', village);
+        // const dataProspect = await _getData("statusProspect");
+        // const {province_cd} = dataProspect
+        // const {city} = dataProspect
+        // const {district} = dataProspect
+        // const {village} = dataProspect
+        // console.log('village _getdata 3', village);
         // const province = this.props.items
-        {isMount ?
-            fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB/',{
-                // method:'GET',
-                method:'POST',
-                body: JSON.stringify({province_cd,city,district,village})
+        if(zoomvillage=='' || zoomvillage== null){
+            const dataProspect = await _getData("statusProspect");
+            const {province_cd} = dataProspect
+            const {city} = dataProspect
+            const {district} = dataProspect
+            const {village} = dataProspect
+            console.log('zoom village when getpostcode null', {province_cd,city,district,village})
+                {isMount ?
+                    fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB2/',{
+                        // method:'GET',
+                        method:'POST',
+                        body: JSON.stringify({province_cd,city,district,village})
+        
+                        // headers : this.state.hd,
+                    }).then((response) => response.json())
+                    .then((res)=>{
+                        if(!res.Error){
+                            const resData = res.Data
+                            // resData.map((data)=>{
+                            //     this.setState(prevState=>({
+                            //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                            //     }))
+                            // })
+                            this.setState({getpostcode:resData});
+                            console.log('zoom postcode',res);
+                        } else {
+                            this.setState({isLoaded: !this.state.isLoaded},()=>{
+                                alert(res.Pesan)
+                            });
+                        }
+                        
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                :null}
+        }else{
+            console.log('zoom village when getpostcode null', {province_cd:this.state.province_cd,city:this.state.city,district:this.state.district,village:zoomvillage})
+            {isMount ?
+                fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB2/',{
+                    // method:'GET',
+                    method:'POST',
+                    body: JSON.stringify({province_cd:this.state.province_cd,city:this.state.city,district:this.state.district,village:zoomvillage})
+    
+                    // headers : this.state.hd,
+                }).then((response) => response.json())
+                .then((res)=>{
+                    if(!res.Error){
+                        const resData = res.Data
+                        // resData.map((data)=>{
+                        //     this.setState(prevState=>({
+                        //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                        //     }))
+                        // })
+                        this.setState({getpostcode:resData});
+                        console.log('zoom postcode',res);
+                    } else {
+                        this.setState({isLoaded: !this.state.isLoaded},()=>{
+                            alert(res.Pesan)
+                        });
+                    }
+                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            :null}
 
-                // headers : this.state.hd,
-            }).then((response) => response.json())
-            .then((res)=>{
-                if(!res.Error){
-                    const resData = res.Data
-                    // resData.map((data)=>{
-                    //     this.setState(prevState=>({
-                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
-                    //     }))
-                    // })
-                    this.setState({getpostcode:resData});
-                    console.log('zoom postcode',res);
-                } else {
-                    this.setState({isLoaded: !this.state.isLoaded},()=>{
-                        alert(res.Pesan)
-                    });
-                }
-                
-            }).catch((error) => {
-                console.log(error);
-            })
-        :null}
+        }
+        
     }
 
     getMedia = async() =>{
@@ -586,47 +747,124 @@ class DetailPage extends Component {
         :null}
     }
 
-    chooseProv = (val)=>{
-        console.log('prov change',val);
+    getOccupation = async() =>{
+        const dataProspect = await _getData("statusProspect");
+        const {occupation} = dataProspect
+        // const {occupation_cd} = this.state
+        
+        console.log('occupation _getdata', {occupation});
+        // const province = this.props.items
+        {isMount ?
+            fetch(urlApi+ 'c_ocupation/getOcupation/IFCAPB2/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({occupation})
+
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                    //     }))
+                    // })
+                    this.setState({getocupation:resData});
+                    console.log('ocupation',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+    }
+
+    getInterest = async() => {
+
+        const dataProspect = await _getData("statusProspect");
+        const {business_id} = dataProspect
+        // const {occupation_cd} = this.state
+        
+        console.log('busines_id _getdata', {business_id});
+        // const province = this.props.items
+        {isMount ?
+            fetch(urlApi+ 'c_prospect_lot/getTable/IFCAPB2/',{
+                // method:'GET',
+                method:'POST',
+                body: JSON.stringify({business_id})
+
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    // resData.map((data)=>{
+                    //     this.setState(prevState=>({
+                    //         agentDT : [...prevState.agentDT, {label: data.agent_name, value:data.agent_cd}]
+                    //     }))
+                    // })
+                    this.setState({datainterest:resData});
+                    console.log('data interest',res);
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                
+            }).catch((error) => {
+                console.log(error);
+            })
+        :null}
+
+    }
+
+    chooseProv = (zoomprovince)=>{
+        console.log('prov change',zoomprovince);
         
         // alert(val);
         
         
         // alert(val);
-        if(val){
-            this.setState({province_cd : val},()=>{
+        if(zoomprovince){
+            this.setState({province_cd : zoomprovince},()=>{
                 // alert(selProv);
-                this.getCity(val);
+                this.getCity(zoomprovince);
                 
                 // this.getComission(val,'')
             })
         }
        
     }
-    chooseCity= (val)=>{
+    chooseCity= (zoomcity)=>{
+        console.log('city change',zoomcity);
         // alert(val);
-        if(val){
+        if(zoomcity){
             
-            this.setState({province_cd: val},()=>{
+            this.setState({city: zoomcity},()=>{
                 // alert(val);
-                this.getDistrict(val)
+                this.getDistrict(zoomcity);
                 // this.getComission(val,'')
             })
         }
     }
-    chooseDistrict= (val)=>{
-        if(val){
-            this.setState({selDistrict : val},()=>{
-                this.getVillage(val)
+    chooseDistrict= (zoomdistrict)=>{
+        if(zoomdistrict){
+            this.setState({district : zoomdistrict},()=>{
+                this.getVillage(zoomdistrict)
                 
                 // this.getComission(val,'')
             })
         }
     }
-    chooseVillage= (val)=>{
-        if(val){
-            this.setState({selVillage : val},()=>{
-                this.getPostCode(val)
+    chooseVillage= (zoomvillage)=>{
+        if(zoomvillage){
+            this.setState({village : zoomvillage},()=>{
+                this.getPostCode(zoomvillage)
                 
                 // this.getComission(val,'')
             })
@@ -695,7 +933,8 @@ class DetailPage extends Component {
         // Linking.openURL('tel:'+noHp)
     }
     AddProject(){
-        Actions.InterestProjectProspect();
+
+        Actions.AddProject();
         // Actions.IndexProspect
         this.setState({ click : true})
     }
@@ -905,7 +1144,7 @@ class DetailPage extends Component {
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 // onValueChange={(val)=>this.setState({province_cd:val})}
                                 // onValueChange={(val)=>alert(val)}
-                                onValueChange={(val)=>this.chooseProv(val)}
+                                onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
                                 // onValueChange={this.chooseProv}
                                 >
                                      {this.state.prov.map((data, key) =>
@@ -916,9 +1155,8 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} onChangeText={(val)=>{this.setState({province_cd:val})}}/> */}
                         </View>
-                        
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>City</Text>
@@ -927,7 +1165,7 @@ class DetailPage extends Component {
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'City'} value={city} />
+                                        <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/>
                                     </View>
                                 </TouchableOpacity>
                             :
@@ -937,9 +1175,9 @@ class DetailPage extends Component {
                                 selectedValue={this.state.city}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({city:val})}
+                                // onValueChange={(val)=>this.setState({city:val})}
                                 // onValueChange={(val)=>alert(val)}
-                                // onValueChange={(val)=>this.chooseCity(val)}
+                                onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
                                 >
                                      {this.state.getcity.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -949,7 +1187,7 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/>
+                            {/* <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/> */}
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
@@ -966,11 +1204,11 @@ class DetailPage extends Component {
                             <Item rounded style={{height: 35}}>
                                 <Picker 
                                 placeholder="Gender"
-                                selectedValue={district}
+                                selectedValue={this.state.district}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({district:val})}
-                                // onValueChange={(val)=>this.chooseCity(val)}
+                                // onValueChange={(val)=>this.setState({district:val})}
+                                onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
                                 >
                                      {this.state.getdistrict.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -980,7 +1218,7 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            {/* <TextInput style={Styles.textInpust} placeholder={'Province'} value={district} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                               {/* <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/> */}
                         </View>
                         <View style={{ paddingVertical: 10}}>
                             <Label>
@@ -989,7 +1227,7 @@ class DetailPage extends Component {
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={village} />
+                                        <TextInput style={Styles.textInput} placeholder={'Village'} value={village} />
                                     </View>
                                 </TouchableOpacity>
                             :
@@ -999,8 +1237,9 @@ class DetailPage extends Component {
                                 selectedValue={this.state.village}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({village:val})}
-                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                
+                                // onValueChange={(zoomvillage)=>this.setState({village:zoomvillage})}
+                                onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
                                 >
                                      {this.state.getvillage.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -1010,9 +1249,8 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                            {/* <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/> */}
                         </View>
-                       
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Post Code</Text>
@@ -1020,7 +1258,7 @@ class DetailPage extends Component {
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={post_cd} />
+                                        <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} />
                                     </View>
                                 </TouchableOpacity>
                             :
@@ -1031,7 +1269,7 @@ class DetailPage extends Component {
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 onValueChange={(val)=>this.setState({post_cd:val})}
-                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                // onValueChange={(zoompostcd)=>this.choosePostcd(zoompostcd)}
                                 >
                                      {this.state.getpostcode.map((data, key) =>
                                         <Picker.Item key={key} label={data.label} value={data.value} />
@@ -1041,8 +1279,9 @@ class DetailPage extends Component {
                             </Item>
                             }
                                
-                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                            {/* <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/> */}
                         </View>
+                        
                         <View style={{ paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Telephone</Text>
@@ -1136,12 +1375,38 @@ class DetailPage extends Component {
                             </Label>
                             <TextInput style={Styles.textInput} placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({vip:val})}} />
                         </View> 
-                        <View style={{paddingVertical: 10}}>
-                            <Label>
+                        <View style={{ paddingVertical: 10}}>
+                            <Label style={{bottom: 5}}>
                                 <Text style={{fontSize: 12}}>Occupation</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({vip:val})}} />
-                        </View> 
+                            {Platform.OS == "ios" ?
+                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                    <View pointerEvents="none">
+                                        <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} />
+                                    </View>
+                                </TouchableOpacity>
+                            :
+                            <Item rounded style={{height: 35}}>
+                                <Picker 
+                                placeholder="Media"
+                                selectedValue={this.state.occupation}
+                                style={{width: '100%',marginHorizontal:10}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                onValueChange={(val)=>this.setState({occupation:val})}
+                                // onValueChange={(val)=>alert(val)}
+                                // onValueChange={(val)=>this.chooseDistrict(val)}
+                                >
+                                     {this.state.getocupation.map((data, key) =>
+                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                    )}
+                                </Picker>
+                               
+                            </Item>
+                            }
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({occupation:val})}}/> */}
+                        </View>
+                        
                         <View style={{paddingVertical: 10}}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Contact</Text>
@@ -1186,108 +1451,113 @@ class DetailPage extends Component {
                 </View>
     }
     renderAccordionContentInterest() {
-        let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media} = this.state
+        let {project_name, property_name, lot_no, rent, buy} = this.state
 
         return <View style={Styles.overview_detail}>
                     {this.state.detail.length == 0 ?
                             <ActivityIndicator />
                         :
+                        
                     <View>
-                            <List >
-                                <ListItem >                               
-                                    <View style={{alignSelf:'flex-start',width: '100%'}} >
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Project</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Property</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Lot No</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Rent</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Buy</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                       
-                                      
-
+                        <View
+                            style={{
+                                justifyContent: "flex-end",
+                                flexDirection: "row",
+                                right: 5,
+                                top: 0,
+                                marginBottom: 5,
+                            }}
+                            >
+                            <Button
+                                small
+                                rounded
+                                style={Styles.sBtnHeadAdd}
+                                onPress={()=>Actions.AddProject()}>
+                                {/* <Text style={Styles.sLinkHead}>Add Prospect</Text> */}
+                                <Icon name='plus' type="FontAwesome5" style={{color: '#fff', fontSize: 13}}/>
+                                {/* plus */}
+                            </Button>
+                        </View>
+                           
+                        <ScrollView>
+                            <View style={Styles.overview_padhorizontal}>
+                            {/* {this.state.status.length == 0 ?  */}
+                                    {/* <View style={Styles.city}>
+                                    <Shimmer autoRun={true} style={Styles.btnCity} />
                                         
-                                    </View>
+                                    </View> */}
+                                {/* : */}
+                            
+                                <View  >
                                     
-                                    
-                                </ListItem>
-
-                                <ListItem >                               
-                                    <View style={{alignSelf:'flex-start',width: '100%'}} >
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Project</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Property</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Lot No</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Rent</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View>
-                                        <View>
-                                            <Label>
-                                                <Text style={{fontSize: 12}}>Buy</Text>
-                                            </Label>
-                                            <TextInput style={Styles.textInput} placeholder={'Gendre'} value={sex} />
-
-                                        </View> 
-                                    </View>
-                                    
-                                    
-                                </ListItem>
-
-                                <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>this.AddProject() }>
-                                       {/* <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>alert('add project') }> */}
-                                           <Text style={{fontSize: 12}}>Add Project</Text>
-                                       </Button>
+                                {this.state.datainterest.map((data, key) => (
+                                    <TouchableOpacity  onPress={() => alert('tes')}
+                                    key={key}
+                                    >
+                                    <Card style={{
+                                        height: null,
+                                        backgroundColor: 'white',
+                                        shadowOffset: { width: 1, height: 1 },
+                                        shadowColor: "#37BEB7",
+                                        shadowOpacity: 0.5,
+                                        elevation: 5,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 10,
+                                        borderRadius: 10,
+                                        flex: 1, 
+                                        alignItems: "flex-start",
+                                        // backgroundColor: 'red'
+                                    }} 
                                 
-                            </List>
+                                    >
+                                    <View style={{flexDirection: "row"}}>
+                                            {/* <Image
+                                                source={require("@Asset/icon/calculator.png")}
+                                                style={Styles.infoIcon}
+                                            /> */}
+                                            <View style={{ alignSelf: "center",width: '100%' }}>
+                                                <Text style={Styles.infoHeader}>
+                                                {/* {data.descs} */}
+                                                Project Name : Project Name
+                                                </Text>
+                                                <Text style={Styles.infoHeader}>
+                                                {data.property_cd}
+                                                {/* Property Name : Property Name */}
+                                                </Text>
+                                                <Text style={Styles.infoHeader}>
+                                                {/* {data.status_cd} */}
+                                                Lot No : Lot No
+                                                </Text>
+                                                <Text style={Styles.infoHeader}>
+                                                {/* {data.status_cd} */}
+                                                Rent : Rent
+                                                </Text>
+                                                <Text style={Styles.infoHeader}>
+                                                {/* {data.status_cd} */}
+                                                Buy : Buy
+                                                </Text>
+
+                                                {/* <View style={Styles.badge}>
+                                                <Text style={{color: '#fff',fontSize: 15}}> 
+                                                
+                                                </Text>
+                                                </View> */}
+                                                
+                                            </View>
+                                    </View>
+                                    </Card>
+                                    </TouchableOpacity>
+                             ))}
+                                    
+                                </View>
+                            {/* // } */}
+                            </View>
+                        </ScrollView>
+                
+                            {/* <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>this.AddProject() }>
+                            <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>alert('add project') }>
+                                <Text style={{fontSize: 12}}>Add Project</Text>
+                            </Button> */}
                         
                     </View>
                     }
