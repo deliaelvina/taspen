@@ -91,6 +91,7 @@ class ListProspect extends Component {
     getDataListProspect = () => {
         const {status_cd} = this.props.datas
         const {email} = this.state
+        // alert(isMount);
         {isMount ?
         fetch(urlApi + 'c_prospect/getProspect/IFCAPB/',{
             method:'POST',
@@ -115,12 +116,22 @@ class ListProspect extends Component {
         :null}
     }
 
-    
+    tes = () =>{
+        alert('tes');
+
+    }
+    receiveProps = () =>{
+        // this.tes();
+        isMount=true;
+        // alert('refresh');
+        this.getDataListProspect(this.props.datas);
+    }
 
     async DetailProspect(data) {
         console.log('_storedata di list prospect',data);
         _storeData("statusProspect",data);
-        Actions.Detail({datas : data});
+        Actions.Detail({datas:data, onBack: () => this.receiveProps() });
+        // { onBack: () => this.receiveProps() }
         // Actions.IndexProspect
         this.setState({ click : true})
     }

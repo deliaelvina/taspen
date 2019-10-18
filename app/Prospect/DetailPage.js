@@ -76,6 +76,13 @@ class DetailPage extends Component {
         super(props);
 
         this.state = {
+            company: true,
+            idividu: true,
+            disable : true,
+            enabled: false,
+            makatrue : true,
+            makafalse: false,
+
             status_cd : '',
             email: '',
             detail: [],
@@ -100,6 +107,7 @@ class DetailPage extends Component {
             business_id: '',
             descs: '',
             vip: '',
+            category: '',
 
             //tab2
             salutation: '',
@@ -115,6 +123,7 @@ class DetailPage extends Component {
             hp: '', //alternate hp
             hp2: '', //alternate hp2
             email_addr: '',
+            marital_status: '',
 
             //tab 3
             // marital_status: '',
@@ -122,6 +131,8 @@ class DetailPage extends Component {
             spouse_name: '',
             spouse_hp: '',
             co_name: '', //company name
+            co_addr1: '',
+            co_post_cd: '',
             occupation: '',
             occupation_cd: '',
             contact_person: '', //contact
@@ -136,6 +147,7 @@ class DetailPage extends Component {
             zoomcity: '',
             zoomdistrict: '',
             zoomvillage: '',
+            zoompostcd: '',
 
             //tab Interest
             datainterest: [],
@@ -144,12 +156,14 @@ class DetailPage extends Component {
             lot_no: '',
             rent: '',
             buy: '',
+            provdescs: ''
 
         };
         this.renderAccordionHeader = this.renderAccordionHeader.bind(this)
         this.renderAccordionContent = this.renderAccordionContent.bind(this)
         this.renderAccordionContentProspect = this.renderAccordionContentProspect.bind(this)
         this.renderAccordionContentDetail = this.renderAccordionContentDetail.bind(this)
+        // this.renderAccordionContentCompany = this.renderAccordionContentCompany.bind(this)
         this.renderAccordionContentOther = this.renderAccordionContentOther.bind(this)
         this.renderAccordionContentInterest = this.renderAccordionContentInterest.bind(this)
         console.log('props status prospesct',props);
@@ -168,6 +182,7 @@ class DetailPage extends Component {
             business_id: dataProspect.business_id,
             descs: dataProspect.descs,
             vip: dataProspect.vip,
+            category: dataProspect.category,
 
             //tab2
             salutation: dataProspect.salutation,
@@ -183,6 +198,7 @@ class DetailPage extends Component {
             hp: dataProspect.hp, //alternate hp
             hp2: dataProspect.hp2, //alternate hp2
             email_addr: dataProspect.email_addr,
+            marital_status: dataProspect.marital_status,
 
             //tab 3
             // marital_status: '',
@@ -190,6 +206,8 @@ class DetailPage extends Component {
             spouse_name: dataProspect.spouse_name,
             spouse_hp: dataProspect.spouse_hp,
             co_name: dataProspect.co_name, //company name
+            co_addr1: dataProspect.co_addr1,
+            co_post_cd: dataProspect.co_post_cd,
             occupation: dataProspect.occupation,
             contact_person: dataProspect.contact_person, //contact
             media: dataProspect.media,
@@ -223,7 +241,8 @@ class DetailPage extends Component {
 
     componentWillUnmount(){
         // this.setState({isMount:false})
-        isMount =false
+        isMount =false;
+        // this.props.onBack();
       }
 
     getDataListProspect = async() => {
@@ -345,52 +364,7 @@ class DetailPage extends Component {
             :null}
     }
 
-    save = () => {
-        const {business_id,descs,vip,salutation} = this.state
-
-        const formData = {
-            business_id : business_id,
-            descs: descs,
-            vip: vip,
-            salutation: salutation,
-            name: name,
-            addr1: addr1,
-            post_cd: post_cd,
-            district: district,
-            village: village,
-            city: city,
-            province_cd: province_cd
-
-
-
-            
-
-        }
-        console.log('form data save', formData)
-
-        // fetch(urlApi+'c_profil/save/',{
-        //     method : "POST",
-        //     body :JSON.stringify(formData),
-        //     headers :{
-        //         Accept: 'application/json',
-        //         'Content-Type': 'application/json',
-        //         'Token' : this.state.token
-        //     }
-        // })
-        // .then((response) => response.json())
-        // .then((res)=>{
-        //     if(!res.Error){
-        //         alert(res.Pesan)
-        //         _storeData('@Name',name)
-        //         _storeData('@Handphone',hp)
-        //         _storeData('@ProfileUpdate',true)
-        //     }
-        //     console.log('save profile',res)
-
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-    }
+    
 
     getProvince = async() =>{
         const dataProspect = await _getData("statusProspect");
@@ -939,35 +913,261 @@ class DetailPage extends Component {
         this.setState({ click : true})
     }
 
-    // getPostCode = () =>{
-    //     const item = this.props.items
-    //     {isMount ?
-    //         fetch(urlApi+'c_prospect/zoom_postcode/IFCAPB/',{
-    //             method:'GET',
-    //             // headers : this.state.hd,
-    //         }).then((response) => response.json())
-    //         .then((res)=>{
-    //             if(!res.Error){
-    //                 const resData = res.Data
-    //                 // resData.map((data)=>{
-    //                 //     this.setState(prevState=>({
-    //                 //         postCode : [...prevState.postCode, {label: data.post_cd, value:data.post_cd}]
-    //                 //     }))
-    //                 // })
-    //                 this.setState({postCode:resData});
-    //                 console.log('postcode',res);
-    //             } else {
-    //                 this.setState({isLoaded: !this.state.isLoaded},()=>{
-    //                     alert(res.Pesan)
-    //                 });
-    //             }
-    //             console.log('postcode',res);
-    //         }).catch((error) => {
-    //             console.log(error);
-    //         })
-    //     :null}
+    updateProspectType = () => {
+        // alert('tes');
+        const {
+            //tab1
+            business_id,
+            class_cd,
+            // descs,
+            vip,
+ 
+        } = this.state
+
+        const formData = {
+            
+            // salutation_cd: salutation_cd,
+            
+            //tab 1
+            business_id : business_id,
+            class_cd: class_cd,
+            // descs: descs, //class
+            vip: vip,
+
+        }
+        console.log('form data prospect type update', formData)
+
+        fetch(urlApi+'c_prospect_lot/updateProspectType/IFCAPB2',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update prospect type',res)
+
+        }).catch((error) => {
+            console.log(error);
+        });
+
+        this.unableview();
+
+
+    }
+    updateDetailInformation = () => {
+        // alert('update detail');
+        const {
+           business_id,
+            //tab2
+            salutation,
+            name,
+            addr1,
+            province_cd,
+            city,
+            district,
+            village,
+            post_cd,
+            tel_no,
+            handphone,
+            hp,
+            hp2,
+            email_addr,
+            marital_status,
+            category,
+
+        } = this.state
+
+        const formData = {
+            business_id: business_id,
+            //tab2
+            salutation: salutation,
+            name: name,
+            addr1: addr1,
+            post_cd: post_cd,
+            village: village,
+            district: district,
+            city: city,
+            // province_cd: province_cd,
+            province_cd: province_cd,
+
+            tel_no: tel_no,
+            handphone: handphone, //handphone/wa
+            hp: hp, //alternate hp
+            hp2: hp2, //alternate hp2
+            email_addr: email_addr,
+            marital_status: 'N', //default N
+            category: category,
+
+        }
+        console.log('form data update detail information', formData)
+
+        fetch(urlApi+'c_prospect_lot/updateDetailIndividu/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update detail information',res)
+
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+    updateOtherInformation = () => {
+        const {
+           
+            //tab2
+            business_id,
+            //tab3
+            sex,
+            spouse_name,
+            spouse_hp,
+            co_name,
+            co_addr1,
+            co_post_cd,
+            occupation,
+            // occupation_cd,
+            contact_person,
+            media,
+           media_cd,
+            
+            
+        } = this.state
+
+        const formData = {
+            
+            business_id: business_id,
+
+            //tab 3
+            // marital_status: '',
+            sex: sex,
+            spouse_name: spouse_name,
+            spouse_hp: spouse_hp,
+            co_name: co_name,//company name
+            co_addr1: co_addr1,
+            co_post_cd: co_post_cd,
+            occupation: occupation,
+            // occupation_cd: occupation_cd,
+            contact_person: contact_person, //contact
+            media: media,
+            media_cd: media_cd,
+
+
+        }
+        console.log('form data update other information', formData)
+
+        fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update other information',res)
+
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+    updateStatus = () => {
+
+        const {
+           
+            //tab2
+            business_id,
+            //tab3
+           status_cd,
+           status,
+            
+            
+        } = this.state
+
+        const formData = {
+            
+            business_id: business_id,
+
+            status_cd: status_cd,
+            status: status[0].label,
+
+
+        }
+        console.log('update status', formData)
+
+        fetch(urlApi+'c_prospect_lot/updateStatus/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update other information',res)
+
+        }).catch((error) => {
+            console.log(error);
+        });
+
+    }
         
-    // }
+
+    changeform = (cat) => {
+        // alert(cat);
+        // const {category} = dataProspect
+        if(cat == 'C'){
+            this.setState(previousState=>({individu: !previousState.individu}))
+        }else{
+            this.setState(previousState=>({individu: previousState.individu}))
+        }
+        
+        // this.renderAccordionContentDetail = this.renderAccordionContentDetail.bind(this)
+    }
+
+    unableview = () => {
+
+        this.setState(previousState=>({disable: !previousState.disable}))
+
+    }
 
     renderAccordionHeader(item, expanded) {
         return (
@@ -990,14 +1190,52 @@ class DetailPage extends Component {
     }
     
     renderAccordionContentProspect() {
-        let {business_id,descs,vip,class_cd} = this.state
+        let {business_id,descs,vip,class_cd,category} = this.state
 
         return <View style={Styles.overview_detail}>
-                    {this.state.detail.length == 0 ?
-                            <ActivityIndicator />
+                    <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
+                        {/* <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.unableview();
+                            }}>
+                            <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" />
+                        </TouchableOpacity> */}
+                        {this.state.disable ? 
+                        // <Button style={{height: 35, borderRadius: 10}} disabled={true}>
+                        //     <Text style={{fontSize: 13}}>
+                        //         Save
+                        //     </Text>
+                        // </Button> 
+                        // <TouchableOpacity style={{paddingHorizontal: 5}} disabled={true}>
+                        //     <Icon solid name='save' style={{color: Colors.grey, fontSize: 26}} type="FontAwesome5" />
+                        // </TouchableOpacity>
+                        <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                            this.unableview();
+                            }}>
+                            <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                            {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
+                        </TouchableOpacity>
+                        : 
+                        <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                            this.updateProspectType();
+                        }}>
+                            {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
+                            <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                        </TouchableOpacity>
+                        // <Button style={{height: 35, borderRadius: 10, backgroundColor: Colors.navyUrban}} onPress={() => {
+                        //     this.updateProspectType();
+                        // }} >
+                        //     <Text style={{fontSize: 13}}>
+                        //         Save
+                        //     </Text>
+                        // </Button>
+                        }
+                    </View>
+
+                {this.state.detail.length == 0 ?
+                    <ActivityIndicator />
                         :
                     <View>
-                        <View style={{ paddingVertical: 10}}>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
                         {/* <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                         <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
                         <Text style={Styles.overviewTitles}>Name</Text>
@@ -1007,9 +1245,10 @@ class DetailPage extends Component {
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>Prospect ID</Text>
                             </View>
-                            <TextInput style={Styles.textInput} placeholder={'Prospect ID'} value={business_id} />
+                            <TextInput style={Styles.textInput} placeholder={'Prospect ID'} value={business_id} editable={false}/>
+                            {/* <TextInput style={Styles.textInput} placeholder={'Prospect ID'} editable={false} /> */}
                         </View>  
-                        <View style={{paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>Class</Text>
@@ -1017,7 +1256,7 @@ class DetailPage extends Component {
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Class Type'} value={descs} />
+                                        <TextInput style={Styles.textInput} placeholder={'Class Type'} value={class_cd} editable={false} />
                                     </View>
                                 </TouchableOpacity>
                             :
@@ -1027,11 +1266,14 @@ class DetailPage extends Component {
                                 selectedValue={this.state.class_cd}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({class_cd:val})}
+                                onValueChange={(val)=>this.setState({class_cd:val})} 
+                                enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                // disabled={true}
+                                // editable = {false}
                                 // onValueChange={(val)=>alert(val)}
                                 >
                                      {this.state.classCd.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
+                                        <Picker.Item key={key} label={data.label} value={data.value} editable={false} />
                                     )}
                                 </Picker>
                                
@@ -1040,7 +1282,7 @@ class DetailPage extends Component {
 
                             {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
                         </View>
-                        <View style={{paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>VIP</Text>
@@ -1058,8 +1300,10 @@ class DetailPage extends Component {
                                 selectedValue={this.state.vip}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({vip:val})}>
-                                    <Item label="Yes" value="Y" />
+                                onValueChange={(val)=>this.setState({vip:val})}
+                                enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                >
+                                    <Item label="Yes" value="Y"/>
                                     <Item label="No" value="N" />
                                 </Picker>
                             </Item>
@@ -1067,268 +1311,375 @@ class DetailPage extends Component {
                             
                             
                         </View> 
-                        
-                       
                     </View>
-                    }
-                </View>
+                }
+                    
+        </View>
                 
                                 
     }
     renderAccordionContentDetail() {
-        let {salutation,name,addr1,post_cd,district,village,city,province_cd,tel_no,hp,hp2,handphone,email_addr,salutation_cd} = this.state
+        
+        let {salutation,name,addr1,post_cd,district,village,city,province_cd,tel_no,hp,hp2,handphone,email_addr,salutation_cd,category} = this.state
         return <View style={Styles.overview_detail}>
-                    {this.state.detail.length == 0 ?
-                            <ActivityIndicator />
-                        :
-                    <View>
-                        <View style={{ paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                {/* <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" /> */}
-                                <Text style={Styles.overviewTitles_Small}>Salutation</Text>
-                            </View>
-                            {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                    <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} />
-                                    </View>
-                                </TouchableOpacity>
-                            :
-                            <Item rounded style={{height: 35}}>
-                                <Picker 
-                                placeholder="Salutation"
-                                selectedValue={this.state.salutation}
-                                style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({salutation:val})}
-                                >
-                                     {this.state.salutationcd.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
-                                    )}
-                                </Picker>
-                               
-                            </Item>
-                            }
-                            {/* <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} onChangeText={(val)=>{this.setState({salutation:val})}}/> */}
-                        </View>  
-                        <View style={{ paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                <Text style={Styles.overviewTitles_Small}>Name</Text>
-                            </View>
-                            <TextInput style={Styles.textInput} placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}}/>
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                <Text style={Styles.overviewTitles_Small}>Address</Text>
-                            </View>
-                            <TextInput style={Styles.textInput} placeholder={'Address'} value={addr1} onChangeText={(val)=>{this.setState({addr1:val})}}/>
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Province</Text>
-                            </Label>
-                            {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                    <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} />
-                                    </View>
-                                </TouchableOpacity>
-                            :
-                            <Item rounded style={{height: 35}}>
-                                <Picker 
-                                placeholder="Gender"
-                                selectedValue={this.state.province_cd}
-                                style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                // onValueChange={(val)=>this.setState({province_cd:val})}
-                                // onValueChange={(val)=>alert(val)}
-                                onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
-                                // onValueChange={this.chooseProv}
-                                >
-                                     {this.state.prov.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
-                                    )}
-                                </Picker>
-                               
-                            </Item>
-                            }
-                               
-                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} onChangeText={(val)=>{this.setState({province_cd:val})}}/> */}
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>City</Text>
-                            </Label>
-                            
-                            {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                    <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/>
-                                    </View>
-                                </TouchableOpacity>
-                            :
-                            <Item rounded style={{height: 35}}>
-                                <Picker 
-                                placeholder="City"
-                                selectedValue={this.state.city}
-                                style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                // onValueChange={(val)=>this.setState({city:val})}
-                                // onValueChange={(val)=>alert(val)}
-                                onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
-                                >
-                                     {this.state.getcity.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
-                                    )}
-                                </Picker>
-                               
-                            </Item>
-                            }
-                               
-                            {/* <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/> */}
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>District</Text>
-                            </Label>
-                           
-                            {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                    <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'District'} value={district} />
-                                    </View>
-                                </TouchableOpacity>
-                            :
-                            <Item rounded style={{height: 35}}>
-                                <Picker 
-                                placeholder="Gender"
-                                selectedValue={this.state.district}
-                                style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                // onValueChange={(val)=>this.setState({district:val})}
-                                onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
-                                >
-                                     {this.state.getdistrict.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
-                                    )}
-                                </Picker>
-                               
-                            </Item>
-                            }
-                               
-                               {/* <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/> */}
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Village</Text>
-                            </Label>
-                            {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                    <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Village'} value={village} />
-                                    </View>
-                                </TouchableOpacity>
-                            :
-                            <Item rounded style={{height: 35}}>
-                                <Picker 
-                                placeholder="Gender"
-                                selectedValue={this.state.village}
-                                style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                
-                                // onValueChange={(zoomvillage)=>this.setState({village:zoomvillage})}
-                                onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
-                                >
-                                     {this.state.getvillage.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
-                                    )}
-                                </Picker>
-                               
-                            </Item>
-                            }
-                               
-                            {/* <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/> */}
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Post Code</Text>
-                            </Label>
-                            {Platform.OS == "ios" ?
-                                <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                    <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} />
-                                    </View>
-                                </TouchableOpacity>
-                            :
-                            <Item rounded style={{height: 35}}>
-                                <Picker 
-                                placeholder="Gender"
-                                selectedValue={this.state.post_cd}
-                                style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                onValueChange={(val)=>this.setState({post_cd:val})}
-                                // onValueChange={(zoompostcd)=>this.choosePostcd(zoompostcd)}
-                                >
-                                     {this.state.getpostcode.map((data, key) =>
-                                        <Picker.Item key={key} label={data.label} value={data.value} />
-                                    )}
-                                </Picker>
-                               
-                            </Item>
-                            }
-                               
-                            {/* <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/> */}
-                        </View>
-                        
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Telephone</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                <Text style={Styles.overviewTitles_Small}>Handphone/Whatsapp</Text>
-                            </View>
-                            <TextInput style={Styles.textInput} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
-                        </View>
+                    <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
+                        <Button style={{height: 40, marginHorizontal: 5, borderRadius: 10,}} onPress={() => {
+                                this.unableview();
+                            }}>
+                            <Text style={{fontSize: 13}}>
+                                Edit
+                            </Text>
+                        </Button>
 
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Alternative Handphone</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Alternative Handphone 2</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                <Text style={Styles.overviewTitles_Small}>Email</Text>
-                            </View>
-                            <TextInput style={Styles.textInput} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
-                        </View>
+                        {this.state.disable ? 
+                        <Button style={{height: 40, borderRadius: 10}} disabled={true}>
+                            <Text style={{fontSize: 13}}>
+                                Save
+                            </Text>
+                        </Button> 
+                        : 
+                        <Button style={{height: 40, borderRadius: 10, backgroundColor: Colors.navyUrban}} onPress={() => {
+                            this.updateDetailInformation(); 
+                            // alert('tes');
+                        }} >
+                            <Text style={{fontSize: 13}}>
+                                Save
+                            </Text>
+                        </Button>
+                        }
+                        
+
                     </View>
-                    }
+                    
+                    {/* {this.state.disable ? 
+                    
+                    : } */}
+                    <View>
+                        {this.state.detail.length == 0 ?
+                                <ActivityIndicator />
+                            :
+                        <View>
+                            <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Category</Text>
+                                </View>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Category'} value={category} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.category}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    onValueChange={(val)=>this.setState({category:val})}
+                                    enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                    // onValueChange={(cat)=>this.changeform(cat)}
+                                    // onValueChange={(val)=>alert(val)}
+                                    >
+                                        <Item label="Individu" value="I" />
+                                        <Item label="Company" value="C" />
+                                        {/* {this.state.classCd.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )} */}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+
+                                {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
+                            </View>
+                            {/* {this.state.individu ? 
+                                <ActivityIndicator />
+                                : */}
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} >
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                        {/* <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" /> */}
+                                        <Text style={Styles.overviewTitles_Small}>Salutation</Text>
+                                    </View>
+                                    {Platform.OS == "ios" ?
+                                        <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                            <View pointerEvents="none">
+                                                <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} />
+                                            </View>
+                                        </TouchableOpacity>
+                                    :
+                                    
+                                    // <View>
+                                       <Item rounded style={ {height: 35}} >
+                                        
+                                            <Picker 
+                                            placeholder="Salutation"
+                                            selectedValue={this.state.salutation}
+                                            style={{width: '100%',marginHorizontal:10}} 
+                                            textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                            onValueChange={(val)=>this.setState({salutation:val})}
+                                            enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                            
+                                            >
+                                                {this.state.salutationcd.map((data, key) =>
+                                                    <Picker.Item key={key} label={data.label} value={data.value} />
+                                                )}
+                                            </Picker>
+                                        
+                                        </Item>
+                                    // </View>
+                                    
+                                    }
+                                    {/* <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} onChangeText={(val)=>{this.setState({salutation:val})}}/> */}
+                                </View>  
+                            {/* } */}
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Name</Text>
+                                </View>
+                                <TextInput style={Styles.textInput} placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}} />
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Address</Text>
+                                </View>
+                                <TextInput style={Styles.textInput} placeholder={'Address'} value={addr1} onChangeText={(val)=>{this.setState({addr1:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Province</Text>
+                                </Label>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.province_cd}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({province_cd:val})}
+                                    // onValueChange={(val)=>alert(val)}
+                                    onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
+                                    // onValueChange={this.chooseProv}
+                                    >
+                                        {this.state.prov.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} onChangeText={(val)=>{this.setState({province_cd:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>City</Text>
+                                </Label>
+                                
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/>
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="City"
+                                    selectedValue={this.state.city}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({city:val})}
+                                    // onValueChange={(val)=>alert(val)}
+                                    onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
+                                    >
+                                        {this.state.getcity.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>District</Text>
+                                </Label>
+                            
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'District'} value={district} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.district}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({district:val})}
+                                    onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
+                                    >
+                                        {this.state.getdistrict.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Village</Text>
+                                </Label>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Village'} value={village} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.village}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    
+                                    // onValueChange={(zoomvillage)=>this.setState({village:zoomvillage})}
+                                    onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
+                                    >
+                                        {this.state.getvillage.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Post Code</Text>
+                                </Label>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.post_cd}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>alert({post_cd:val})}
+                                    onValueChange={(val)=>this.setState({post_cd:val})}
+                                    >
+                                        {this.state.getpostcode.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Telephone</Text>
+                                </Label>
+                                <TextInput style={Styles.textInput} placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Handphone/Whatsapp</Text>
+                                </View>
+                                <TextInput style={Styles.textInput} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Alternative Handphone</Text>
+                                </Label>
+                                <TextInput style={Styles.textInput} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Alternative Handphone 2</Text>
+                                </Label>
+                                <TextInput style={Styles.textInput} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Email</Text>
+                                </View>
+                                <TextInput style={Styles.textInput} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
+                            </View>
+                        </View>
+                        }
+                    </View>
                 </View>
     }
+    
     renderAccordionContentOther() {
        let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media,media_cd} = this.state
 
         return <View style={Styles.overview_detail}>
+                    <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
+                        <Button style={{height: 40, marginHorizontal: 5, borderRadius: 10}} onPress={() => {
+                                this.unableview();
+                            }}>
+                            <Text style={{fontSize: 13}}>
+                                Edit
+                            </Text>
+                        </Button>
+
+                        {this.state.disable ? 
+                        <Button style={{height: 40, borderRadius: 10}} disabled={true}>
+                            <Text style={{fontSize: 13}}>
+                                Save
+                            </Text>
+                        </Button> 
+                        : 
+                        <Button style={{height: 40, borderRadius: 10, backgroundColor: Colors.navyUrban}} onPress={() => {
+                            this.updateOtherInformation(); 
+                            // alert('tes');
+                        }} >
+                            <Text style={{fontSize: 13}}>
+                                Save
+                            </Text>
+                        </Button>
+                        }
+                        
+
+                    </View>
                     {this.state.detail.length == 0 ?
                             <ActivityIndicator />
                         :
                     <View>
                         
-                        <View style={{ paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Sex</Text>
                             </Label>
@@ -1357,25 +1708,31 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View> 
-                        <View style={{paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Name</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({descs:val})}}/>
+                            <TextInput style={Styles.textInput} placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({spouse_name:val})}}/>
                         </View>
-                        <View style={{paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Hp</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(text) => this.setState({ username: text })} />
+                            <TextInput style={Styles.textInput} placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(text) => this.setState({ spouse_hp: text })} />
                         </View>
-                        <View style={{paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
                             <Label>
                                 <Text style={{fontSize: 12}}>Company Name</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({vip:val})}} />
+                            <TextInput style={Styles.textInput} placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({co_name:val})}} />
                         </View> 
-                        <View style={{ paddingVertical: 10}}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <Label>
+                                <Text style={{fontSize: 12}}>Contact Person</Text>
+                            </Label>
+                            <TextInput style={Styles.textInput} placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
+                        </View>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
                             <Label style={{bottom: 5}}>
                                 <Text style={{fontSize: 12}}>Occupation</Text>
                             </Label>
@@ -1406,14 +1763,7 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({occupation:val})}}/> */}
                         </View>
-                        
-                        <View style={{paddingVertical: 10}}>
-                            <Label>
-                                <Text style={{fontSize: 12}}>Contact</Text>
-                            </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Contact'} value={contact_person} onChangeText={(val)=>{this.setState({vip:val})}} />
-                        </View>
-                        <View style={{ paddingVertical: 10}}>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>Media</Text>
@@ -1569,37 +1919,7 @@ class DetailPage extends Component {
     render() {
         return (
             <Container style={Style.bgMain}>
-                {/* <Header style={Style.navigation}>
-                    <StatusBar
-                        backgroundColor={Colors.statusBarOrange}
-                        animated
-                        barStyle="light-content"
-                    />
-
-                    <View style={Style.actionBarLeft}>
-                        <Button
-                            transparent
-                            style={Style.actionBarBtn}
-                            onPress={Actions.pop}
-                        >
-                            <Icon
-                                active
-                                name="arrow-left"
-                                style={Style.textWhite}
-                                type="MaterialCommunityIcons"
-                            />
-                        </Button>
-                    </View>
-                    <View style={Style.actionBarMiddle}>
-                        <Text style={Style.actionBarText}>
-                            {"Low".toUpperCase()}
-                            {this.state.status_cd.toUpperCase()}
-                        </Text>
-                    </View>
-                    <View style={Style.actionBarRight} />
-
-                </Header> */}
-                {/* <TabBar navState={navState} navScene={navScene} /> */}
+               
                 <Content
                     style={Style.layoutInner}
                     contentContainerStyle={Style.layoutContent}
@@ -1614,18 +1934,8 @@ class DetailPage extends Component {
                         <View> 
                             <ScrollView>
                                 
-                                <View style={{flexDirection: 'row', paddingTop: 15}}>
-                                    <Button onPress={()=>this.sendEmail()} style={Styles.buttonContact}>
-                                        <Text style={{color: Colors.blueUrban }}>Email</Text>
-                                    </Button>
-                                    <Button onPress={()=>this.callphone()} style={Styles.buttonContact}>
-                                        <Text style={{color: Colors.blueUrban }}>Call Phone</Text>
-                                    </Button>
-                                    <Button onPress={()=>this.sendWa()} style={Styles.buttonContact}>
-                                        <Text style={{color: Colors.blueUrban }}>Whatsapp</Text>
-                                    </Button>
-                                </View>
                                 <View style={Styles.formBg}>
+                                    
                                     <Accordion
                                         style={Styles.accordion}
                                         dataArray={[
@@ -1636,8 +1946,13 @@ class DetailPage extends Component {
                                             
                                             {
                                                 type: 'detail',
-                                                title: 'Detail Information'
+                                                title: 'Detail Information Individu'
                                             },
+
+                                            // {
+                                            //     type: 'company',
+                                            //     title: 'Detail Information Company'
+                                            // },
 
                                             {
                                                 type: 'other',
@@ -1690,7 +2005,15 @@ class DetailPage extends Component {
                                         mode="dropdown"
                                         style={{ width: 180,height: 40 }}
                                         selectedValue={this.state.status_cd}
-                                        onValueChange={(val)=>this.setState({status_cd:val})}
+                                        onValueChange={(val)=>{
+                                            const statuspros = this.state.getstatus.filter(item=>item.value==val)
+                                            // console.log('status change', this.state.getstatus.filter(item=>item.value==val));
+                                            this.setState({status_cd:val,status:statuspros})
+                                        }}
+                                        // onValueChange={(val)=>{
+                                        //     const statuspros = this.state.getstatus.filter(item=>item.value==val)
+                                        //     this.setState({status_cd:val})
+                                        // }}
                                     >
                                         {this.state.getstatus.map((data, key) =>
                                             <Picker.Item key={key} label={data.label} value={data.value} />
@@ -1703,11 +2026,10 @@ class DetailPage extends Component {
                             {/* end right picker media */}
                         </CardItem>
                     </View>
-                    <Button full style={{ backgroundColor: Colors.navyUrban}}  onPress={() =>{
-                        this.state.isLogin ? this.showModal()
-                        : this.showAlert()
-                        
-                        }}>
+                    <Button full style={{ backgroundColor: Colors.navyUrban}}  
+                    onPress={() => {
+                        this.updateStatus();
+                    }}>
                         <Text>Update</Text>
                     </Button>
 

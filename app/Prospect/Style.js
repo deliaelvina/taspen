@@ -72,8 +72,9 @@ export default {
         flex: 1,
         // fontFamily: Fonts.type.sfuiDisplaySemibold,
         left: 13,
-        fontSize: 12,
-        bottom: 5
+        fontSize: 14,
+        bottom: 5,
+        color:"#b5b5ba"
       },
       overviewTitle: {
         flex: 1,
@@ -244,15 +245,30 @@ buttonContact: {
   flexDirection: 'row', 
   width: '100%', 
   flex: 1, 
-  backgroundColor: 'transparent',
-   borderColor: Colors.navyUrban, 
-   borderWidth: 1,
+  // backgroundColor: '#fff',
+  //  borderColor: Colors.navyUrban, 
+  //  borderWidth: 1,
    marginHorizontal: 3,
    marginVertical: 3,
    borderRadius: 5,
-   height: 38, 
-   justifyContent: 'center'
-}
+   height: 0, 
+   justifyContent: 'center',
+   fontSize: 30,
+   color: 'green'
+},
+// buttonPolos: {
+//   flexDirection: 'row', 
+//   width: '100%', 
+//   flex: 1, 
+//   backgroundColor: '#fff',
+//   //  borderColor: Colors.navyUrban, 
+//   //  borderWidth: 1,
+//    marginHorizontal: 3,
+//    marginVertical: 3,
+//   //  borderRadius: 5,
+//    height: 38, 
+//    justifyContent: 'center'
+// }
 
 
 }

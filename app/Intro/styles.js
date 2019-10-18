@@ -28,6 +28,38 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         shadowOpacity: 0.1
     },
+    images2: {
+        marginBottom: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 3, height: 2 },
+        shadowRadius: 2,
+        shadowOpacity: 0.1,
+        width: 500,
+        height: 500,
+
+
+    },
+    images_urban: {
+        // marginBottom: 20,
+        // shadowColor: "#000",
+        // shadowOffset: { width: 3, height: 2 },
+        // shadowRadius: 2,
+        // shadowOpacity: 0.1
+        // width: '100%',
+        // height: '100%',
+        width: 300,
+        height: 300
+        // borderRadius: 50,
+        // overflow: 'hidden'
+        // borderBottomLeftRadius: 200,
+        // borderBottomRightRadius: 200,
+        // borderTopRightRadius: 200,
+        // borderTopLeftRadius: 200,
+        // overflow: 'hidden',
+
+
+
+    },
     left: {
         flex: 0.5,
         backgroundColor: "transparent"
@@ -53,6 +85,36 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         fontFamily: Fonts.type.sfuiDisplayMedium
     },
+    text_urban: {
+        fontFamily: Fonts.type.sfuiDisplayMedium,
+        color: Colors.navyUrban
+    },
+    title_urban: {
+        fontFamily: Fonts.type.sfuiDisplayMedium,
+        color: Colors.navyUrban,
+        textAlign: 'center'
+    },
+    title_next: {
+        fontFamily: Fonts.type.sfuiDisplayMedium,
+        color: Colors.navyUrban,
+        fontSize: 16,
+        fontWeight: 'bold',
+        right: 10
+    },
+    title_skip: {
+        fontFamily: Fonts.type.sfuiDisplayMedium,
+        color: Colors.navyUrban,
+        fontSize: 16,
+        fontWeight: 'bold',
+        left: 10
+    },
+    title_done: {
+        fontFamily: Fonts.type.sfuiDisplayMedium,
+        color: Colors.navyUrban,
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+
     right: {
         flex: 0.5
     },
@@ -164,6 +226,12 @@ const styles = StyleSheet.create({
         position: "absolute",
         right: 10,
         top: 9
-    }
+    },
+    bottomButton: {
+        flex: 1,
+        backgroundColor: 'red',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });
 export default styles;
