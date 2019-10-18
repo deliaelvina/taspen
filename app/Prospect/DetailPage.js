@@ -82,6 +82,9 @@ class DetailPage extends Component {
             enabled: false,
             makatrue : true,
             makafalse: false,
+            disableprospect: true,
+            disabledetail: true,
+            disableother: true,
 
             status_cd : '',
             email: '',
@@ -961,7 +964,7 @@ class DetailPage extends Component {
             console.log(error);
         });
 
-        this.unableview();
+        this.unableviewprospect();
 
 
     }
@@ -1034,6 +1037,7 @@ class DetailPage extends Component {
         }).catch((error) => {
             console.log(error);
         });
+        this.unableviewdetail();
     }
     updateOtherInformation = () => {
         const {
@@ -1100,6 +1104,7 @@ class DetailPage extends Component {
         }).catch((error) => {
             console.log(error);
         });
+        this.unableviewother();
     }
     updateStatus = () => {
 
@@ -1163,9 +1168,22 @@ class DetailPage extends Component {
         // this.renderAccordionContentDetail = this.renderAccordionContentDetail.bind(this)
     }
 
-    unableview = () => {
+    unableviewprospect = () => {
+        // alert('unable prospect');
 
-        this.setState(previousState=>({disable: !previousState.disable}))
+        this.setState(previousState=>({disableprospect: !previousState.disableprospect}))
+
+    }
+    unableviewdetail = () => {
+        // alert('unable detail');
+
+        this.setState(previousState=>({disabledetail: !previousState.disabledetail}))
+
+    }
+    unableviewother = () => {
+        // alert('unable other');
+
+        this.setState(previousState=>({disableother: !previousState.disableother}))
 
     }
 
@@ -1194,22 +1212,11 @@ class DetailPage extends Component {
 
         return <View style={Styles.overview_detail}>
                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
-                        {/* <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
-                                this.unableview();
-                            }}>
-                            <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" />
-                        </TouchableOpacity> */}
-                        {this.state.disable ? 
-                        // <Button style={{height: 35, borderRadius: 10}} disabled={true}>
-                        //     <Text style={{fontSize: 13}}>
-                        //         Save
-                        //     </Text>
-                        // </Button> 
-                        // <TouchableOpacity style={{paddingHorizontal: 5}} disabled={true}>
-                        //     <Icon solid name='save' style={{color: Colors.grey, fontSize: 26}} type="FontAwesome5" />
-                        // </TouchableOpacity>
+                       
+                        {this.state.disableprospect ? 
+                        
                         <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
-                            this.unableview();
+                            this.unableviewprospect();
                             }}>
                             <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
                             {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
@@ -1221,13 +1228,7 @@ class DetailPage extends Component {
                             {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
                             <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
                         </TouchableOpacity>
-                        // <Button style={{height: 35, borderRadius: 10, backgroundColor: Colors.navyUrban}} onPress={() => {
-                        //     this.updateProspectType();
-                        // }} >
-                        //     <Text style={{fontSize: 13}}>
-                        //         Save
-                        //     </Text>
-                        // </Button>
+                        
                         }
                     </View>
 
@@ -1235,7 +1236,7 @@ class DetailPage extends Component {
                     <ActivityIndicator />
                         :
                     <View>
-                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableprospect ? 'none' : 'auto'}>
                         {/* <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                         <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
                         <Text style={Styles.overviewTitles}>Name</Text>
@@ -1248,7 +1249,7 @@ class DetailPage extends Component {
                             <TextInput style={Styles.textInput} placeholder={'Prospect ID'} value={business_id} editable={false}/>
                             {/* <TextInput style={Styles.textInput} placeholder={'Prospect ID'} editable={false} /> */}
                         </View>  
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableprospect ? 'none' : 'auto'}>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>Class</Text>
@@ -1267,7 +1268,7 @@ class DetailPage extends Component {
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 onValueChange={(val)=>this.setState({class_cd:val})} 
-                                enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                enabled={this.state.disableprospect ? this.state.makafalse  : this.state.makatrue} 
                                 // disabled={true}
                                 // editable = {false}
                                 // onValueChange={(val)=>alert(val)}
@@ -1282,7 +1283,7 @@ class DetailPage extends Component {
 
                             {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
                         </View>
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableprospect ? 'none' : 'auto'}>
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>VIP</Text>
@@ -1301,7 +1302,7 @@ class DetailPage extends Component {
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 onValueChange={(val)=>this.setState({vip:val})}
-                                enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                enabled={this.state.disableprospect ? this.state.makafalse  : this.state.makatrue} 
                                 >
                                     <Item label="Yes" value="Y"/>
                                     <Item label="No" value="N" />
@@ -1323,32 +1324,21 @@ class DetailPage extends Component {
         let {salutation,name,addr1,post_cd,district,village,city,province_cd,tel_no,hp,hp2,handphone,email_addr,salutation_cd,category} = this.state
         return <View style={Styles.overview_detail}>
                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
-                        <Button style={{height: 40, marginHorizontal: 5, borderRadius: 10,}} onPress={() => {
-                                this.unableview();
-                            }}>
-                            <Text style={{fontSize: 13}}>
-                                Edit
-                            </Text>
-                        </Button>
-
-                        {this.state.disable ? 
-                        <Button style={{height: 40, borderRadius: 10}} disabled={true}>
-                            <Text style={{fontSize: 13}}>
-                                Save
-                            </Text>
-                        </Button> 
-                        : 
-                        <Button style={{height: 40, borderRadius: 10, backgroundColor: Colors.navyUrban}} onPress={() => {
-                            this.updateDetailInformation(); 
-                            // alert('tes');
-                        }} >
-                            <Text style={{fontSize: 13}}>
-                                Save
-                            </Text>
-                        </Button>
+                        {this.state.disabledetail ? 
+                            
+                            <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.unableviewdetail();
+                                }}>
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
+                            </TouchableOpacity>
+                            : 
+                            <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.updateDetailInformation();}}>
+                                {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
+                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                            </TouchableOpacity>
                         }
-                        
-
                     </View>
                     
                     {/* {this.state.disable ? 
@@ -1359,7 +1349,7 @@ class DetailPage extends Component {
                                 <ActivityIndicator />
                             :
                         <View>
-                            <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'}>
+                            <View style={{paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Category</Text>
@@ -1378,7 +1368,7 @@ class DetailPage extends Component {
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     onValueChange={(val)=>this.setState({category:val})}
-                                    enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
                                     // onValueChange={(cat)=>this.changeform(cat)}
                                     // onValueChange={(val)=>alert(val)}
                                     >
@@ -1397,7 +1387,7 @@ class DetailPage extends Component {
                             {/* {this.state.individu ? 
                                 <ActivityIndicator />
                                 : */}
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                     <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                         {/* <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" /> */}
                                         <Text style={Styles.overviewTitles_Small}>Salutation</Text>
@@ -1419,7 +1409,7 @@ class DetailPage extends Component {
                                             style={{width: '100%',marginHorizontal:10}} 
                                             textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                             onValueChange={(val)=>this.setState({salutation:val})}
-                                            enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue} 
+                                            enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
                                             
                                             >
                                                 {this.state.salutationcd.map((data, key) =>
@@ -1434,21 +1424,21 @@ class DetailPage extends Component {
                                     {/* <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} onChangeText={(val)=>{this.setState({salutation:val})}}/> */}
                                 </View>  
                             {/* } */}
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Name</Text>
                                 </View>
-                                <TextInput style={Styles.textInput} placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}} />
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}} enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  />
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Address</Text>
                                 </View>
-                                <TextInput style={Styles.textInput} placeholder={'Address'} value={addr1} onChangeText={(val)=>{this.setState({addr1:val})}}/>
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Address'} value={addr1} onChangeText={(val)=>{this.setState({addr1:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Province</Text>
                                 </Label>
@@ -1467,6 +1457,7 @@ class DetailPage extends Component {
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     // onValueChange={(val)=>this.setState({province_cd:val})}
                                     // onValueChange={(val)=>alert(val)}
+                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}
                                     onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
                                     // onValueChange={this.chooseProv}
                                     >
@@ -1480,7 +1471,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} onChangeText={(val)=>{this.setState({province_cd:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>City</Text>
                                 </Label>
@@ -1500,6 +1491,7 @@ class DetailPage extends Component {
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     // onValueChange={(val)=>this.setState({city:val})}
                                     // onValueChange={(val)=>alert(val)}
+                                    enabled={this.state.disabledetail? this.state.makafalse  : this.state.makatrue} 
                                     onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
                                     >
                                         {this.state.getcity.map((data, key) =>
@@ -1512,7 +1504,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>District</Text>
                                 </Label>
@@ -1531,6 +1523,7 @@ class DetailPage extends Component {
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     // onValueChange={(val)=>this.setState({district:val})}
+                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
                                     onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
                                     >
                                         {this.state.getdistrict.map((data, key) =>
@@ -1543,7 +1536,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Village</Text>
                                 </Label>
@@ -1560,7 +1553,7 @@ class DetailPage extends Component {
                                     selectedValue={this.state.village}
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                    
+                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
                                     // onValueChange={(zoomvillage)=>this.setState({village:zoomvillage})}
                                     onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
                                     >
@@ -1574,7 +1567,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Post Code</Text>
                                 </Label>
@@ -1591,6 +1584,7 @@ class DetailPage extends Component {
                                     selectedValue={this.state.post_cd}
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
                                     // onValueChange={(val)=>alert({post_cd:val})}
                                     onValueChange={(val)=>this.setState({post_cd:val})}
                                     >
@@ -1604,72 +1598,63 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Telephone</Text>
                                 </Label>
-                                <TextInput style={Styles.textInput} placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Handphone/Whatsapp</Text>
                                 </View>
-                                <TextInput style={Styles.textInput} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Alternative Handphone</Text>
                                 </Label>
-                                <TextInput style={Styles.textInput} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Alternative Handphone 2</Text>
                                 </Label>
-                                <TextInput style={Styles.textInput} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Email</Text>
                                 </View>
-                                <TextInput style={Styles.textInput} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
+                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
                             </View>
                         </View>
                         }
                     </View>
                 </View>
     }
-    
     renderAccordionContentOther() {
        let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media,media_cd} = this.state
 
         return <View style={Styles.overview_detail}>
                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
-                        <Button style={{height: 40, marginHorizontal: 5, borderRadius: 10}} onPress={() => {
-                                this.unableview();
+                        {this.state.disableother ? 
+                            
+                            <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.unableviewother();
+                                }}>
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
+                            </TouchableOpacity>
+                            : 
+                            <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.updateOtherInformation();
                             }}>
-                            <Text style={{fontSize: 13}}>
-                                Edit
-                            </Text>
-                        </Button>
-
-                        {this.state.disable ? 
-                        <Button style={{height: 40, borderRadius: 10}} disabled={true}>
-                            <Text style={{fontSize: 13}}>
-                                Save
-                            </Text>
-                        </Button> 
-                        : 
-                        <Button style={{height: 40, borderRadius: 10, backgroundColor: Colors.navyUrban}} onPress={() => {
-                            this.updateOtherInformation(); 
-                            // alert('tes');
-                        }} >
-                            <Text style={{fontSize: 13}}>
-                                Save
-                            </Text>
-                        </Button>
+                                {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
+                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                            </TouchableOpacity>
                         }
                         
 
@@ -1679,7 +1664,7 @@ class DetailPage extends Component {
                         :
                     <View>
                         
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Sex</Text>
                             </Label>
@@ -1696,6 +1681,7 @@ class DetailPage extends Component {
                                 selectedValue={this.state.sex}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                enabled={this.state.disableother? this.state.makafalse  : this.state.makatrue} 
                                 onValueChange={(val)=>this.setState({sex:val})}
                                 // onValueChange={(val)=>this.chooseDistrict(val)}
                                 >
@@ -1708,38 +1694,38 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View> 
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Name</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({spouse_name:val})}}/>
+                            <TextInput style={this.state.disableother ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({spouse_name:val})}}/>
                         </View>
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Hp</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(text) => this.setState({ spouse_hp: text })} />
+                            <TextInput style={this.state.disableother? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(text) => this.setState({ spouse_hp: text })} />
                         </View>
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Company Name</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({co_name:val})}} />
+                            <TextInput style={this.state.disableother ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({co_name:val})}} />
                         </View> 
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Contact Person</Text>
                             </Label>
-                            <TextInput style={Styles.textInput} placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
+                            <TextInput style={this.state.disableother ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
                         </View>
-                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <Label style={{bottom: 5}}>
                                 <Text style={{fontSize: 12}}>Occupation</Text>
                             </Label>
                             {Platform.OS == "ios" ?
                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
                                     <View pointerEvents="none">
-                                        <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} />
+                                        <TextInput style={this.state.disable ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disable ? this.state.makafalse  : this.state.makatrue}  placeholder={'Occupation'} value={occupation} />
                                     </View>
                                 </TouchableOpacity>
                             :
@@ -1748,7 +1734,8 @@ class DetailPage extends Component {
                                 placeholder="Media"
                                 selectedValue={this.state.occupation}
                                 style={{width: '100%',marginHorizontal:10}} 
-                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}}
+                                enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  
                                 onValueChange={(val)=>this.setState({occupation:val})}
                                 // onValueChange={(val)=>alert(val)}
                                 // onValueChange={(val)=>this.chooseDistrict(val)}
@@ -1763,7 +1750,7 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({occupation:val})}}/> */}
                         </View>
-                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disable ? 'none' : 'auto'} backgroundColor={this.state.disable ? '#f3f3f3' : 'transparent'}>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>Media</Text>
@@ -1782,6 +1769,7 @@ class DetailPage extends Component {
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 onValueChange={(val)=>this.setState({media_cd:val})}
+                                enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue} 
                                 // onValueChange={(val)=>alert(val)}
                                 // onValueChange={(val)=>this.chooseDistrict(val)}
                                 >

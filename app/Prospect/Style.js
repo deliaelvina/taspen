@@ -89,18 +89,31 @@ export default {
       overview_padhorizontal: {
         flex: 1,paddingHorizontal: 0, width: '100%',paddingVertical: 5
       },
-      textInput: {
-        fontFamily: Fonts.type.sfuiDisplaySemibold,
-        borderBottomWidth: 0,
-        borderColor: '#DDD',
-        backgroundColor: '#f0f0f0',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        fontSize: 12,
+      // textInput: {
+      //   fontFamily: Fonts.type.sfuiDisplaySemibold,
+      //   borderBottomWidth: 0,
+      //   borderColor: '#DDD',
+      //   backgroundColor: '#f0f0f0',
+      //   paddingHorizontal: 20,
+      //   paddingVertical: 15,
+      //   fontSize: 12,
+      //   width: '100%',
+      //   marginBottom: 10,
+      //   borderRadius: 5,
+      //   textAlignVertical: 'top',
+      // },
+      textInput_disable: {
+        fontFamily: 'Montserrat-Regular',
+        borderBottomWidth: 1,
+        borderColor: '#CCC',
+        fontSize: 14,
         width: '100%',
-        marginBottom: 10,
         borderRadius: 5,
-        textAlignVertical: 'top',
+        textAlignVertical: 'bottom',
+        paddingVertical: .5,
+        paddingHorizontal: 20,
+        color: '#666',
+        backgroundColor: '#f3f3f3'
       },
       iconSub : {
         fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: 3
