@@ -1918,9 +1918,9 @@ class DetailPage extends Component {
                                     selectedValue={this.state.category}
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                    // onValueChange={(val)=>this.setState({category:val})}
+                                    onValueChange={(val)=>this.setState({category:val})}
                                     // enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
-                                    onValueChange={(cat)=>this.changeform(cat)}
+                                    // onValueChange={(cat)=>this.changeform(cat)}
                                     // onValueChange={(val)=>alert(val)}
                                     >
                                         <Item label="Individu" value="I" />
