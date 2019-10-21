@@ -6,7 +6,8 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-    ScrollView
+    ScrollView,
+    Linking,
     
 
 } from "react-native";
@@ -59,7 +60,9 @@ class ListProspect extends Component {
         this.state = {
             status_cd : '',
             email: '',
-            detail: []
+            detail: [],
+            handphone: '',
+            descs: '',
 
 
         }
@@ -69,12 +72,14 @@ class ListProspect extends Component {
         Actions.refresh({ backTitle: () => this.props.status_cd });
         const data = {
             status_cd : this.props.datas.status_cd,
+            descs : this.props.datas.descs,
             email : await _getData('@User'),
         }
-        console.log('data', data);
+        console.log('data di list', data);
         isMount = true;
         this.setState(data, () => {
             this.getDataListProspect(this.props.datas)
+            // this.getStatus()
         });
     };
 
@@ -86,6 +91,7 @@ class ListProspect extends Component {
     getDataListProspect = () => {
         const {status_cd} = this.props.datas
         const {email} = this.state
+        // alert(isMount);
         {isMount ?
         fetch(urlApi + 'c_prospect/getProspect/IFCAPB/',{
             method:'POST',
@@ -103,21 +109,39 @@ class ListProspect extends Component {
                     alert(res.Pesan)
                 });
             }
-            console.log('datalistprospect',res);
+            
         }).catch((error) => {
             console.log(error);
         })
         :null}
     }
 
-    DetailProspect(data) {
-        console.log('data status prospect',data);
-        Actions.Detail({datas : data});
+    tes = () =>{
+        alert('tes');
+
+    }
+    receiveProps = () =>{
+        // this.tes();
+        isMount=true;
+        // alert('refresh');
+        this.getDataListProspect(this.props.datas);
+    }
+
+    async DetailProspect(data) {
+        console.log('_storedata di list prospect',data);
+        _storeData("statusProspect",data);
+        Actions.Detail({datas:data, onBack: () => this.receiveProps() });
+        // { onBack: () => this.receiveProps() }
         // Actions.IndexProspect
         this.setState({ click : true})
     }
 
-
+    callphone(){
+        const noHp = this.state.detail[0].handphone
+        // alert(noHp);
+        // const noHp = "82236203286"
+        Linking.openURL('tel:'+noHp)
+    }
     
 
  
@@ -125,6 +149,7 @@ class ListProspect extends Component {
         return (
             <Container style={Style.bgMain}>
                 <Header style={Style.navigation}>
+                    
                     <StatusBar
                         backgroundColor={Colors.statusBarOrange}
                         animated
@@ -149,7 +174,9 @@ class ListProspect extends Component {
                     <View style={Style.actionBarMiddle}>
                         <Text style={Style.actionBarText}>
                             {/* {"Low".toUpperCase()} */}
-                            {this.state.status_cd.toUpperCase()}
+                            {/* {data.descs} */}
+                            {/* {this.state.status_cd.toUpperCase()} */}
+                            {this.state.descs.toUpperCase()}
                         </Text>
                     </View>
                     <View style={Style.actionBarRight} />
@@ -169,7 +196,7 @@ class ListProspect extends Component {
                                     <Text style={{fontFamily: "Montserrat-Regular",alignSelf:'flex-start',color: "#333",marginBottom: 5,fontSize: 15}}>Follow Up Date : 08-09-2019</Text>
                                 </View>
                                 <Right style={{position:'absolute',right:30}} >
-                                    <Icon color="green" name="phone" style={{fontSize: 30,color: 'green'}} type="FontAwesome" onPress={()=>alert('tlp') }/>
+                                    <Icon color="green" name="phone" style={{fontSize: 30,color: 'green'}} type="FontAwesome" onPress={()=>this.callphone()}/>
                                 </Right>
                             </ListItem>
                         ))}

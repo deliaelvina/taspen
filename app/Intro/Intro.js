@@ -36,6 +36,7 @@ import DeviceInfo from "react-native-device-info";
 import { urlApi } from "@Config/services";
 import FBLoginButton from "../components/LoginFB";
 import GoogleLoginButton from "../components/LoginGoogle";
+import { Colors } from "../Themes";
 
 let isMount = false;
 
@@ -280,6 +281,36 @@ export default class Intro extends React.Component {
     signInFacebook = async data => {
         this.doLoginSosMed(data);
     };
+    _renderNextButton = () => {
+        return (
+            <View>
+                <Text style={styles.title_next}>
+                    Next
+                </Text>
+            </View>
+       
+        );
+      };
+      _renderSkipButton = () => {
+        return (
+            <View>
+                <Text style={styles.title_skip}>
+                    Skip
+                </Text>
+            </View>
+       
+        );
+      };
+      _renderDoneButton = () => {
+        return (
+            <View>
+                <Text style={styles.title_done}>
+                    Done
+                </Text>
+            </View>
+       
+        );
+      };
 
     render() {
         // let BG_Image = { uri : 'https://antiqueruby.aliansoftware.net/Images/signin/ic_main_bg_stwo.png'};
@@ -415,7 +446,11 @@ export default class Intro extends React.Component {
             return (
                 <AppIntroSlider
                     slides={slides}
+                    
                     onDone={this._onDone}
+                    renderDoneButton={this._renderDoneButton}
+                    renderNextButton={this._renderNextButton}
+                    renderSkipButton={this._renderSkipButton}
                     showSkipButton={true}
                     onSkip={this._onSkip}
                 />
@@ -427,78 +462,95 @@ export default class Intro extends React.Component {
 const slides = [
     {
         key: "s1",
-        text: "Temukan info dan update project yang dikembangkan oleh Ifca S+",
-        title: "Dapatkan Info Project",
-        titleStyle: styles.title,
-        textStyle: styles.text,
-        image: {
-            uri:
-                "http://aboutreact.com/wp-content/uploads/2018/08/mobile_recharge.png"
-        },
-        imageStyle: styles.image,
-        backgroundColor: "#20d2bb"
+        text: "Find information and update project from \n PT Urban Jakarta Propertindo",
+        title: "Get Info Project",
+        titleStyle: styles.title_urban,
+        textStyle: styles.text_urban,
+        image: require('@Asset/images/walktrough/urban_sky.png'),
+        // image:  require('@Asset/icon/save_file.png'),
+        // imageStyle: styles.image,
+        imageStyle: styles.images_urban,
+        backgroundColor: Colors.white
+        // backgroundColor: Colors.grey
     },
     {
         key: "s2",
-        title: "Lihat Tipe Unit",
-        titleStyle: styles.title,
-        text: "Dapatkan detail info mengenai unit yang dipasarkan saat ini",
-        image: {
-            uri:
-                "http://aboutreact.com/wp-content/uploads/2018/08/flight_ticket_booking.png"
-        },
+        title: "See unit type",
+        titleStyle: styles.title_urban,
+        textStyle: styles.text_urban,
+        text: "Get detailed info about units currently being marketed",
+        image: require('@Asset/images/walktrough/unit_plan.png'),
+        // image: {
+        //     uri:
+        //         "http://aboutreact.com/wp-content/uploads/2018/08/flight_ticket_booking.png"
+        // },
         imageStyle: styles.image,
-        backgroundColor: "#febe29"
+        // backgroundColor: "#febe29"
+        backgroundColor: Colors.white
     },
     {
         key: "s3",
-        title: "Kemudahan NUP",
-        titleStyle: styles.title,
+        title: "Easy Registration NUP",
+        titleStyle: styles.title_urban,
+        textStyle: styles.text_urban,
         text:
-            "Pembelian dan pembayaran NUP ( Nomor Urut Pembeli ) lebih praktis via online",
-        image: {
-            uri:
-                "http://aboutreact.com/wp-content/uploads/2018/08/discount1.png"
-        },
+            "Nup purchases and payments are more practical via online",
+            image: require('@Asset/images/walktrough/nup_regis.png'),
+        // image: {
+        //     uri:
+        //         "http://aboutreact.com/wp-content/uploads/2018/08/discount1.png"
+        // },
         imageStyle: styles.image,
-        backgroundColor: "#22bcb5"
+        // backgroundColor: "#22bcb5"
+        backgroundColor: Colors.white
     },
     {
         key: "s4",
-        title: "Ilustrasi Cicilan",
-        titleStyle: styles.title,
-        text: "Pilih tipe pembayaran unit dengan suku bunga terupdate",
-        image: {
-            uri:
-                "http://aboutreact.com/wp-content/uploads/2018/08/best_deals1.png"
-        },
+        title: "Installment illustration",
+        titleStyle: styles.title_urban,
+        textStyle: styles.text_urban,
+        text: 
+        "Choose the type of payment unit with updated interest rates",
+        // image: {
+        //     uri:
+        //         "http://aboutreact.com/wp-content/uploads/2018/08/best_deals1.png"
+        // },
+        image: require('@Asset/images/walktrough/instalment.png'),
         imageStyle: styles.image,
-        backgroundColor: "#3395ff"
+        backgroundColor: Colors.white
+        // backgroundColor: "#3395ff"
     },
     {
         key: "s5",
-        title: "Cek Realtime Unit",
-        titleStyle: styles.title,
+        title: "Real time unit check",
+       
+        titleStyle: styles.title_urban,
+        textStyle: styles.text_urban,
         text:
-            "Cek status available langsung dari handphone Anda dan spesifikasi tipe unit, view dan lain-lain",
-        image: {
-            uri:
-                "http://aboutreact.com/wp-content/uploads/2018/08/bus_ticket_booking.png"
-        },
+            "Check the available status directly from your mobile and the specifications of unit type, view and others",
+        // image: {
+        //     uri:
+        //         "http://aboutreact.com/wp-content/uploads/2018/08/bus_ticket_booking.png"
+        // },
+        image: require('@Asset/images/walktrough/realtime_unit.png'),
         imageStyle: styles.image,
-        backgroundColor: "#f6437b"
+        backgroundColor: Colors.white
     },
     {
         key: "s6",
-        title: "About Ifca S+",
-        titleStyle: styles.title,
+        title: "About PT Urban Jakarta Propertindo",
+        titleStyle: styles.title_urban,
+        textStyle: styles.text_urban,
+       
         text:
-            "Ifca S+ merupakan platform property pertama yang terintegrasi dengan berbagai macam Perusahaan Properti atau Agen Property",
-        image: {
-            uri:
-                "http://aboutreact.com/wp-content/uploads/2018/08/train_ticket_booking.png"
-        },
+            "PT Urban Jakarta Propertindo brings a new concept of residence, as is the paradigm that occurs in all major cities in the world",
+        // image: {
+        //     uri:
+        //         "http://aboutreact.com/wp-content/uploads/2018/08/train_ticket_booking.png"
+        // },
+        image: require('@Asset/images/walktrough/about.png'),
         imageStyle: styles.image,
-        backgroundColor: "#febe29"
+        backgroundColor: Colors.white
+        // backgroundColor: "#febe29"
     }
 ];

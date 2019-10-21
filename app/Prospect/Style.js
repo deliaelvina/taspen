@@ -63,13 +63,93 @@ export default {
         flexWrap: "wrap",
         width: dw * 0.65
       },
-
+      overviewTitles: {
+        flex: 1,
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        left: 15,
+      },
+      overviewTitles_Small : {
+        flex: 1,
+        // fontFamily: Fonts.type.sfuiDisplaySemibold,
+        left: 13,
+        fontSize: 14,
+        bottom: 5,
+        color:"#b5b5ba"
+      },
+      overviewTitle: {
+        flex: 1,
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+      },
 
       overview: {
         flex: 1,
         paddingHorizontal: 20,
         paddingVertical: 5,
-    
+      },
+      overview_padhorizontal: {
+        flex: 1,paddingHorizontal: 0, width: '100%',paddingVertical: 5
+      },
+      // textInput: {
+      //   fontFamily: Fonts.type.sfuiDisplaySemibold,
+      //   borderBottomWidth: 0,
+      //   borderColor: '#DDD',
+      //   backgroundColor: '#f0f0f0',
+      //   paddingHorizontal: 20,
+      //   paddingVertical: 15,
+      //   fontSize: 12,
+      //   width: '100%',
+      //   marginBottom: 10,
+      //   borderRadius: 5,
+      //   textAlignVertical: 'top',
+      // },
+      textInput_disable: {
+        fontFamily: 'Montserrat-Regular',
+        borderBottomWidth: 1,
+        borderColor: '#CCC',
+        fontSize: 14,
+        width: '100%',
+        borderRadius: 5,
+        textAlignVertical: 'bottom',
+        paddingVertical: .5,
+        paddingHorizontal: 20,
+        color: '#666',
+        backgroundColor: '#f3f3f3'
+      },
+      iconSub : {
+        fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: 3
+      },
+      iconSub2 : {
+        fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: -5
+      },
+      iconColor : {
+        color: Colors.navyUrban, left: 15,
+        fontSize: 20
+      },
+      textInputArea: {
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        borderBottomWidth: 0,
+        borderColor: '#DDD',
+        backgroundColor: '#f0f0f0',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        fontSize: 12,
+        width: '100%',
+        marginBottom: 10,
+        borderRadius: 5,
+        textAlignVertical: 'top',
+      },
+      dateInput: {
+        fontFamily: Fonts.type.sfuiDisplaySemibold,
+        borderBottomWidth: 0,
+        borderColor: '#DDD',
+        backgroundColor: '#f0f0f0',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        fontSize: 12,
+        width: '100%',
+        marginBottom: 10,
+        borderRadius: 5,
+        textAlignVertical: 'top',
       },
       overview_detail: {
         flex: 1,
@@ -132,7 +212,7 @@ export default {
     formBg: {
       width: '100%',
       paddingHorizontal: 15,
-      paddingTop: 30,
+      paddingTop: 15,
       paddingBottom: 10,
     },
     accordion: {
@@ -174,6 +254,34 @@ fontFamily: "Montserrat-Regular",
     fontSize: 14,
     textAlign: 'center',
 },
+buttonContact: {
+  flexDirection: 'row', 
+  width: '100%', 
+  flex: 1, 
+  // backgroundColor: '#fff',
+  //  borderColor: Colors.navyUrban, 
+  //  borderWidth: 1,
+   marginHorizontal: 3,
+   marginVertical: 3,
+   borderRadius: 5,
+   height: 0, 
+   justifyContent: 'center',
+   fontSize: 30,
+   color: 'green'
+},
+// buttonPolos: {
+//   flexDirection: 'row', 
+//   width: '100%', 
+//   flex: 1, 
+//   backgroundColor: '#fff',
+//   //  borderColor: Colors.navyUrban, 
+//   //  borderWidth: 1,
+//    marginHorizontal: 3,
+//    marginVertical: 3,
+//   //  borderRadius: 5,
+//    height: 38, 
+//    justifyContent: 'center'
+// }
 
 
 }

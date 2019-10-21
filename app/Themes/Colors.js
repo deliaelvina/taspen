@@ -54,6 +54,7 @@ const colors = {
 
     statusBarNavy: "#12173F",
     headerNavy: "#1E3A60",
+    // softGrey: "#f3f3f3",
 
     //WooCommerce Color
     veryLightGray: "#dcdcdc",
@@ -62,7 +63,8 @@ const colors = {
     lightGray: "#959595",
     yellow: "#ffc700",
     lightBlack: "#111111",
-    gray: "#d8d8d8"
+    gray: "#d8d8d8",
+    grey: "#d8d8d8"
 };
 
 export default colors;

@@ -95,7 +95,9 @@ import ListProspect from './Prospect/ListProspect';
 
 import FollowupProspect from './Prospect/FollowupProspect';
 import DetailProspect from './Prospect/Detail';
-
+import DetailPage from './Prospect/DetailPage';
+import InterestProjectProspect from './Prospect/InterestProjectProspect';
+import AddProject from './Prospect/AddProject';
 
 
 
@@ -469,6 +471,24 @@ class Routes extends Component{
                 <Scene
                   key="Detail"
                   component={DetailProspect}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="DetailPage"
+                  component={DetailPage}
+                  hideNavBar={true}
+                  title=""
+                />
+                 <Scene
+                  key="InterestProjectProspect"
+                  component={InterestProjectProspect}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="AddProject"
+                  component={AddProject}
                   hideNavBar={true}
                   title=""
                 />
