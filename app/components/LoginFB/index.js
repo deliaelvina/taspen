@@ -20,12 +20,12 @@ export default class FBLoginButton extends Component {
     }
 
     handleEnable = () => {
-        this.setState({ disabled: !this.state.disabled });
+        // this.setState({ disabled: !this.state.disabled });
     };
 
     handleLogin = () => {
         this.handleEnable();
-        LoginManager.logInWithPermissions(["email", "public_profile"]).then(
+        LoginManager.logInWithPermissions(["email", "public_profile","user_friends"]).then(
             result => {
                 if (!result.isCancelled) {
                     AccessToken.getCurrentAccessToken().then(data => {
@@ -49,7 +49,7 @@ export default class FBLoginButton extends Component {
                 this.handleEnable();
             }
         ),
-            error => alert(error);
+            error => alert("ERRR",error);
     };
 
     _responseInfoCallback = (error, result, token) => {
