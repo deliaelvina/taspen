@@ -1156,13 +1156,20 @@ class DetailPage extends Component {
     }
         
 
-    changeform = (cat) => {
-        // alert(cat);
-        // const {category} = dataProspect
+    changeform = async(cat) => {
+        alert(cat);
+        const dataProspect = await _getData("statusProspect");
+        const {category} = dataProspect
+        console.log('kategori yang terpilih', category);
         if(cat == 'C'){
+            this.setState({category:cat})
+            // this.setState(previousState=>({company: previousState.company}))
             this.setState(previousState=>({individu: !previousState.individu}))
-        }else{
+        }
+        else{
+            this.setState({category:cat})
             this.setState(previousState=>({individu: previousState.individu}))
+            // this.setState(previousState=>({company: !previousState.company}))
         }
         
         // this.renderAccordionContentDetail = this.renderAccordionContentDetail.bind(this)
@@ -1349,41 +1356,7 @@ class DetailPage extends Component {
                                 <ActivityIndicator />
                             :
                         <View>
-                            <View style={{paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'}>
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                    <Text style={Styles.overviewTitles_Small}>Category</Text>
-                                </View>
-                                {Platform.OS == "ios" ?
-                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                        <View pointerEvents="none">
-                                            <TextInput style={Styles.textInput} placeholder={'Category'} value={category} />
-                                        </View>
-                                    </TouchableOpacity>
-                                :
-                                <Item rounded style={{height: 35}}>
-                                    <Picker 
-                                    placeholder="Gender"
-                                    selectedValue={this.state.category}
-                                    style={{width: '100%',marginHorizontal:10}} 
-                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                    onValueChange={(val)=>this.setState({category:val})}
-                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
-                                    // onValueChange={(cat)=>this.changeform(cat)}
-                                    // onValueChange={(val)=>alert(val)}
-                                    >
-                                        <Item label="Individu" value="I" />
-                                        <Item label="Company" value="C" />
-                                        {/* {this.state.classCd.map((data, key) =>
-                                            <Picker.Item key={key} label={data.label} value={data.value} />
-                                        )} */}
-                                    </Picker>
-                                
-                                </Item>
-                                }
-
-                                {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
-                            </View>
+                            
                             {/* {this.state.individu ? 
                                 <ActivityIndicator />
                                 : */}
@@ -1427,7 +1400,12 @@ class DetailPage extends Component {
                             <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                    <Text style={Styles.overviewTitles_Small}>Name</Text>
+                                    {/* <Text style={Styles.overviewTitles_Small}>  {this.state.individu ? <ActivityIndicator /> : "Name Individu" }
+                                    {this.state.company ? <ActivityIndicator /> : "Name CompanyYY" } </Text> */}
+                                    {this.state.individu ? <Text style={Styles.overviewTitles_Small}>Name Company</Text>: <Text style={Styles.overviewTitles_Small}>Name Individu</Text> }
+                                    
+                                      
+                                     {/* {this.state.company ? <Text style={Styles.overviewTitles_Small}>Name Company</Text> :  <ActivityIndicator />  } */}
                                 </View>
                                 <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}} enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  />
                             </View>
@@ -1917,10 +1895,46 @@ class DetailPage extends Component {
                     {/* content tab 1 */}
                     {this.state.detail.length == 0 ?
                         <ActivityIndicator />
-                    :
-                                        
+                    :             
                         <View> 
                             <ScrollView>
+
+                            <View style={{paddingVertical: 10}}>
+                            {/* <View style={{paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'}> */}
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Category</Text>
+                                </View>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Category'} value={category} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.category}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({category:val})}
+                                    // enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
+                                    onValueChange={(cat)=>this.changeform(cat)}
+                                    // onValueChange={(val)=>alert(val)}
+                                    >
+                                        <Item label="Individu" value="I" />
+                                        <Item label="Company" value="C" />
+                                        {/* {this.state.classCd.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )} */}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+
+                                {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
+                            </View>
                                 
                                 <View style={Styles.formBg}>
                                     
