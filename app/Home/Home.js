@@ -264,6 +264,8 @@ export default class Home extends Component {
           
         </View>
       </TouchableOpacity>
+      
+      
     )
   }
 
@@ -384,6 +386,24 @@ export default class Home extends Component {
                   numColumns={2}
                   renderItem={({ item }) => this.renderItemNews(item)}
                 />
+              </View>
+              <View style={Styles.sectionTransparent}>
+                <TouchableOpacity
+                    style={Styles.item}
+                    underlayColor="transparent"
+                    onPress={()=>Actions.NewsAndPromoDetail({items : item})}>
+                    <View>
+                      <View>
+                        <Image
+                          source={{ uri: 'https://image.freepik.com/free-photo/image-human-brain_99433-298.jpg' }}
+                          style={Styles.itemImg}
+                        />
+                      </View>
+                      <Text style={Styles.itemPrice}>rts</Text>
+                      <Text style={Styles.itemLocation}>ess</Text>
+                      
+                    </View>
+                  </TouchableOpacity>
               </View>
 
               {/* <View style={{ marginTop: 40, paddingHorizontal: 20, paddingBottom: 16 }}>

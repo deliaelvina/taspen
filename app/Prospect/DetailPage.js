@@ -77,14 +77,17 @@ class DetailPage extends Component {
 
         this.state = {
             company: true,
-            idividu: true,
+            individu: true,
             disable : true,
             enabled: false,
             makatrue : true,
             makafalse: false,
             disableprospect: true,
-            disabledetail: true,
             disableother: true,
+            disableothercompany: true,
+            disabledetailindividu: true,
+            disabledetailcompany: true,
+            disableotherdetail: true,
 
             status_cd : '',
             email: '',
@@ -166,8 +169,9 @@ class DetailPage extends Component {
         this.renderAccordionContent = this.renderAccordionContent.bind(this)
         this.renderAccordionContentProspect = this.renderAccordionContentProspect.bind(this)
         this.renderAccordionContentDetail = this.renderAccordionContentDetail.bind(this)
-        // this.renderAccordionContentCompany = this.renderAccordionContentCompany.bind(this)
-        this.renderAccordionContentOther = this.renderAccordionContentOther.bind(this)
+        this.renderAccordionContentCompany = this.renderAccordionContentCompany.bind(this)
+        this.renderAccordionContentOtherind = this.renderAccordionContentOtherind.bind(this)
+        this.renderAccordionContentOthercom = this.renderAccordionContentOthercom.bind(this)
         this.renderAccordionContentInterest = this.renderAccordionContentInterest.bind(this)
         console.log('props status prospesct',props);
     }
@@ -924,6 +928,7 @@ class DetailPage extends Component {
             class_cd,
             // descs,
             vip,
+            category,
  
         } = this.state
 
@@ -936,6 +941,7 @@ class DetailPage extends Component {
             class_cd: class_cd,
             // descs: descs, //class
             vip: vip,
+            category: category
 
         }
         console.log('form data prospect type update', formData)
@@ -968,6 +974,7 @@ class DetailPage extends Component {
 
 
     }
+
     updateDetailInformation = () => {
         // alert('update detail');
         const {
@@ -1037,8 +1044,89 @@ class DetailPage extends Component {
         }).catch((error) => {
             console.log(error);
         });
-        this.unableviewdetail();
+        // this.unableviewdetail();
+        this.setState({disabledetailindividu: true})
     }
+    updateDetailCompany = () => {
+        // alert('update detail');
+        const {
+            business_id,
+            //tab2
+            // salutation,
+            name,
+            co_name,
+
+            addr1,
+            co_addr1,
+            province_cd,
+            city,
+            district,
+            village,
+            post_cd,
+            co_post_cd,
+            contact_person,
+            tel_no,
+            handphone,
+            // hp,
+            // hp2,
+            email_addr,
+            // marital_status,
+            
+
+        } = this.state
+
+        const formData = {
+            business_id: business_id,
+            //tab2
+            
+            name: co_name,
+            co_name: co_name,
+            addr1: co_addr1,
+            co_addr1: co_addr1,
+            post_cd: post_cd,
+            co_post_cd: post_cd,
+            village: village,
+            district: district,
+            city: city,
+            // province_cd: province_cd,
+            province_cd: province_cd,
+            contact_person: contact_person,
+            tel_no: tel_no,
+            handphone: handphone, //handphone/wa
+            // hp: hp, //alternate hp
+            // hp2: hp2, //alternate hp2
+            email_addr: email_addr,
+            // marital_status: 'N', //default N
+            // category: category,
+
+        }
+        console.log('form data update detail company', formData)
+
+        // fetch(urlApi+'c_prospect_lot/updateDetailIndividu/IFCAPB2/',{
+        //     method : "POST",
+        //     body :JSON.stringify(formData),
+        //     // headers :{
+        //     //     Accept: 'application/json',
+        //     //     'Content-Type': 'application/json',
+        //     //     'Token' : this.state.token
+        //     // }
+        // })
+        // .then((response) => response.json())
+        // .then((res)=>{
+        //     if(!res.Error){
+        //         alert(res.Pesan)
+        //         // _storeData('@Name',name)
+        //         // _storeData('@Handphone',hp)
+        //         // _storeData('@ProfileUpdate',true)
+        //     }
+        //     console.log('update detail information',res)
+
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
+        this.unableviewcompany();
+    }
+
     updateOtherInformation = () => {
         const {
            
@@ -1082,30 +1170,84 @@ class DetailPage extends Component {
         }
         console.log('form data update other information', formData)
 
-        fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
-            method : "POST",
-            body :JSON.stringify(formData),
-            // headers :{
-            //     Accept: 'application/json',
-            //     'Content-Type': 'application/json',
-            //     'Token' : this.state.token
-            // }
-        })
-        .then((response) => response.json())
-        .then((res)=>{
-            if(!res.Error){
-                alert(res.Pesan)
-                // _storeData('@Name',name)
-                // _storeData('@Handphone',hp)
-                // _storeData('@ProfileUpdate',true)
-            }
-            console.log('update other information',res)
+        // fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
+        //     method : "POST",
+        //     body :JSON.stringify(formData),
+        //     // headers :{
+        //     //     Accept: 'application/json',
+        //     //     'Content-Type': 'application/json',
+        //     //     'Token' : this.state.token
+        //     // }
+        // })
+        // .then((response) => response.json())
+        // .then((res)=>{
+        //     if(!res.Error){
+        //         alert(res.Pesan)
+        //         // _storeData('@Name',name)
+        //         // _storeData('@Handphone',hp)
+        //         // _storeData('@ProfileUpdate',true)
+        //     }
+        //     console.log('update other information',res)
 
-        }).catch((error) => {
-            console.log(error);
-        });
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
         this.unableviewother();
     }
+    updateOtherCompany = () => {
+        const {
+           
+            //tab2
+            business_id,
+            //tab3
+            occupation, hp, hp2,media
+            
+            
+        } = this.state
+
+        const formData = {
+            
+            business_id: business_id,
+
+            //tab 3
+            // marital_status: '',
+           
+            occupation: occupation,
+            // occupation_cd: occupation_cd,
+           hp: hp,
+           hp2: hp2,
+            media: media,
+            media_cd: media_cd,
+
+
+        }
+        console.log('form data update other information', formData)
+
+        // fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
+        //     method : "POST",
+        //     body :JSON.stringify(formData),
+        //     // headers :{
+        //     //     Accept: 'application/json',
+        //     //     'Content-Type': 'application/json',
+        //     //     'Token' : this.state.token
+        //     // }
+        // })
+        // .then((response) => response.json())
+        // .then((res)=>{
+        //     if(!res.Error){
+        //         alert(res.Pesan)
+        //         // _storeData('@Name',name)
+        //         // _storeData('@Handphone',hp)
+        //         // _storeData('@ProfileUpdate',true)
+        //     }
+        //     console.log('update other information',res)
+
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
+        this.unableviewothercompany();
+    }
+
     updateStatus = () => {
 
         const {
@@ -1157,18 +1299,18 @@ class DetailPage extends Component {
         
 
     changeform = async(cat) => {
-        alert(cat);
+        // alert(cat);
         const dataProspect = await _getData("statusProspect");
         const {category} = dataProspect
         console.log('kategori yang terpilih', category);
         if(cat == 'C'){
             this.setState({category:cat})
             // this.setState(previousState=>({company: previousState.company}))
-            this.setState(previousState=>({individu: !previousState.individu}))
+            this.setState({individu: false})
         }
         else{
             this.setState({category:cat})
-            this.setState(previousState=>({individu: previousState.individu}))
+            this.setState({individu: true})
             // this.setState(previousState=>({company: !previousState.company}))
         }
         
@@ -1178,19 +1320,32 @@ class DetailPage extends Component {
     unableviewprospect = () => {
         // alert('unable prospect');
 
-        this.setState(previousState=>({disableprospect: !previousState.disableprospect}))
+        this.setState({disableprospect: false})
 
     }
-    unableviewdetail = () => {
+    unableviewdetail = () => { //individu
         // alert('unable detail');
 
-        this.setState(previousState=>({disabledetail: !previousState.disabledetail}))
+        this.setState({disabledetailindividu: false})
+        
+
+    }
+    unableviewcompany = () => {
+        // alert('unable detail company');
+
+        this.setState({disabledetailcompany: false})
 
     }
     unableviewother = () => {
         // alert('unable other');
 
-        this.setState(previousState=>({disableother: !previousState.disableother}))
+        this.setState({disableotherdetail: false})
+
+    }
+    unableviewothercompany = () => {
+        // alert('unable other');
+
+        this.setState({disableothercompany: false})
 
     }
 
@@ -1319,6 +1474,42 @@ class DetailPage extends Component {
                             
                             
                         </View> 
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableprospect ? 'none' : 'auto'}>
+                            {/* <View style={{paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'}> */}
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Category</Text>
+                                </View>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Category'} value={category} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.category}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({category:val})}
+                                    enabled={this.state.disableprospect ? this.state.makafalse  : this.state.makatrue} 
+                                    onValueChange={(cat)=>this.changeform(cat)}
+                                    // onValueChange={(val)=>alert(val)}
+                                    >
+                                        <Item label="Individu" value="I" />
+                                        <Item label="Company" value="C" />
+                                        {/* {this.state.classCd.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )} */}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+
+                                {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
+                            </View>
                     </View>
                 }
                     
@@ -1326,12 +1517,13 @@ class DetailPage extends Component {
                 
                                 
     }
+
     renderAccordionContentDetail() {
         
         let {salutation,name,addr1,post_cd,district,village,city,province_cd,tel_no,hp,hp2,handphone,email_addr,salutation_cd,category} = this.state
         return <View style={Styles.overview_detail}>
                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
-                        {this.state.disabledetail ? 
+                        {this.state.disabledetailindividu ? 
                             
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.unableviewdetail();
@@ -1360,7 +1552,7 @@ class DetailPage extends Component {
                             {/* {this.state.individu ? 
                                 <ActivityIndicator />
                                 : */}
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                     <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                         {/* <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" /> */}
                                         <Text style={Styles.overviewTitles_Small}>Salutation</Text>
@@ -1382,7 +1574,7 @@ class DetailPage extends Component {
                                             style={{width: '100%',marginHorizontal:10}} 
                                             textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                             onValueChange={(val)=>this.setState({salutation:val})}
-                                            enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
+                                            enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} 
                                             
                                             >
                                                 {this.state.salutationcd.map((data, key) =>
@@ -1397,26 +1589,26 @@ class DetailPage extends Component {
                                     {/* <TextInput style={Styles.textInput} placeholder={'Salutation'} value={salutation} onChangeText={(val)=>{this.setState({salutation:val})}}/> */}
                                 </View>  
                             {/* } */}
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     {/* <Text style={Styles.overviewTitles_Small}>  {this.state.individu ? <ActivityIndicator /> : "Name Individu" }
                                     {this.state.company ? <ActivityIndicator /> : "Name CompanyYY" } </Text> */}
-                                    {this.state.individu ? <Text style={Styles.overviewTitles_Small}>Name Company</Text>: <Text style={Styles.overviewTitles_Small}>Name Individu</Text> }
+                                    <Text style={Styles.overviewTitles_Small}>Name Individu</Text>
                                     
                                       
                                      {/* {this.state.company ? <Text style={Styles.overviewTitles_Small}>Name Company</Text> :  <ActivityIndicator />  } */}
                                 </View>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}} enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  />
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } placeholder={'Name'} value={name} onChangeText={(val)=>{this.setState({name:val})}} enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue}  />
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Address</Text>
                                 </View>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Address'} value={addr1} onChangeText={(val)=>{this.setState({addr1:val})}}/>
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} placeholder={'Address'} value={addr1} onChangeText={(val)=>{this.setState({addr1:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Province</Text>
                                 </Label>
@@ -1435,7 +1627,7 @@ class DetailPage extends Component {
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     // onValueChange={(val)=>this.setState({province_cd:val})}
                                     // onValueChange={(val)=>alert(val)}
-                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}
+                                    enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue}
                                     onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
                                     // onValueChange={this.chooseProv}
                                     >
@@ -1449,7 +1641,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} onChangeText={(val)=>{this.setState({province_cd:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>City</Text>
                                 </Label>
@@ -1469,7 +1661,7 @@ class DetailPage extends Component {
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     // onValueChange={(val)=>this.setState({city:val})}
                                     // onValueChange={(val)=>alert(val)}
-                                    enabled={this.state.disabledetail? this.state.makafalse  : this.state.makatrue} 
+                                    enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} 
                                     onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
                                     >
                                         {this.state.getcity.map((data, key) =>
@@ -1482,7 +1674,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>District</Text>
                                 </Label>
@@ -1501,7 +1693,7 @@ class DetailPage extends Component {
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                     // onValueChange={(val)=>this.setState({district:val})}
-                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
+                                    enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} 
                                     onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
                                     >
                                         {this.state.getdistrict.map((data, key) =>
@@ -1514,7 +1706,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Village</Text>
                                 </Label>
@@ -1531,7 +1723,7 @@ class DetailPage extends Component {
                                     selectedValue={this.state.village}
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
+                                    enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} 
                                     // onValueChange={(zoomvillage)=>this.setState({village:zoomvillage})}
                                     onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
                                     >
@@ -1545,7 +1737,7 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Post Code</Text>
                                 </Label>
@@ -1562,9 +1754,11 @@ class DetailPage extends Component {
                                     selectedValue={this.state.post_cd}
                                     style={{width: '100%',marginHorizontal:10}} 
                                     textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                    enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
+                                    enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} 
                                     // onValueChange={(val)=>alert({post_cd:val})}
+                                    
                                     onValueChange={(val)=>this.setState({post_cd:val})}
+                                    // onValueChange={(val)=>console.log('post code', val)}
                                     >
                                         {this.state.getpostcode.map((data, key) =>
                                             <Picker.Item key={key} label={data.label} value={data.value} />
@@ -1576,49 +1770,292 @@ class DetailPage extends Component {
                                 
                                 {/* <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/> */}
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Telephone</Text>
                                 </Label>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue}  placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Handphone/Whatsapp</Text>
                                 </View>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Alternative Handphone</Text>
                                 </Label>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <Label>
                                     <Text style={{fontSize: 12}}>Alternative Handphone 2</Text>
                                 </Label>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
                             </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'} >
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailindividu ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     <Text style={Styles.overviewTitles_Small}>Email</Text>
                                 </View>
-                                <TextInput style={this.state.disabledetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
+                                <TextInput style={this.state.disabledetailindividu ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
                             </View>
                         </View>
                         }
                     </View>
                 </View>
     }
-    renderAccordionContentOther() {
+    renderAccordionContentCompany() {
+        
+        let {co_name,co_addr1, co_post_cd,district,village,city,province_cd,tel_no,hp,hp2,handphone,email_addr,salutation_cd,category,contact_person} = this.state
+        return <View style={Styles.overview_detail}>
+                    <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
+                        {this.state.disabledetailcompany ? 
+                            
+                            <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.unableviewcompany();
+                                }}>
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
+                            </TouchableOpacity>
+                            : 
+                            <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                this.updateDetailCompany();}}>
+                                {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
+                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                            </TouchableOpacity>
+                        }
+                    </View>
+                    
+                    {/* {this.state.disable ? 
+                    
+                    : } */}
+                    <View>
+                        {this.state.detail.length == 0 ?
+                                <ActivityIndicator />
+                            :
+                        <View>
+                            
+                            {/* {this.state.individu ? 
+                                <ActivityIndicator />
+                                : */}
+                            
+                            {/* } */}
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Company Name</Text>
+                                     {/* {this.state.company ? <Text style={Styles.overviewTitles_Small}>Name Company</Text> :  <ActivityIndicator />  } */}
+                                </View>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } placeholder={'Name'} value={co_name} onChangeText={(val)=>{this.setState({co_name:val})}} enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  />
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Company Address</Text>
+                                </View>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} placeholder={'Address'} value={co_addr1} onChangeText={(val)=>{this.setState({co_addr1:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Province</Text>
+                                </Label>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.province_cd}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({province_cd:val})}
+                                    // onValueChange={(val)=>alert(val)}
+                                    enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}
+                                    onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
+                                    // onValueChange={this.chooseProv}
+                                    >
+                                        {this.state.prov.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={province_cd} onChangeText={(val)=>{this.setState({province_cd:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>City</Text>
+                                </Label>
+                                
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/>
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="City"
+                                    selectedValue={this.state.city}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({city:val})}
+                                    // onValueChange={(val)=>alert(val)}
+                                    enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} 
+                                    onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
+                                    >
+                                        {this.state.getcity.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'City'} value={city} onChangeText={(val)=>{this.setState({city:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>District</Text>
+                                </Label>
+                            
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'District'} value={district} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.district}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    // onValueChange={(val)=>this.setState({district:val})}
+                                    enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} 
+                                    onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
+                                    >
+                                        {this.state.getdistrict.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'District'} value={district} onChangeText={(val)=>{this.setState({district:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Village</Text>
+                                </Label>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Village'} value={village} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Gender"
+                                    selectedValue={this.state.village}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} 
+                                    // onValueChange={(zoomvillage)=>this.setState({village:zoomvillage})}
+                                    onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
+                                    >
+                                        {this.state.getvillage.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'Village'} value={village} onChangeText={(val)=>{this.setState({village:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Post Code</Text>
+                                </Label>
+                                {Platform.OS == "ios" ?
+                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                        <View pointerEvents="none">
+                                            <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} />
+                                        </View>
+                                    </TouchableOpacity>
+                                :
+                                <Item rounded style={{height: 35}}>
+                                    <Picker 
+                                    placeholder="Post Code"
+                                    selectedValue={this.state.post_cd}
+                                    style={{width: '100%',marginHorizontal:10}} 
+                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                    enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} 
+                                    onValueChange={(val)=>alert({post_cd:val})}
+                                    // onValueChange={(val)=>this.setState({post_cd:val})}
+                                    >
+                                        {this.state.getpostcode.map((data, key) =>
+                                            <Picker.Item key={key} label={data.label} value={data.value} />
+                                        )}
+                                    </Picker>
+                                
+                                </Item>
+                                }
+                                
+                                {/* <TextInput style={Styles.textInput} placeholder={'Post Code'} value={post_cd} onChangeText={(val)=>{this.setState({post_cd:val})}}/> */}
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Telephone</Text>
+                                </Label>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Contact Person</Text>
+                                </Label>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Email</Text>
+                                </View>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} placeholder={'Email'} value={email_addr} onChangeText={(val)=>{this.setState({nemail_addrame:val})}}/>
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                    <Text style={Styles.overviewTitles_Small}>Handphone/Whatsapp</Text>
+                                </View>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue} placeholder={'Handphone/Whatsapp'} value={handphone} onChangeText={(val)=>{this.setState({handphone:val})}}/>
+                            </View>
+                        </View>
+                        }
+                    </View>
+                </View>
+    }
+
+    renderAccordionContentOtherind() {
        let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media,media_cd} = this.state
 
         return <View style={Styles.overview_detail}>
                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
-                        {this.state.disableother ? 
+                        {this.state.disableotherdetail ? 
                             
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.unableviewother();
@@ -1642,7 +2079,7 @@ class DetailPage extends Component {
                         :
                     <View>
                         
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Sex</Text>
                             </Label>
@@ -1659,7 +2096,7 @@ class DetailPage extends Component {
                                 selectedValue={this.state.sex}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                enabled={this.state.disableother? this.state.makafalse  : this.state.makatrue} 
+                                enabled={this.state.disableotherdetail ? this.state.makafalse  : this.state.makatrue} 
                                 onValueChange={(val)=>this.setState({sex:val})}
                                 // onValueChange={(val)=>this.chooseDistrict(val)}
                                 >
@@ -1672,31 +2109,31 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
                         </View> 
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Name</Text>
                             </Label>
-                            <TextInput style={this.state.disableother ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({spouse_name:val})}}/>
+                            <TextInput style={this.state.disableotherdetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableotherdetail ? this.state.makafalse  : this.state.makatrue}  placeholder={'Spouse Name'} value={spouse_name}  onChangeText={(val)=>{this.setState({spouse_name:val})}}/>
                         </View>
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Spouse Hp</Text>
                             </Label>
-                            <TextInput style={this.state.disableother? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(text) => this.setState({ spouse_hp: text })} />
+                            <TextInput style={this.state.disableotherdetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableotherdetail ? this.state.makafalse  : this.state.makatrue}  placeholder={'Spouse Hp'} value={spouse_hp} onChangeText={(text) => this.setState({ spouse_hp: text })} />
                         </View>
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Company Name</Text>
                             </Label>
-                            <TextInput style={this.state.disableother ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({co_name:val})}} />
+                            <TextInput style={this.state.disableotherdetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableotherdetail ? this.state.makafalse  : this.state.makatrue}  placeholder={'Company Name'} value={co_name} onChangeText={(val)=>{this.setState({co_name:val})}} />
                         </View> 
-                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Contact Person</Text>
                             </Label>
-                            <TextInput style={this.state.disableother ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
+                            <TextInput style={this.state.disableotherdetail ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableotherdetail ? this.state.makafalse  : this.state.makatrue}  placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
                         </View>
-                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label style={{bottom: 5}}>
                                 <Text style={{fontSize: 12}}>Occupation</Text>
                             </Label>
@@ -1713,7 +2150,7 @@ class DetailPage extends Component {
                                 selectedValue={this.state.occupation}
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}}
-                                enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue}  
+                                enabled={this.state.disableotherdetail ? this.state.makafalse  : this.state.makatrue}  
                                 onValueChange={(val)=>this.setState({occupation:val})}
                                 // onValueChange={(val)=>alert(val)}
                                 // onValueChange={(val)=>this.chooseDistrict(val)}
@@ -1728,7 +2165,7 @@ class DetailPage extends Component {
                                
                             {/* <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({occupation:val})}}/> */}
                         </View>
-                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableother ? 'none' : 'auto'} >
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                 <Text style={Styles.overviewTitles_Small}>Media</Text>
@@ -1747,7 +2184,7 @@ class DetailPage extends Component {
                                 style={{width: '100%',marginHorizontal:10}} 
                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
                                 onValueChange={(val)=>this.setState({media_cd:val})}
-                                enabled={this.state.disableother ? this.state.makafalse  : this.state.makatrue} 
+                                enabled={this.state.disableotherdetail  ? this.state.makafalse  : this.state.makatrue} 
                                 // onValueChange={(val)=>alert(val)}
                                 // onValueChange={(val)=>this.chooseDistrict(val)}
                                 >
@@ -1766,6 +2203,117 @@ class DetailPage extends Component {
                     }
                 </View>
     }
+    renderAccordionContentOthercom() {
+        let {occupation, hp, hp2,media} = this.state
+ 
+         return <View style={Styles.overview_detail}>
+                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
+                         {this.state.disableothercompany ? 
+                             
+                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                 this.unableviewothercompany();
+                                 }}>
+                                 <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                 {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
+                             </TouchableOpacity>
+                             : 
+                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
+                                 this.updateOtherCompany();
+                             }}>
+                                 {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
+                                 <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                             </TouchableOpacity>
+                         }
+                         
+ 
+                     </View>
+                     {this.state.detail.length == 0 ?
+                             <ActivityIndicator />
+                         :
+                     <View>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableothercompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Alternative Handphone</Text>
+                                </Label>
+                                <TextInput style={this.state.disableothercompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableothercompany ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone'} value={hp} onChangeText={(val)=>{this.setState({hp:val})}}/>
+                        </View>
+                        <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableothercompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Alternative Handphone 2</Text>
+                                </Label>
+                                <TextInput style={this.state.disableothercompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableothercompany ? this.state.makafalse  : this.state.makatrue} placeholder={'Alternative Handphone 2'} value={hp2} onChangeText={(val)=>{this.setState({hp2:val})}}/>
+                        </View>
+                         <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableothercompany ? 'none' : 'auto'} >
+                             <Label style={{bottom: 5}}>
+                                 <Text style={{fontSize: 12}}>Occupation</Text>
+                             </Label>
+                             {Platform.OS == "ios" ?
+                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                     <View pointerEvents="none">
+                                         <TextInput style={this.state.disableothercompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disableothercompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Occupation'} value={occupation} />
+                                     </View>
+                                 </TouchableOpacity>
+                             :
+                             <Item rounded style={{height: 35}}>
+                                 <Picker 
+                                 placeholder="Media"
+                                 selectedValue={this.state.occupation}
+                                 style={{width: '100%',marginHorizontal:10}} 
+                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}}
+                                 enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  
+                                 onValueChange={(val)=>this.setState({occupation:val})}
+                                 // onValueChange={(val)=>alert(val)}
+                                 // onValueChange={(val)=>this.chooseDistrict(val)}
+                                 >
+                                      {this.state.getocupation.map((data, key) =>
+                                         <Picker.Item key={key} label={data.label} value={data.value} />
+                                     )}
+                                 </Picker>
+                                
+                             </Item>
+                             }
+                                
+                             {/* <TextInput style={Styles.textInput} placeholder={'Occupation'} value={occupation} onChangeText={(val)=>{this.setState({occupation:val})}}/> */}
+                         </View>
+                         <View style={{ paddingVertical: 10}} pointerEvents={this.state.disableothercompany ? 'none' : 'auto'} >
+                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                 <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
+                                 <Text style={Styles.overviewTitles_Small}>Media</Text>
+                             </View>
+                             {Platform.OS == "ios" ?
+                                 <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
+                                     <View pointerEvents="none">
+                                         <TextInput style={Styles.textInput} placeholder={'Media'} value={media} />
+                                     </View>
+                                 </TouchableOpacity>
+                             :
+                             <Item rounded style={{height: 35}}>
+                                 <Picker 
+                                 placeholder="Media"
+                                 selectedValue={this.state.media_cd}
+                                 style={{width: '100%',marginHorizontal:10}} 
+                                 textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                 onValueChange={(val)=>this.setState({media_cd:val})}
+                                 enabled={this.state.disableothercompany ? this.state.makafalse  : this.state.makatrue} 
+                                 // onValueChange={(val)=>alert(val)}
+                                 // onValueChange={(val)=>this.chooseDistrict(val)}
+                                 >
+                                      {this.state.getmedia.map((data, key) =>
+                                         <Picker.Item key={key} label={data.label} value={data.value} />
+                                     )}
+                                 </Picker>
+                                
+                             </Item>
+                             }
+                                
+                             {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={media_cd} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                         </View>
+                         
+                     </View>
+                     }
+                 </View>
+    }
+
     renderAccordionContentInterest() {
         let {project_name, property_name, lot_no, rent, buy} = this.state
 
@@ -1883,6 +2431,7 @@ class DetailPage extends Component {
     
     
     render() {
+        // alert(this.state.individu);
         return (
             <Container style={Style.bgMain}>
                
@@ -1898,47 +2447,42 @@ class DetailPage extends Component {
                     :             
                         <View> 
                             <ScrollView>
-
-                            <View style={{paddingVertical: 10}}>
-                            {/* <View style={{paddingVertical: 10}} pointerEvents={this.state.disabledetail ? 'none' : 'auto'}> */}
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
-                                    <Text style={Styles.overviewTitles_Small}>Category</Text>
-                                </View>
-                                {Platform.OS == "ios" ?
-                                    <TouchableOpacity onPress={()=>this.showActionSheet()} style={{borderWidth: 1, borderColor: "#333"}}>
-                                        <View pointerEvents="none">
-                                            <TextInput style={Styles.textInput} placeholder={'Category'} value={category} />
-                                        </View>
-                                    </TouchableOpacity>
-                                :
-                                <Item rounded style={{height: 35}}>
-                                    <Picker 
-                                    placeholder="Gender"
-                                    selectedValue={this.state.category}
-                                    style={{width: '100%',marginHorizontal:10}} 
-                                    textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
-                                    onValueChange={(val)=>this.setState({category:val})}
-                                    // enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue} 
-                                    // onValueChange={(cat)=>this.changeform(cat)}
-                                    // onValueChange={(val)=>alert(val)}
-                                    >
-                                        <Item label="Individu" value="I" />
-                                        <Item label="Company" value="C" />
-                                        {/* {this.state.classCd.map((data, key) =>
-                                            <Picker.Item key={key} label={data.label} value={data.value} />
-                                        )} */}
-                                    </Picker>
-                                
-                                </Item>
-                                }
-
-                                {/* <TextInput style={Styles.textInput} placeholder={'Class'} value={class_cd}  onChangeText={(val) => this.setState({ class_cd: val })}/> */}
-                            </View>
-                                
                                 <View style={Styles.formBg}>
                                     
+                                    {this.state.individu ? 
                                     <Accordion
+                                        style={Styles.accordion}
+                                        dataArray={[
+                                        {
+                                            type: 'prospect',
+                                            title: 'Prospect Type',
+                                        },
+                                        
+                                        {
+                                            type: 'detail',
+                                            title: 'Detail Information' //Individu
+                                        },
+
+                                        // {
+                                        //     type: 'company',
+                                        //     title: 'Detail Information Company'
+                                        // },
+
+                                        {
+                                            type: 'otherind',
+                                            title: 'Other Information' //Individu
+                                        },
+                                        {
+                                            type: 'interest',
+                                            title: 'Interest Project'
+                                        },
+                                    ]}
+                                    expanded={0}
+                                    renderHeader={this.renderAccordionHeader}
+                                    renderContent={this.renderAccordionContent}
+                                /> 
+                                :
+                                <Accordion
                                         style={Styles.accordion}
                                         dataArray={[
                                             {
@@ -1946,19 +2490,19 @@ class DetailPage extends Component {
                                                 title: 'Prospect Type',
                                             },
                                             
-                                            {
-                                                type: 'detail',
-                                                title: 'Detail Information Individu'
-                                            },
-
                                             // {
-                                            //     type: 'company',
-                                            //     title: 'Detail Information Company'
+                                            //     type: 'detail',
+                                            //     title: 'Detail Information Individu'
                                             // },
 
                                             {
-                                                type: 'other',
-                                                title: 'Other Information'
+                                                type: 'company',
+                                                title: 'Detail Information' // Company
+                                            },
+
+                                            {
+                                                type: 'othercom',
+                                                title: 'Other Information' //Company
                                             },
                                             {
                                                 type: 'interest',
@@ -1968,7 +2512,9 @@ class DetailPage extends Component {
                                         expanded={0}
                                         renderHeader={this.renderAccordionHeader}
                                         renderContent={this.renderAccordionContent}
-                                    />
+                                    />    
+                                }
+                                    
                                 </View>
                             </ScrollView>
                         </View>
