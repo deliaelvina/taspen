@@ -970,7 +970,8 @@ class DetailPage extends Component {
             console.log(error);
         });
 
-        this.unableviewprospect();
+        // this.unableviewprospect();
+        this.setState({disableprospect: true})
 
 
     }
@@ -1102,29 +1103,30 @@ class DetailPage extends Component {
         }
         console.log('form data update detail company', formData)
 
-        // fetch(urlApi+'c_prospect_lot/updateDetailIndividu/IFCAPB2/',{
-        //     method : "POST",
-        //     body :JSON.stringify(formData),
-        //     // headers :{
-        //     //     Accept: 'application/json',
-        //     //     'Content-Type': 'application/json',
-        //     //     'Token' : this.state.token
-        //     // }
-        // })
-        // .then((response) => response.json())
-        // .then((res)=>{
-        //     if(!res.Error){
-        //         alert(res.Pesan)
-        //         // _storeData('@Name',name)
-        //         // _storeData('@Handphone',hp)
-        //         // _storeData('@ProfileUpdate',true)
-        //     }
-        //     console.log('update detail information',res)
+        fetch(urlApi+'c_prospect_lot/updateDetailCompany/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update detail information',res)
 
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-        this.unableviewcompany();
+        }).catch((error) => {
+            console.log(error);
+        });
+        // this.unableviewcompany();
+        this.setState({disabledetailcompany: true})
     }
 
     updateOtherInformation = () => {
@@ -1158,11 +1160,11 @@ class DetailPage extends Component {
             spouse_name: spouse_name,
             spouse_hp: spouse_hp,
             co_name: co_name,//company name
-            co_addr1: co_addr1,
-            co_post_cd: co_post_cd,
+            // co_addr1: co_addr1,
+            // co_post_cd: co_post_cd,
             occupation: occupation,
             // occupation_cd: occupation_cd,
-            contact_person: contact_person, //contact
+            // contact_person: contact_person, //contact
             media: media,
             media_cd: media_cd,
 
@@ -1170,37 +1172,43 @@ class DetailPage extends Component {
         }
         console.log('form data update other information', formData)
 
-        // fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
-        //     method : "POST",
-        //     body :JSON.stringify(formData),
-        //     // headers :{
-        //     //     Accept: 'application/json',
-        //     //     'Content-Type': 'application/json',
-        //     //     'Token' : this.state.token
-        //     // }
-        // })
-        // .then((response) => response.json())
-        // .then((res)=>{
-        //     if(!res.Error){
-        //         alert(res.Pesan)
-        //         // _storeData('@Name',name)
-        //         // _storeData('@Handphone',hp)
-        //         // _storeData('@ProfileUpdate',true)
-        //     }
-        //     console.log('update other information',res)
+        fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update other information',res)
 
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-        this.unableviewother();
+        }).catch((error) => {
+            console.log(error);
+        });
+        // this.unableviewother();
+        this.setState({disableotherdetail: true})
     }
     updateOtherCompany = () => {
         const {
            
             //tab2
             business_id,
+            
             //tab3
-            occupation, hp, hp2,media
+            occupation, 
+            hp, 
+            hp2,
+            media,
+            media_cd
             
             
         } = this.state
@@ -1221,31 +1229,31 @@ class DetailPage extends Component {
 
 
         }
-        console.log('form data update other information', formData)
+        console.log('form data update other company', formData)
 
-        // fetch(urlApi+'c_prospect_lot/updateOtherInformation/IFCAPB2/',{
-        //     method : "POST",
-        //     body :JSON.stringify(formData),
-        //     // headers :{
-        //     //     Accept: 'application/json',
-        //     //     'Content-Type': 'application/json',
-        //     //     'Token' : this.state.token
-        //     // }
-        // })
-        // .then((response) => response.json())
-        // .then((res)=>{
-        //     if(!res.Error){
-        //         alert(res.Pesan)
-        //         // _storeData('@Name',name)
-        //         // _storeData('@Handphone',hp)
-        //         // _storeData('@ProfileUpdate',true)
-        //     }
-        //     console.log('update other information',res)
+        fetch(urlApi+'c_prospect_lot/updateOtherCompany/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
+        })
+        .then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update other information',res)
 
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-        this.unableviewothercompany();
+        }).catch((error) => {
+            console.log(error);
+        });
+        this.setState({disableothercompany: true})
     }
 
     updateStatus = () => {
@@ -2020,15 +2028,15 @@ class DetailPage extends Component {
                             </View>
                             <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
                                 <Label>
-                                    <Text style={{fontSize: 12}}>Telephone</Text>
-                                </Label>
-                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
-                            </View>
-                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
-                                <Label>
                                     <Text style={{fontSize: 12}}>Contact Person</Text>
                                 </Label>
                                 <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
+                            </View>
+                            <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
+                                <Label>
+                                    <Text style={{fontSize: 12}}>Telephone</Text>
+                                </Label>
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Telephone'} value={tel_no} onChangeText={(val)=>{this.setState({tel_no:val})}}/>
                             </View>
                             <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
@@ -2204,7 +2212,7 @@ class DetailPage extends Component {
                 </View>
     }
     renderAccordionContentOthercom() {
-        let {occupation, hp, hp2,media} = this.state
+        let {occupation, hp, hp2,media,media_cd} = this.state
  
          return <View style={Styles.overview_detail}>
                      <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
@@ -2260,8 +2268,13 @@ class DetailPage extends Component {
                                  selectedValue={this.state.occupation}
                                  style={{width: '100%',marginHorizontal:10}} 
                                  textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}}
-                                 enabled={this.state.disabledetail ? this.state.makafalse  : this.state.makatrue}  
+                                 enabled={this.state.disableothercompany ? this.state.makafalse  : this.state.makatrue}  
                                  onValueChange={(val)=>this.setState({occupation:val})}
+                                //  onValueChange={(val)=>{
+                                //     const descs_occu = this.state.getocupation.filter(item=>item.value==val)
+                                //     // console.log('status change', this.state.getstatus.filter(item=>item.value==val));
+                                //     this.setState({occupation:val,occupation:statuspros})
+                                // }}
                                  // onValueChange={(val)=>alert(val)}
                                  // onValueChange={(val)=>this.chooseDistrict(val)}
                                  >

@@ -269,19 +269,9 @@ buttonContact: {
    fontSize: 30,
    color: 'green'
 },
-// buttonPolos: {
-//   flexDirection: 'row', 
-//   width: '100%', 
-//   flex: 1, 
-//   backgroundColor: '#fff',
-//   //  borderColor: Colors.navyUrban, 
-//   //  borderWidth: 1,
-//    marginHorizontal: 3,
-//    marginVertical: 3,
-//   //  borderRadius: 5,
-//    height: 38, 
-//    justifyContent: 'center'
-// }
+gradient: {
+  ...StyleSheet.absoluteFillObject
+},
 
 
 }
