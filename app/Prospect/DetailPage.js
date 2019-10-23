@@ -1388,7 +1388,10 @@ class DetailPage extends Component {
                         <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                             this.unableviewprospect();
                             }}>
-                            <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                               
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 30, height: 30}}/>
+                               
+                            
                             {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
                         </TouchableOpacity>
                         : 
@@ -1396,7 +1399,7 @@ class DetailPage extends Component {
                             this.updateProspectType();
                         }}>
                             {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
-                            <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                            <Image source={require('@Asset/icon/save_file.png')}  style={{width: 30, height: 30}}/>
                         </TouchableOpacity>
                         
                         }
@@ -1536,14 +1539,14 @@ class DetailPage extends Component {
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.unableviewdetail();
                                 }}>
-                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 30, height: 30}}/>
                                 {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
                             </TouchableOpacity>
                             : 
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.updateDetailInformation();}}>
                                 {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
-                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 30, height: 30}}/>
                             </TouchableOpacity>
                         }
                     </View>
@@ -1825,14 +1828,14 @@ class DetailPage extends Component {
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.unableviewcompany();
                                 }}>
-                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 30, height: 30}}/>
                                 {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
                             </TouchableOpacity>
                             : 
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.updateDetailCompany();}}>
                                 {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
-                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 30, height: 30}}/>
                             </TouchableOpacity>
                         }
                     </View>
@@ -2068,7 +2071,7 @@ class DetailPage extends Component {
                             <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                 this.unableviewother();
                                 }}>
-                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 30, height: 30}}/>
                                 {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
                             </TouchableOpacity>
                             : 
@@ -2076,7 +2079,7 @@ class DetailPage extends Component {
                                 this.updateOtherInformation();
                             }}>
                                 {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
-                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                                <Image source={require('@Asset/icon/save_file.png')}  style={{width: 30, height: 30}}/>
                             </TouchableOpacity>
                         }
                         
@@ -2221,7 +2224,7 @@ class DetailPage extends Component {
                              <TouchableOpacity style={{paddingHorizontal: 5}} onPress={() => {
                                  this.unableviewothercompany();
                                  }}>
-                                 <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 43, height: 43}}/>
+                                 <Image source={require('@Asset/icon/edit_file.png')}  style={{width: 30, height: 30}}/>
                                  {/* <Icon solid name='edit' style={{color: Colors.twitter, fontSize: 24}} type="FontAwesome5" /> */}
                              </TouchableOpacity>
                              : 
@@ -2229,7 +2232,7 @@ class DetailPage extends Component {
                                  this.updateOtherCompany();
                              }}>
                                  {/* <Icon solid name='save' style={{color: Colors.statusBarNavy, fontSize: 26}} type="FontAwesome5" /> */}
-                                 <Image source={require('@Asset/icon/save_file.png')}  style={{width: 43, height: 43}}/>
+                                 <Image source={require('@Asset/icon/save_file.png')}  style={{width: 30, height: 30}}/>
                              </TouchableOpacity>
                          }
                          

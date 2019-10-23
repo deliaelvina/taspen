@@ -273,16 +273,16 @@ class DetailProspect extends Component {
                                     </View>
                                     <View style={{flexDirection: 'row', justifyContent:'center', alignItems:'center', paddingTop: 10, paddingBottom: 50}}>
                                         <TouchableHighlight onPress={()=>this.sendEmail()}>
-                                            <Icon  name="envelope" style={{fontSize: 17,color: Colors.twitter, marginHorizontal:20}} type="FontAwesome" />
+                                            <Icon  name="envelope" style={{fontSize: 17,color: "#5B93DC", marginHorizontal:20}} type="FontAwesome" />
 
                                         </TouchableHighlight>
                                                             
                                         <TouchableHighlight onPress={()=>this.callphone()}>
-                                            <Icon  name="phone" style={{fontSize: 19,color: Colors.twitter, marginHorizontal:20}} type="FontAwesome" />
+                                            <Icon  name="phone" style={{fontSize: 19,color: "#5B93DC", marginHorizontal:20}} type="FontAwesome" />
 
                                         </TouchableHighlight>
                                         <TouchableHighlight onPress={()=>this.sendWa()}>
-                                            <Icon  name="whatsapp" style={{fontSize: 22,color: Colors.twitter, marginHorizontal:20}} type="FontAwesome" />
+                                            <Icon  name="whatsapp" style={{fontSize: 22,color: "#5B93DC", marginHorizontal:20}} type="FontAwesome" />
 
                                         </TouchableHighlight>
                                     </View>
