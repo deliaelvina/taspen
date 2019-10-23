@@ -11,6 +11,7 @@ import {
     TextInput,
     Platform,
     Linking,
+    // LinearGradient
 
 } from "react-native";
 import {
@@ -32,9 +33,12 @@ import {
     Tab,
     Tabs,
     Item,
+    Col,
+    // LinearGradient
 
 } from "native-base";
 // import {Icon} from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
 import { Style, Colors } from "../Themes";
 import { Actions } from "react-native-router-flux";
 import TabBar from '@Component/TabBar';
@@ -189,6 +193,7 @@ class DetailProspect extends Component {
         Linking.openURL('tel:'+noHp)
         console.log('tel no', noHp);
     }
+ 
 
     render() {
         return (
@@ -226,37 +231,74 @@ class DetailProspect extends Component {
                     <View style={Style.actionBarRight} />
                    
                 </Header>
+
+                
                     
                     
-                    <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                        <Label style={{paddingHorizontal: 10, paddingVertical: 5, bottom: 0}}>
-                                <Text style={{fontWeight:'bold'}}># {this.state.business_id}</Text>
-                        </Label>
-                        <Label style={{paddingHorizontal: 10, paddingVertical: 5, bottom: 0}}>
-                                <Text style={{fontWeight:'bold', right: 10}}>{this.state.name}</Text>
-                        </Label>
-                    </View>
-               
-
-                    <View style={{borderBottomColor: Colors.bluegreyUrban, borderBottomWidth: 1,marginHorizontal:15, opacity: 70, paddingBottom: 5}}>
-                    </View>
+                    <LinearGradient colors={[ "#6dd5ed", Colors.twitter]} //#2193b0
+                        startPoint={{ x: 0, y: 1 }}
+                        endPoint={{ x: 0, y: 0 }} style={{backgroundColor: Colors.twitter, height: 80, paddingBottom: 50, marginBottom: 60}}>
                     
-                    <View style={{flexDirection: 'row', justifyContent:'center', alignItems:'center', paddingTop: 10}}>
-                        <TouchableHighlight onPress={()=>this.sendEmail()}>
-                            <Icon color="green" name="envelope" style={{fontSize: 20,color: 'green', marginHorizontal:20}} type="FontAwesome" />
+                    {/* {this.gradient} */}
+                        <TouchableOpacity style={{paddingHorizontal: 10}}>
+                            <Card style={{
+                                height: 100,
+                                backgroundColor: 'white',
+                                shadowOffset: { width: 1, height: 1 },
+                                shadowColor: "#37BEB7",
+                                shadowOpacity: 0.5,
+                                elevation: 5,
+                                paddingHorizontal: 10,
+                                paddingVertical: 10,
+                                borderRadius: 10,
+                                top: 25,
+                                // flex: 1, 
+                                alignItems: "flex-start",
+                                
+                                // backgroundColor: 'red'
+                            }} 
+                        
+                            >
+                            <View style={{flexDirection: "row"}}>
+                                <View style={{ alignSelf: "center",width: '100%'}}>
+                                    <View style={{flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
+                                        <Label style={{paddingHorizontal: 5, bottom: 0}}>
+                                                <Text style={{fontWeight:'bold', right: 10, fontSize: 22}}>{this.state.name}</Text>
+                                        </Label>
+                                    </View>
+                                    <View style={{flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
+                                        <Label style={{paddingHorizontal: 5, bottom: 0}}>
+                                                <Text style={{fontWeight:'bold',right: 10, fontSize: 13, color: Colors.greyUrban}}># {this.state.business_id}</Text>
+                                        </Label>
+                                    </View>
+                                    <View style={{flexDirection: 'row', justifyContent:'center', alignItems:'center', paddingTop: 10, paddingBottom: 50}}>
+                                        <TouchableHighlight onPress={()=>this.sendEmail()}>
+                                            <Icon  name="envelope" style={{fontSize: 17,color: Colors.twitter, marginHorizontal:20}} type="FontAwesome" />
 
-                        </TouchableHighlight>
-                                               
-                        <TouchableHighlight onPress={()=>this.callphone()}>
-                            <Icon color="green" name="phone" style={{fontSize: 20,color: 'green', marginHorizontal:20}} type="FontAwesome" />
+                                        </TouchableHighlight>
+                                                            
+                                        <TouchableHighlight onPress={()=>this.callphone()}>
+                                            <Icon  name="phone" style={{fontSize: 19,color: Colors.twitter, marginHorizontal:20}} type="FontAwesome" />
 
-                        </TouchableHighlight>
-                        <TouchableHighlight onPress={()=>this.sendWa()}>
-                            <Icon color="green" name="whatsapp" style={{fontSize: 20,color: 'green', marginHorizontal:20}} type="FontAwesome" />
+                                        </TouchableHighlight>
+                                        <TouchableHighlight onPress={()=>this.sendWa()}>
+                                            <Icon  name="whatsapp" style={{fontSize: 22,color: Colors.twitter, marginHorizontal:20}} type="FontAwesome" />
 
-                        </TouchableHighlight>
-                    </View>
-                <TabBar navState={this.state.navState} navScene={this.state.navScene} />
+                                        </TouchableHighlight>
+                                    </View>
+                                </View>
+                            </View>
+                            </Card>
+                        </TouchableOpacity>
+                    </LinearGradient>
+                
+                    
+                    {/* <View style={{borderBottomColor: Colors.bluegreyUrban, borderBottomWidth: 1,marginHorizontal:15, opacity: 70, paddingBottom: 5}}>
+                    </View> */}
+                
+                    <TabBar navState={this.state.navState} navScene={this.state.navScene} style={{paddingTop: 10}}/>
+                
+                
                
 
             </Container>

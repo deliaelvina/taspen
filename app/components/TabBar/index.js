@@ -71,9 +71,9 @@ export default class TabViewExample extends React.PureComponent {
                 renderTabBar={props =>
                     <TabBar
                         {...props}
-                        activeColor={Colors.headerOrange}
+                        activeColor={Colors.twitter}
                         inactiveColor={'#333'}
-                        indicatorStyle={{ backgroundColor: Colors.headerOrange }}
+                        indicatorStyle={{ backgroundColor: Colors.twitter }}
                         style={{ backgroundColor: '#fff' }}
                         renderLabel={({ route, focused, color }) => (
                             <Text style={{ color, }}>
