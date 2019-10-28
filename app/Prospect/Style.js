@@ -57,11 +57,30 @@ export default {
         width: dw * 0.65
       },
       infoDesc: {
+        
         fontFamily: "Montserrat-Regular",
         color: "#999",
         fontSize: 12,
         flexWrap: "wrap",
         width: dw * 0.65
+      },
+      descFollow: {
+        
+        fontFamily: "Montserrat-Regular",
+        color: "#222",
+        fontSize: 14,
+        flexWrap: "wrap",
+        width: dw * 0.65
+      },
+      descFollow_first: {
+        
+        fontFamily: "Montserrat-Regular",
+        color: "#222",
+        fontSize: 14,
+        // flexWrap: "wrap",
+        // width: dw * 0.65,
+        // marginRight: 10
+        width: 80
       },
       overviewTitles: {
         flex: 1,
@@ -125,26 +144,28 @@ export default {
         color: Colors.navyUrban, left: 15,
         fontSize: 20
       },
-      textInputArea: {
-        fontFamily: Fonts.type.sfuiDisplaySemibold,
-        borderBottomWidth: 0,
-        borderColor: '#DDD',
-        backgroundColor: '#f0f0f0',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        fontSize: 12,
-        width: '100%',
-        marginBottom: 10,
-        borderRadius: 5,
-        textAlignVertical: 'top',
-      },
+      // textInputArea: {
+      //   fontFamily: Fonts.type.sfuiDisplaySemibold,
+      //   borderBottomWidth: 0,
+      //   borderColor: '#DDD',
+      //   backgroundColor: '#f0f0f0',
+      //   paddingHorizontal: 20,
+      //   paddingVertical: 15,
+      //   fontSize: 12,
+      //   width: '100%',
+      //   marginBottom: 10,
+      //   borderRadius: 5,
+      //   textAlignVertical: 'top',
+      // },
       dateInput: {
         fontFamily: Fonts.type.sfuiDisplaySemibold,
-        borderBottomWidth: 0,
-        borderColor: '#DDD',
-        backgroundColor: '#f0f0f0',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
+        // borderBottomWidth: 0,
+        // borderColor: '#DDD',
+        // backgroundColor: '#f0f0f0',
+        borderWidth: 1,
+        borderColor: "#CCC",
+        paddingHorizontal: 10,
+        paddingVertical: 3,
         fontSize: 12,
         width: '100%',
         marginBottom: 10,
@@ -222,7 +243,7 @@ export default {
       fontFamily: Fonts.type.sfuiDisplaySemibold,
       borderBottomWidth: 0,
       borderColor: '#DDD',
-      backgroundColor: '#f0f0f0',
+      // backgroundColor: '#f0f0f0',
       paddingHorizontal: 20,
       paddingVertical: 15,
       fontSize: 12,
@@ -230,18 +251,36 @@ export default {
       marginBottom: 10,
       borderRadius: 5,
       textAlignVertical: 'top',
+      borderBottomWidth: 1,
+      borderColor: "#CCC",
     },
     textInput: {
       fontFamily: 'Montserrat-Regular',
       borderBottomWidth: 1,
-      borderColor: '#CCC',
-      fontSize: 14,
+      borderColor: "#CCC",
+      fontSize: 12,
       width: '100%',
       borderRadius: 5,
       textAlignVertical: 'bottom',
       paddingVertical: .5,
       paddingHorizontal: 20,
-      color: '#666',
+      color: "#666666",
+      // color: "black"
+    },
+    txtInput: {
+      fontFamily: 'Montserrat-Regular',
+      borderBottomWidth: 1,
+      borderColor: "#CCC",
+      fontSize: 12,
+      width: '100%',
+      // borderRadius: 5,
+      textAlignVertical: 'bottom',
+      marginHorizontal: 5,
+      // height: 50,
+      paddingVertical: .5,
+      paddingHorizontal: 20,
+      // paddingLeft: 5,
+      color: '#666'
     },
     actionBarMiddle: {
       justifyContent: 'center',
@@ -271,6 +310,20 @@ buttonContact: {
 },
 gradient: {
   ...StyleSheet.absoluteFillObject
+},
+signInBtn: {
+  // backgroundColor: Colors.loginBlue,
+  backgroundColor: Colors.navyUrban,
+  height: Metrics.HEIGHT * 0.06,
+  width: Metrics.WIDTH * 0.92,
+  borderRadius: 5,
+  alignSelf: "center",
+  elevation: 3,
+  shadowColor: "#000",
+  alignItems: "center",
+  justifyContent: "center",
+  // top: 30,
+  // position: 'absolute'
 },
 
 

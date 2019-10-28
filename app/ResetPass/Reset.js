@@ -78,7 +78,7 @@ class Reset extends React.Component {
 					</Header>
 					<View style={styles.inputFieldStyles}>
                         
-                        <Image  style={styles.images} source={ require("../Images/logo.png")}/>
+                        <Image  style={styles.images} source={ require("../Images/logo.jpg")}/>
 
 						<View style={styles.containEmail}>
                             <Input 

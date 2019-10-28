@@ -98,6 +98,7 @@ import DetailProspect from './Prospect/Detail';
 import DetailPage from './Prospect/DetailPage';
 import InterestProjectProspect from './Prospect/InterestProjectProspect';
 import AddProject from './Prospect/AddProject';
+import AddFollowUp from './Prospect/AddFollowUp';
 
 
 
@@ -489,6 +490,12 @@ class Routes extends Component{
                 <Scene
                   key="AddProject"
                   component={AddProject}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="AddFollowUp"
+                  component={AddFollowUp}
                   hideNavBar={true}
                   title=""
                 />

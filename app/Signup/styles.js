@@ -27,6 +27,9 @@ const styles = {
         shadowOffset: { width: 3, height: 2 },
         shadowRadius: 2,
         shadowOpacity: 0.1,
+        width: 330,
+        height: 120,
+        borderRadius: 15
     },
     left: {
         flex: 0.5,

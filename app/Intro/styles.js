@@ -22,11 +22,14 @@ const styles = StyleSheet.create({
         elevation: 0
     },
     images: {
-        marginBottom: 20,
+        marginBottom: 15,
         shadowColor: "#000",
         shadowOffset: { width: 3, height: 2 },
         shadowRadius: 2,
-        shadowOpacity: 0.1
+        shadowOpacity: 0.1,
+        width: 330,
+        height: 120,
+        borderRadius: 15
     },
     images2: {
         marginBottom: 20,

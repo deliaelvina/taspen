@@ -121,7 +121,7 @@ class Signup extends React.Component {
                     <View style={styles.inputFieldStyles}>
                         <Image
                             style={styles.images}
-                            source={require("../Images/logo.png")}
+                            source={require("../Images/logo.jpg")}
                         />
 
                         <View style={{justifyContent : 'center'}}>
