@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Image,
     Platform,
+    ActivityIndicator
 } from "react-native";
 import {
     Container,
@@ -32,6 +33,7 @@ import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import {_storeData,_getData} from '@Component/StoreAsync';
 import moment from 'moment';
 import TabBar from '@Component/TabBar';
+import { DateInput, MinuteInput, DatetimeInput } from "../components/Input";
 // import moment = require("moment");
 // import console = require("console");
 
@@ -51,6 +53,7 @@ class AddProspect extends Component {
             makafalse: false,
 
             status_cd : '',
+            // status: '',
             email: '',
             detail: [],
             classCd: [],
@@ -69,13 +72,18 @@ class AddProspect extends Component {
             salutationcd: [],
             salutation_cd: '',
             descs: '',
-            birthdate: moment().format('YYYY-MM-DD HH:M:SS'),
+            // birthdate: moment().format('YYYY-MM-DD HH:M:SS'),
+            birthdate: new Date(),
+
             
             //tab 1
             business_id: '',
             descs: '',
             vip: '',
             category: '',
+            getstatus: [],
+            status_cd: '',
+            status: '',
 
             //tab2
             salutation: '',
@@ -124,14 +132,16 @@ class AddProspect extends Component {
             lot_no: '',
             rent: '',
             buy: '',
-            provdescs: ''
+            provdescs: '',
+
+            chosenDate: new Date()
         }
         this.setDate = this.setDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this)
     }
 
-    setDate(newDate){
-        this.setState({ chosenDate: moment(newDate).format('YYYY-MM-DD HH:M:SS')});
+    setDate(chosenDate){
+        this.setState({ chosenDate: moment(chosenDate).format('YYYY-MM-DD')});
     }
 
     async componentDidMount(){
@@ -145,6 +155,7 @@ class AddProspect extends Component {
             this.getSalutation()
             this.getClassCode()
             this.getMedia()
+            this.getStatus()
         })
     }
 
@@ -382,6 +393,35 @@ class AddProspect extends Component {
             })
         :null}
     }
+
+    getStatus = async() => {
+
+        const dataProspect = await _getData("statusProspect");
+        const {status_cd} = dataProspect
+        console.log('status _getdata', status_cd);
+        {isMount ?
+            fetch(urlApi + 'c_status/getStatus2/IFCAPB2/',{
+                method:'POST',
+                body: JSON.stringify({status_cd})
+                // headers : this.state.hd,
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                   
+                    console.log('getstatus',res);
+                    this.setState({getstatus:resData});
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                // console.log('salutation',res);
+            }).catch((error) => {
+                console.log(error);
+            })
+            :null}
+    }
     //  ----------------- END GET DROPDOWN --------------------------
 
     // ----------------- CHOOSE DROPDOWN --------------------------
@@ -459,7 +499,7 @@ class AddProspect extends Component {
 
     // ----------------------- SAVE THE DATA --------------------------
 
-    onSubmit() {
+    async onSubmit() {
         const {
             class_cd,
             birthdate,
@@ -485,13 +525,19 @@ class AddProspect extends Component {
             co_name,
             occupation,
             contact_person,
-            media_cd
+            media_cd,
+            status_cd,
+            // status,
+
+            chosenDate
         } = this.state
 
         const formData = {
+            email_login : await _getData('@User'),
             class_cd: class_cd,
             // birthdate: this.state.chosenDate,
             birthdate: birthdate,
+            // birthdate: moment(chosenDate).format("YYYY-MM-DD"),
             vip: vip,
             category: category ,
             salutation: salutation,
@@ -514,7 +560,9 @@ class AddProspect extends Component {
             co_name: co_name,
             occupation: occupation,
             contact_person: contact_person,
-            media_cd: media_cd
+            media_cd: media_cd,
+            status_cd: status_cd,
+            // status: status[0].label
         }
         console.log('save prospect', formData);
         fetch(urlApi+'c_prospect/insertProspec/IFCAPB2/',{
@@ -586,59 +634,98 @@ class AddProspect extends Component {
         <ProgressSteps>
           <ProgressStep label="Prospect Type" onNext={this.onNextStep} errors={this.state.errors} nextBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 70}} nextBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center',}}>
             {/* <View style={{ alignItems: 'center' }}> */}
-                <View style={Styles.overview}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
-                        <Text style={Styles.overviewTitles}>Business Type</Text>
-                     </View>
-                     <Item rounded style={{height: 35}}>
-                        <Picker 
+            {this.state.getstatus.length == 0 ?
+                             <ActivityIndicator />
+                         :
+                <View>
+                    <View style={Styles.overview}>
+                        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                            <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                            <Text style={Styles.overviewTitles}>Business Type</Text>
+                        </View>
+                        <Item rounded style={{height: 35}}>
+                            <Picker 
+                                    mode="dropdown"
+                                    style={Styles.textInput}
+                                    selectedValue={this.state.category}
+                                    onValueChange={(cat)=>this.changeform(cat)}
+                            >
+                                
+                                <Picker.Item label="Individu" value="I" />
+                                <Picker.Item label="Company" value="C" />
+                            </Picker>
+                            </Item>
+                    </View>
+                    <View style={Styles.overview}>
+                        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                            <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                            <Text style={Styles.overviewTitles}>Class</Text>
+                        </View>
+                        <Item rounded style={{height: 35}}>
+                            <Picker note 
                                 mode="dropdown"
                                 style={Styles.textInput}
-                                selectedValue={this.state.category}
-                                onValueChange={(cat)=>this.changeform(cat)}
-                        >
-                            
-                            <Picker.Item label="Individu" value="I" />
-                            <Picker.Item label="Company" value="C" />
-                        </Picker>
-                        </Item>
-                </View>
-                <View style={Styles.overview}>
+                                selectedValue={this.state.class_cd}
+                                onValueChange={(val)=>this.setState({class_cd:val})}
+                            >
+                                {this.state.classCd.map((data, key) =>
+                                    <Picker.Item key={key} label={data.label} value={data.value}/>
+                                )}
+                            </Picker>
+                            </Item>
+                    </View>
+                    <View style={Styles.overview}>
+                        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                            <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                            <Text style={Styles.overviewTitles}>VIP</Text>
+                        </View>
+                        <Item rounded style={{height: 35}}>
+                            <Picker note 
+                                    mode="dropdown"
+                                    style={Styles.textInput}
+                                    selectedValue={this.state.vip}
+                                    onValueChange={(val)=>this.setState({vip:val})}
+                            >
+                                <Picker.Item label="Yes" value="Y" />
+                                <Picker.Item label="No" value="N" />
+                            </Picker>
+                            </Item>
+                    </View>
+                
+                    <View style={Styles.overview}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                         <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
-                        <Text style={Styles.overviewTitles}>Class</Text>
+                        <Text style={Styles.overviewTitles}>Status</Text>
                      </View>
                      <Item rounded style={{height: 35}}>
-                        <Picker note 
-                            mode="dropdown"
-                            style={Styles.textInput}
-                            selectedValue={this.state.class_cd}
-                            onValueChange={(val)=>this.setState({class_cd:val})}
+                     <Picker
+
+                        iosHeader="Select one"
+                        mode="dropdown"
+                        // style={{ width: 180,height: 40 }}
+                        style={Styles.textInput}
+                        selectedValue={this.state.status_cd}
+                        onValueChange={(val)=>{
+                            const statuspros = this.state.getstatus.filter(item=>item.value==val)
+                            console.log('status change', this.state.getstatus.filter(item=>item.value==val));
+                            this.setState({status_cd:val,status:statuspros})
+                        }}
+                        // onValueChange={(val)=>{
+                        //     const statuspros = this.state.getstatus.filter(item=>item.value==val)
+                        //     this.setState({status_cd:val})
+                        // }}
                         >
-                            {this.state.classCd.map((data, key) =>
-                                <Picker.Item key={key} label={data.label} value={data.value}/>
-                            )}
+                            <Picker.Item label="Choose Status" />
+                        {this.state.getstatus.map((data, key) =>
+                            <Picker.Item key={key} label={data.label} value={data.value} />
+                        )}
+                        {/* <Picker.Item label="tes" value="1" />
+                        <Picker.Item label="tes2" value="2" /> */}
                         </Picker>
                         </Item>
                 </View>
-                <View style={Styles.overview}>
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
-                        <Text style={Styles.overviewTitles}>VIP</Text>
-                     </View>
-                     <Item rounded style={{height: 35}}>
-                        <Picker note 
-                                mode="dropdown"
-                                style={Styles.textInput}
-                                selectedValue={this.state.vip}
-                                onValueChange={(val)=>this.setState({vip:val})}
-                        >
-                            <Picker.Item label="Yes" value="Y" />
-                            <Picker.Item label="No" value="N" />
-                        </Picker>
-                        </Item>
                 </View>
+                }
             {/* </View> */}
           </ProgressStep>
           
@@ -902,10 +989,29 @@ class AddProspect extends Component {
  
          {
              this.state.individu ? <ProgressStep label={`Other Information Individu`} onSubmit={this.onSubmit} nextBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 70}} nextBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center',}} previousBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 85}} previousBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center',}}>
-            <View style={Styles.overview}>
+            {/* <View style={Styles.overview}>
                 <Text style={Styles.overviewTitle}>Birth Date</Text>
                 <View style={Styles.dateInput}>
                     <DatePicker onDateChange={this.setDate} locale={"en"} />
+                
+                </View>
+            </View> */}
+            <View style={Styles.overview}>
+                <Text style={Styles.overviewTitle}>Birth Date</Text>
+                <View style={Styles.dateInput}>
+                    {/* <DatePicker onDateChange={this.setDate } locale={"en"} 
+                    onValueChange={(val) =>this.setState({birthdate:val}) } 
+                    onValueChange={(val) =>alert(val) } 
+                     /> */}
+                
+                    <DatetimeInput
+                        name="birthdate"
+                        label="Birthdate"
+                        mode="date"
+                        minimumDate={new Date(1900,1,1)}
+                        onChange={(name,val)=>this.setState({birthdate:val})}
+                        value={this.state.birthdate}
+                    />
                 </View>
             </View>
             <View style={Styles.overview}>

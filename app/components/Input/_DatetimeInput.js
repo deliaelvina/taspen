@@ -55,6 +55,7 @@ const DatetimeInput = props => {
                 onCancel={() => setVisible(!visible)}
                 // datePickerModeAndroid='spinner'
                 // timePickerModeAndroid="spinner"
+                {...props}
             />
         </View>
     );
