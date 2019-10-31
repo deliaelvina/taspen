@@ -7,7 +7,7 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-
+    Platform,
 } from "react-native";
 import {
     Container,
@@ -577,9 +577,6 @@ class AddProspect extends Component {
                     <View style={Style.actionBarRight} />
 
                 </Header>
-                
-
-
                 <Content
                  style={Style.layoutInner}
                  contentContainerStyle={Style.layoutContent}

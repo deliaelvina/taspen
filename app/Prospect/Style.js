@@ -102,7 +102,7 @@ export default {
 
       overview: {
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingVertical: 5,
       },
       overview_padhorizontal: {
@@ -177,6 +177,11 @@ export default {
         paddingHorizontal: 10,
         paddingVertical: 5,
     
+      },
+      overview_detail_follow: {
+        flex: 1,
+        paddingHorizontal: 5,
+        paddingVertical: 15,
       },
       city: {
         flex : 1,
@@ -277,6 +282,19 @@ export default {
       color: "#666666",
       // color: "black"
     },
+    textInput_medium: {
+      fontFamily: 'Montserrat-Regular',
+      borderBottomWidth: 1,
+      borderColor: "#CCC",
+      fontSize: 14,
+      width: '100%',
+      borderRadius: 5,
+      textAlignVertical: 'bottom',
+      paddingVertical: .5,
+      paddingHorizontal: 20,
+      color: "#666666",
+      // color: "black"
+    },
     txtInput: {
       fontFamily: 'Montserrat-Regular',
       borderBottomWidth: 1,
@@ -334,6 +352,16 @@ signInBtn: {
   justifyContent: "center",
   // top: 30,
   // position: 'absolute'
+},
+subWrap: {
+  // marginVertical: 5,
+  marginHorizontal: 5,
+  width: '45%'
+},
+subWrapLarge: {
+  // marginVertical: 5,
+  marginHorizontal: 5,
+  // width: '45%'
 },
 
 

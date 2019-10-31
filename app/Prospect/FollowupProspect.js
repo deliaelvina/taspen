@@ -185,7 +185,7 @@ class FollowupProspect extends Component {
                                 >
                                     <View>
                                         <Text style={{fontSize: 12, color: '#222',textAlign: 'left'}}>
-                                            Remarks
+                                            Description
                                         </Text>
                                         <Text style={{fontSize: 17, color: '#222',fontWeight: 'bold'}}>
                                             {data.remarks}
