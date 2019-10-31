@@ -56,71 +56,68 @@ import Timer from "jest-jasmine2/build/jasmine/Timer";
    
 
 
-class AddFollowUp extends Component {
+class DetailFollowUp extends Component {
     constructor(props){
-        super(props);
+        super(props)
 
         this.state = {
-            datafollowup: [],
-            project: [],
-            audit_user: "",
-            business_id: '',
-            remarks: '',
-            remarks2: '',
-            contact_date: '',
-            // contact_person: '',
-            isDateTimePickerVisible: false,
-            // time: new Date().getHours(),
-            time_prospect: new Date(),
-            // duration:new Date('00:00'),
-            duration: new Date(2018, 11, 1, 0, 0, 0),
-            contact_date: new Date(),
-            
-            // markedDate: moment('' .format("DD/MM/YYYY")
+           business_id: '',
+           remarks: '',
+           remarks2: '',
+           contact_date: '',
+        //    time_prospect: '',
         
-        };
-        
-        console.log('props follow up',props);
+           duration_hour: '',
+           duration_minute: '',
+
+           time_prospect: new Date(2018, 11, 1, 0, 0, 0),
+           // duration:new Date('00:00'),
+           duration: new Date(Date.UTC(2018, 11, 1, 0, 0, 0)),
+           contact_date: new Date(),
+           project: [],
+
+        }
+        console.log('props detail follow up',props);
     }
+   
+    async componentDidMount(){
+        Actions.refresh({ backTitle: () => this.props.datas.business_id });
+
+        const dh = parseInt(this.props.datas.duration_hour);
+        const dm = parseInt(this.props.datas.duration_minute);
+        const dur = new Date(2018, 11, 1, dh, dm, 0);
+
+        const tph = parseInt(this.props.datas.time_prospect.slice(0,2));
+        const tpm = parseInt(this.props.datas.time_prospect.slice(3,5));
+        const tm = new Date(2018, 11, 1, tph, tpm, 0);
+        // console.log(tpm);
+        const data = {
+            business_id : this.props.datas.business_id,
+            remarks : this.props.datas.remarks,
+            remarks2 : this.props.datas.remarks2,
+            contact_date: this.props.datas.contact_date,
+            time_prospect: tm,
+            duration : dur,
+            rowID: this.props.datas.rowID,
+            project : await _getData('@UserProject'),
+        }
+        isMount = true;
+        this.setState(data, () => {
+            console.log('data di list', this.state.time_prospect);
+            // this.getDataListProspect(this.props.datas)
+            // this.getDataFollowUp(this.props.datas)
+            // this.getStatus()
+        });
+    };
 
     handleDateChange = (name, time) => {
         console.log("time", time);
         this.setState({ [name]: time });
     };
-    async componentDidMount(){
-        
-        const dataProspect = await _getData("statusProspect");
-        console.log("_getdata dari ListProspect",dataProspect);
-        Actions.refresh({ backTitle: () => dataProspect.status_cd });
-        const data = {
-            
-            //tab 1
-            business_id: dataProspect.business_id,
-            project : await _getData('@UserProject'),
-            audit_user : await _getData('@UserId')
-            
-            // contact_person: dataProspect.contact_person  
-        }
-        console.log('componen did mount add follow up', data);
-        isMount = true;
-        this.setState(data, () => {
-           
-            // this.getDataFollowUp()
-            // this.getProvince2();
-            // this.getPostCode();
-            
-        });
-    };
 
-    componentWillUnmount(){
-        // this.setState({isMount:false})
-        isMount =false;
-        // this.props.onBack();
-      }
-
-    saveFollowUp = () => {
+    updateFollowUp = () => {
         const {
-           
+           rowID,
             //tab2
             // entity_cd,
             // project_cd,
@@ -129,13 +126,13 @@ class AddFollowUp extends Component {
             contact_date,
             // follow_up_date,
             time_prospect,
-            contact_person,
+            // contact_person,
             // duration_hour,
             // duration_minute,
             duration,
             remarks,
             remarks2,
-            audit_user,
+            // audit_user,
             // audit_user,
            
             
@@ -143,12 +140,13 @@ class AddFollowUp extends Component {
         } = this.state
 
         const formData = {
+            rowID: rowID,
             entity_cd: project[0].entity_cd,
             project_no: project[0].project_no,
             business_id: business_id,
-            audit_user: audit_user,
+            // audit_user: audit_user,
             // contact_date: contact_date,
-            contact_person: 'null',
+            // contact_person: 'null',
             contact_date: moment(contact_date).format("YYYY-MM-DD HH:mm:ss"),
             follow_up_date: moment(contact_date).format("YYYY-MM-DD HH:mm:ss"),
             time_prospect:  moment(time_prospect).format("HH:mm"),
@@ -159,7 +157,7 @@ class AddFollowUp extends Component {
             remarks2: remarks2
 
         }
-        console.log('save follow up', formData)
+        console.log('update follow up', formData)
 
         fetch(urlApi+'c_follow_up/save/IFCAPB2/',{
             method : "POST",
@@ -185,7 +183,7 @@ class AddFollowUp extends Component {
         });
        
     } 
-    
+
 
     render() {
         // const contact_date = this.state.contact_date
@@ -229,9 +227,12 @@ class AddFollowUp extends Component {
 
                 </Header>
                
-           
-                   <Content>
-                     
+                <Content>
+                        {this.state.props == 0 ?
+                            <ActivityIndicator />
+                        : 
+                    <View>
+                        
                         <View style={Styles.overview}  >
                             <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                                 <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
@@ -284,24 +285,17 @@ class AddFollowUp extends Component {
                             </View>
                             <TextInput style={Styles.textInput_medium} placeholder={'Note from PIC'} value={this.state.remarks2} onChangeText={(val)=>{this.setState({remarks2:val})}} />
                         </View>
-                   
+                        
+                        </View>
+                    }
                    </Content>
                    
-               
-                {/* <View style={Styles.overview_detail_follow}> */}
-                    
-                {/* </View> */}
-                
-                
-                    
-
-                
                 <Button full style={{ backgroundColor: Colors.navyUrban}}  
                 onPress={() => {
-                    this.saveFollowUp();
-                    // alert('save follow up')
+                    this.updateFollowUp();
+                    // alert('update follow up')
                 }}>
-                    <Text>Save</Text>
+                    <Text>Update</Text>
                 </Button>
 
                 
@@ -313,7 +307,7 @@ class AddFollowUp extends Component {
         );
     }
 }
-export default AddFollowUp;
+export default DetailFollowUp;
 
 const navStyles = StyleSheet.create({
     container: {

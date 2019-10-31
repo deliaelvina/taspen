@@ -103,6 +103,7 @@ class DetailPage extends Component {
             getpostcode: [],
             getmedia: [],
             getocupation: [],
+         
             
 
             salutationcd: [],
@@ -222,6 +223,7 @@ class DetailPage extends Component {
             
 
             email : await _getData('@User'),
+            
             
             
         }
@@ -1327,6 +1329,17 @@ class DetailPage extends Component {
         // this.renderAccordionContentDetail = this.renderAccordionContentDetail.bind(this)
     }
 
+   
+    async DetailInterest(data) {
+        // alert('tes')
+        // const project = await _getData("@UserProject");
+        // _storeData("dataproject",data);
+        // console.log('data project interest', project);
+        console.log('data interest',data);
+        Actions.DetailInterest({datas : data});
+        this.setState({ click : true})
+    }
+
     unableviewprospect = () => {
         // alert('unable prospect');
 
@@ -2374,7 +2387,7 @@ class DetailPage extends Component {
                                 <View  >
                                     
                                 {this.state.datainterest.map((data, key) => (
-                                    <TouchableOpacity  onPress={() => alert('tes')}
+                                    <TouchableOpacity style={{width: '100%'}} onPress={() => this.DetailInterest(data)}
                                     key={key}
                                     >
                                     <Card style={{
@@ -2393,7 +2406,7 @@ class DetailPage extends Component {
                                     }} 
                                 
                                     >
-                                    <View style={{flexDirection: "row"}}>
+                                    <View style={{flexDirection: "row", width: '100%'}}>
                                             {/* <Image
                                                 source={require("@Asset/icon/calculator.png")}
                                                 style={Styles.infoIcon}
@@ -2401,24 +2414,27 @@ class DetailPage extends Component {
                                             <View style={{ alignSelf: "center",width: '100%' }}>
                                                 <Text style={Styles.infoHeader}>
                                                 {/* {data.descs} */}
-                                                Project Name : Project Name
+                                                Project Name : {data.descs}
                                                 </Text>
                                                 <Text style={Styles.infoHeader}>
-                                                {data.property_cd}
-                                                {/* Property Name : Property Name */}
-                                                </Text>
-                                                <Text style={Styles.infoHeader}>
-                                                {/* {data.status_cd} */}
-                                                Lot No : Lot No
+                                                Property Name : {data.property_cd}
+                                                
                                                 </Text>
                                                 <Text style={Styles.infoHeader}>
                                                 {/* {data.status_cd} */}
-                                                Rent : Rent
+                                                Lot No : {data.lot_no}
                                                 </Text>
-                                                <Text style={Styles.infoHeader}>
-                                                {/* {data.status_cd} */}
-                                                Buy : Buy
-                                                </Text>
+                                                
+                                                {this.state.datainterest[0].rent_flag == 'A' ? 
+                                                    <Text style={Styles.infoHeader}>Rent : Yes</Text> 
+                                                    : 
+                                                    <Text style={Styles.infoHeader}>Rent : No</Text>
+                                                }
+                                                {this.state.datainterest[0].buy_flag == 'A' ? 
+                                                    <Text style={Styles.infoHeader}>Buy : Yes</Text> 
+                                                    : 
+                                                    <Text style={Styles.infoHeader}>Buy : No</Text>
+                                                }
 
                                                 {/* <View style={Styles.badge}>
                                                 <Text style={{color: '#fff',fontSize: 15}}> 

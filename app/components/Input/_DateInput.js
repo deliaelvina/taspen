@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -15,6 +15,11 @@ import Style from "../../Themes/Style";
 const DateInput = props => {
     const [time, setTime] = useState(props.value);
     const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        // Update the document title using the browser API
+        setTime(props.value);
+      });
 
     const handlePicker = (val) =>{
         setTime(val);

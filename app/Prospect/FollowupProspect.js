@@ -82,7 +82,7 @@ class FollowupProspect extends Component {
         console.log('componen did mount follow up', data);
         isMount = true;
         this.setState(data, () => {
-            this.getDataFollowUp()
+            this.getDataFollowUp(this.props.datas)
             // this.getProvince2();
             // this.getPostCode();
             
@@ -131,11 +131,25 @@ class FollowupProspect extends Component {
         this.setState({ click : true})
     }
 
+    receiveProps = () =>{
+        // this.tes();
+        isMount=true;
+        // alert('refresh');
+        this.getDataFollowUp(this.props.datas);
+    }
+
+    DetailFollowUp (data) {
+        console.log('all data follow up', data);
+        Actions.DetailFollowUp({datas: data, onBack: () => this.receiveProps()});
+        this.setState({click : true})
+    }
+
     render() {
         // const contact_date = this.state.contact_date
         const date = moment(Date(this.state.contact_date)).format("DD/MM/YYYY");
         // console.log('date',date);
         return (
+            
             <Container style={Style.bgMain}>
                  <View>
                     <ScrollView>
@@ -161,11 +175,13 @@ class FollowupProspect extends Component {
                             </Button>
                         </View>
                         
-                           
+                        {this.state.datafollowup.length == 0 ?
+                            <ActivityIndicator />
+                        : 
                             <View  >
                                 
                             {this.state.datafollowup.map((data, key) => (
-                                <TouchableOpacity  onPress={() => alert('tes')}
+                                <TouchableOpacity  onPress={() => this.DetailFollowUp(data) }
                                 key={key} >
                                 <Card style={{
                                     height: null,
@@ -237,7 +253,7 @@ class FollowupProspect extends Component {
                             ))}
                                 
                             </View>
-                        
+                        }
                         </View>
                     </ScrollView>
                 </View>

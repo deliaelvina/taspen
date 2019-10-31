@@ -99,6 +99,11 @@ import DetailPage from './Prospect/DetailPage';
 import InterestProjectProspect from './Prospect/InterestProjectProspect';
 import AddProject from './Prospect/AddProject';
 import AddFollowUp from './Prospect/AddFollowUp';
+import DetailFollowUp from './Prospect/DetailFollowUp';
+
+//interest project
+import AddInterest from './Interest/AddInterest';
+import DetailInterest from './Interest/DetailInterest';
 
 
 
@@ -496,6 +501,24 @@ class Routes extends Component{
                 <Scene
                   key="AddFollowUp"
                   component={AddFollowUp}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="DetailFollowUp"
+                  component={DetailFollowUp}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="AddInterest"
+                  component={AddInterest}
+                  hideNavBar={true}
+                  title=""
+                />
+                 <Scene
+                  key="DetailInterest"
+                  component={DetailInterest}
                   hideNavBar={true}
                   title=""
                 />
