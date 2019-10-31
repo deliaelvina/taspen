@@ -252,6 +252,8 @@ class DetailPage extends Component {
         // this.props.onBack();
       }
 
+    
+
     getDataListProspect = async() => {
         const dataProspect = await _getData("statusProspect");
         const {status_cd} = dataProspect
@@ -995,7 +997,7 @@ class DetailPage extends Component {
             hp2,
             email_addr,
             marital_status,
-            category,
+            // category,
 
         } = this.state
 
@@ -1018,7 +1020,7 @@ class DetailPage extends Component {
             hp2: hp2, //alternate hp2
             email_addr: email_addr,
             marital_status: 'N', //default N
-            category: category,
+            // category: category,
 
         }
         console.log('form data update detail information', formData)
@@ -1584,6 +1586,7 @@ class DetailPage extends Component {
                                             selectedValue={this.state.salutation}
                                             style={{width: '100%',marginHorizontal:10}} 
                                             textStyle={{fontFamily:'Montserrat-Regular',fontSize:12,color:'#666'}} 
+                                            // onValueChange={(val)=>console.log('salutation', val)}
                                             onValueChange={(val)=>this.setState({salutation:val})}
                                             enabled={this.state.disabledetailindividu ? this.state.makafalse  : this.state.makatrue} 
                                             
@@ -1605,7 +1608,7 @@ class DetailPage extends Component {
                                     <Icon solid name='star' style={Styles.iconSub2} type="FontAwesome5" />
                                     {/* <Text style={Styles.overviewTitles_Small}>  {this.state.individu ? <ActivityIndicator /> : "Name Individu" }
                                     {this.state.company ? <ActivityIndicator /> : "Name CompanyYY" } </Text> */}
-                                    <Text style={Styles.overviewTitles_Small}>Name Individu</Text>
+                                    <Text style={Styles.overviewTitles_Small}>Name</Text>
                                     
                                       
                                      {/* {this.state.company ? <Text style={Styles.overviewTitles_Small}>Name Company</Text> :  <ActivityIndicator />  } */}
@@ -2033,7 +2036,7 @@ class DetailPage extends Component {
                                 <Label>
                                     <Text style={{fontSize: 12}}>Contact Person</Text>
                                 </Label>
-                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
+                                <TextInput style={this.state.disabledetailcompany ? Styles.textInput_disable : Styles.textInput } enabled={this.state.disabledetailcompany ? this.state.makafalse  : this.state.makatrue}  placeholder={'Name Contact Person'} value={contact_person} onChangeText={(val)=>{this.setState({contact_person:val})}} />
                             </View>
                             <View style={{ paddingVertical: 10}} pointerEvents={this.state.disabledetailcompany ? 'none' : 'auto'} >
                                 <Label>

@@ -79,6 +79,7 @@ class ListProspect extends Component {
         isMount = true;
         this.setState(data, () => {
             this.getDataListProspect(this.props.datas)
+            // this.getDataFollowUp(this.props.datas)
             // this.getStatus()
         });
     };
@@ -115,6 +116,8 @@ class ListProspect extends Component {
         })
         :null}
     }
+
+    
 
     tes = () =>{
         alert('tes');

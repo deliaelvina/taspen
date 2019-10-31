@@ -387,7 +387,7 @@ export default class Home extends Component {
                   renderItem={({ item }) => this.renderItemNews(item)}
                 />
               </View>
-              <View style={Styles.sectionTransparent}>
+              {/* <View style={Styles.sectionTransparent}>
                 <TouchableOpacity
                     style={Styles.item}
                     underlayColor="transparent"
@@ -404,7 +404,7 @@ export default class Home extends Component {
                       
                     </View>
                   </TouchableOpacity>
-              </View>
+              </View> */}
 
               {/* <View style={{ marginTop: 40, paddingHorizontal: 20, paddingBottom: 16 }}>
                 <Text style={{ fontSize: 18, fontWeight: '500' }}>

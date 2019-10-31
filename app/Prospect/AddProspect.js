@@ -30,7 +30,9 @@ import { Style, Colors } from "../Themes";
 import { Actions } from "react-native-router-flux";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import {_storeData,_getData} from '@Component/StoreAsync';
+import moment from 'moment';
 import TabBar from '@Component/TabBar';
+// import moment = require("moment");
 // import console = require("console");
 
 // let isMount = false;
@@ -67,7 +69,7 @@ class AddProspect extends Component {
             salutationcd: [],
             salutation_cd: '',
             descs: '',
-            birthdate: new Date(),
+            birthdate: moment().format('YYYY-MM-DD HH:M:SS'),
             
             //tab 1
             business_id: '',
@@ -129,7 +131,7 @@ class AddProspect extends Component {
     }
 
     setDate(newDate){
-        this.setState({ chosenDate: newDate});
+        this.setState({ chosenDate: moment(newDate).format('YYYY-MM-DD HH:M:SS')});
     }
 
     async componentDidMount(){
@@ -454,19 +456,6 @@ class AddProspect extends Component {
         })
     }
 
-    onNext(step) {
-        const { business, classess, vips } = this.state
-
-        if (step == 1) {
-            if (business && classess && vips) {
-                this.setState({ errors: false })
-            } else {
-                this.setState({ errors: true })
-                alert("Please fill red star form")
-            }
-        }
-    }
-
 
     // ----------------------- SAVE THE DATA --------------------------
 
@@ -501,6 +490,7 @@ class AddProspect extends Component {
 
         const formData = {
             class_cd: class_cd,
+            // birthdate: this.state.chosenDate,
             birthdate: birthdate,
             vip: vip,
             category: category ,
@@ -527,28 +517,30 @@ class AddProspect extends Component {
             media_cd: media_cd
         }
         console.log('save prospect', formData);
-        
-        fetch(urlApi + 'c_prospect/insertProspec/IFCAPB/', {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Token': this.state.token
-            }
+        fetch(urlApi+'c_prospect/insertProspec/IFCAPB2/',{
+            method : "POST",
+            body :JSON.stringify(formData),
+            // headers :{
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token' : this.state.token
+            // }
         })
-            .then((response) => response.json())
-            .then((res) => {
-                if (!res.Error) {
-                    alert(res.Pesan)
-
-                }
-                console.log('saveSuksesProspect', res)
-
-            }).catch((error) => {
+        .then((response) => response.json())
+        .then((res)=>{
+            console.log(res);
+            if(!res.Error){
                 
-                console.log(error);
-            });
+                alert(res.Pesan)
+                // _storeData('@Name',name)
+                // _storeData('@Handphone',hp)
+                // _storeData('@ProfileUpdate',true)
+            }
+            console.log('update other information',res)
+
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     // ----------------------- END SAVE THE DATA --------------------------
@@ -916,7 +908,7 @@ class AddProspect extends Component {
             <View style={Styles.overview}>
                 <Text style={Styles.overviewTitle}>Birth Date</Text>
                 <View style={Styles.dateInput}>
-                    <DatePicker onDateChange={this.setDate}  />
+                    <DatePicker onDateChange={this.setDate} locale={"en"} />
                 </View>
             </View>
             <View style={Styles.overview}>
