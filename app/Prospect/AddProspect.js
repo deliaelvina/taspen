@@ -34,10 +34,6 @@ import {_storeData,_getData} from '@Component/StoreAsync';
 import moment from 'moment';
 import TabBar from '@Component/TabBar';
 import { DateInput, MinuteInput, DatetimeInput } from "../components/Input";
-// import moment = require("moment");
-// import console = require("console");
-
-// let isMount = false;
 
 class AddProspect extends Component {
 
@@ -156,6 +152,7 @@ class AddProspect extends Component {
             this.getClassCode()
             this.getMedia()
             this.getStatus()
+            this.getOccupation()
         })
     }
 
@@ -164,6 +161,31 @@ class AddProspect extends Component {
       }
 
     // ----------------- GET DROPDOWN --------------------------
+    getOccupation = () => {
+        {isMount ?
+            fetch(urlApi + 'c_ocupation/getOcupation/IFCAPB2/',{
+                method: 'GET',
+                // headers: {
+                //     'Accept': 'application/json',
+                //     'Content-Type': 'application/json'
+                //   }
+            }).then((response) => response.json())
+            .then((res)=>{
+                if(!res.Error){
+                    const resData = res.Data
+                    this.setState({ getocupation : resData});
+                } else {
+                    this.setState({isLoaded: !this.state.isLoaded},()=>{
+                        alert(res.Pesan)
+                    });
+                }
+                console.log('getprov',res);
+            }).catch((error) => {
+                console.log(error);
+            })
+            :null}
+    }
+
     getProvince = () => {
         {isMount ?
             fetch(urlApi + 'c_prospect/zoom_province/IFCAPB2/',{
@@ -175,8 +197,6 @@ class AddProspect extends Component {
             .then((res)=>{
                 if(!res.Error){
                     const resData = res.Data
-                   
-                    // console.log('getprov',res);
                     this.setState({ prov : resData});
                 } else {
                     this.setState({isLoaded: !this.state.isLoaded},()=>{
@@ -650,7 +670,7 @@ class AddProspect extends Component {
                                     selectedValue={this.state.category}
                                     onValueChange={(cat)=>this.changeform(cat)}
                             >
-                                
+                                <Picker.Item label="Choose Business Type" />
                                 <Picker.Item label="Individu" value="I" />
                                 <Picker.Item label="Company" value="C" />
                             </Picker>
@@ -668,6 +688,7 @@ class AddProspect extends Component {
                                 selectedValue={this.state.class_cd}
                                 onValueChange={(val)=>this.setState({class_cd:val})}
                             >
+                                <Picker.Item label="Choose Class" />
                                 {this.state.classCd.map((data, key) =>
                                     <Picker.Item key={key} label={data.label} value={data.value}/>
                                 )}
@@ -686,6 +707,7 @@ class AddProspect extends Component {
                                     selectedValue={this.state.vip}
                                     onValueChange={(val)=>this.setState({vip:val})}
                             >
+                                <Picker.Item label="Choose One" />
                                 <Picker.Item label="Yes" value="Y" />
                                 <Picker.Item label="No" value="N" />
                             </Picker>
@@ -744,6 +766,7 @@ class AddProspect extends Component {
                                 selectedValue={this.state.salutation}
                                 onValueChange={(val)=>this.setState({salutation:val})}
                         >
+                            <Picker.Item label="Choose Salutation" />
                             {this.state.salutationcd.map((data, key) =>
                                 <Picker.Item key={key} label={data.label} value={data.value} />
                              )}
@@ -774,6 +797,7 @@ class AddProspect extends Component {
                                 // onValueChange={(val)=>this.setState({province_cd:val})}
                                 onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
                         >
+                            <Picker.Item label="Choose Province" />
                             {this.state.prov.map((data, key) =>
                                 <Picker.Item key={key} label={data.label} value={data.value} />
                             )}
@@ -789,6 +813,7 @@ class AddProspect extends Component {
                                 selectedValue={this.state.city}
                                 onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
                         >
+                            <Picker.Item label="Choose City" />
                             {this.state.getcity.map((data, key) =>
                                 <Picker.Item key={key} label={data.label} value={data.value} />
                             )}
@@ -804,6 +829,7 @@ class AddProspect extends Component {
                                 selectedValue={this.state.district}
                                 onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
                         >
+                            <Picker.Item label="Choose District" />
                             {this.state.getdistrict.map((data, key) =>
                                 <Picker.Item key={key} label={data.label} value={data.value} />
                             )}
@@ -819,6 +845,7 @@ class AddProspect extends Component {
                                 selectedValue={this.state.village}
                                 onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
                         >
+                            <Picker.Item label="Choose Village" />
                              {this.state.getvillage.map((data, key) =>
                                 <Picker.Item key={key} label={data.label} value={data.value} />
                               )}
@@ -834,6 +861,7 @@ class AddProspect extends Component {
                                 selectedValue={this.state.post_cd}
                                 onValueChange={(val)=>this.setState({post_cd:val})}
                         >
+                            <Picker.Item label="Choose Postcode" />
                              {this.state.getpostcode.map((data, key) =>
                                 <Picker.Item key={key} label={data.label} value={data.value} />
                               )}
@@ -891,6 +919,7 @@ class AddProspect extends Component {
                                     // onValueChange={(val)=>this.setState({province_cd:val})}
                                     onValueChange={(zoomprovince)=>this.chooseProv(zoomprovince)}
                             >
+                                <Picker.Item label="Choose Province" />
                                 {this.state.prov.map((data, key) =>
                                     <Picker.Item key={key} label={data.label} value={data.value} />
                                 )}
@@ -906,6 +935,7 @@ class AddProspect extends Component {
                                     selectedValue={this.state.city}
                                     onValueChange={(zoomcity)=>this.chooseCity(zoomcity)}
                             >
+                                <Picker.Item label="Choose City" />
                                 {this.state.getcity.map((data, key) =>
                                     <Picker.Item key={key} label={data.label} value={data.value} />
                                 )}
@@ -921,6 +951,7 @@ class AddProspect extends Component {
                                     selectedValue={this.state.district}
                                     onValueChange={(zoomdistrict)=>this.chooseDistrict(zoomdistrict)}
                             >
+                                <Picker.Item label="Choose District" />
                                 {this.state.getdistrict.map((data, key) =>
                                     <Picker.Item key={key} label={data.label} value={data.value} />
                                 )}
@@ -936,6 +967,7 @@ class AddProspect extends Component {
                                     selectedValue={this.state.village}
                                     onValueChange={(zoomvillage)=>this.chooseVillage(zoomvillage)}
                             >
+                                <Picker.Item label="Choose Village" />
                                 {this.state.getvillage.map((data, key) =>
                                     <Picker.Item key={key} label={data.label} value={data.value} />
                                 )}
@@ -951,6 +983,7 @@ class AddProspect extends Component {
                                     selectedValue={this.state.post_cd}
                                     onValueChange={(val)=>this.setState({post_cd:val})}
                             >
+                                <Picker.Item label="Choose Post Code" />
                                 {this.state.getpostcode.map((data, key) =>
                                     <Picker.Item key={key} label={data.label} value={data.value} />
                                 )}
@@ -1023,6 +1056,7 @@ class AddProspect extends Component {
                             selectedValue={this.state.marital_status}
                             onValueChange={(val)=>this.setState({marital_status:val})}
                         >
+                            <Picker.Item label="Choose One" />
                            <Picker.Item label="Yes" value="Y" />
                            <Picker.Item label="No" value="N" />
                         </Picker>
@@ -1037,6 +1071,7 @@ class AddProspect extends Component {
                             selectedValue={this.state.sex}
                             onValueChange={(val)=>this.setState({sex:val})}
                         >
+                            <Picker.Item label="Choose Sex" />
                            <Picker.Item label="Male" value="F" />
                            <Picker.Item label="Female" value="M" />
                         </Picker>
@@ -1051,8 +1086,22 @@ class AddProspect extends Component {
                 <Input style={Styles.textInput} value={this.state.co_name} onChangeText={(co_name) => this.setState({ co_name })} />
             </View>
             <View style={Styles.overview}>
-                <Text style={Styles.overviewTitle}>Occupation</Text>
-                <Input style={Styles.textInput} value={this.state.occupation} onChangeText={(occupation) => this.setState({ occupation })} />
+                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Occupation</Text>
+                </View>
+                <Item rounded style={{height: 35}}>
+                <Picker 
+                    placeholder="Occupation"
+                    selectedValue={this.state.occupation}
+                    onValueChange={(val)=>this.setState({occupation:val})}
+                >
+                    <Picker.Item label="Choose Occupation" />
+                    {this.state.getocupation.map((data, key) =>
+                        <Picker.Item key={key} label={data.label} value={data.value} />
+                    )}
+                </Picker>
+                </Item>
             </View>
             <View style={Styles.overview}>
                 <Text style={Styles.overviewTitle}>Contact</Text>
@@ -1069,6 +1118,7 @@ class AddProspect extends Component {
                     selectedValue={this.state.media_cd}
                     onValueChange={(val)=>this.setState({media_cd:val})}
                 >
+                    <Picker.Item label="Choose Media" />
                     {this.state.getmedia.map((data, key) =>
                         <Picker.Item key={key} label={data.label} value={data.value} />
                     )}
@@ -1083,8 +1133,22 @@ class AddProspect extends Component {
                 <Input style={Styles.textInput} />
             </View>
             <View style={Styles.overview}>
-                <Text style={Styles.overviewTitle}>Occupation</Text>
-                <Input style={Styles.textInput} />
+                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                        <Text style={Styles.overviewTitles}>Occupation</Text>
+                </View>
+                <Item rounded style={{height: 35}}>
+                <Picker 
+                    placeholder="Occupation"
+                    selectedValue={this.state.occupation}
+                    onValueChange={(val)=>this.setState({occupation:val})}
+                >
+                    <Picker.Item label="Choose Occupation" />
+                    {this.state.getocupation.map((data, key) =>
+                        <Picker.Item key={key} label={data.label} value={data.value} />
+                    )}
+                </Picker>
+                </Item>
             </View>
             <View style={Styles.overview}>
                 <Text style={Styles.overviewTitle}>Contact</Text>
@@ -1101,17 +1165,13 @@ class AddProspect extends Component {
                     selectedValue={this.state.media_cd}
                     onValueChange={(val)=>this.setState({media_cd:val})}
                 >
+                    <Picker.Item label="Choose Media" />
                     {this.state.getmedia.map((data, key) =>
                         <Picker.Item key={key} label={data.label} value={data.value} />
                     )}
                 </Picker>
                 </Item>
             </View>
-            {/* <View style={Styles.overview}>
-                <TouchableOpacity style={{ backgroundColor }}>
-                    <Text>Test</Text>
-                </TouchableOpacity>
-            </View> */}
              </ProgressStep> 
          }                       
         </ProgressSteps>
