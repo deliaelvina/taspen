@@ -14,7 +14,8 @@ import {
   SafeAreaView,
   View,
   FlatList,
-  Modal
+  Modal,
+  Linking
 } from "react-native";
 import {
   Container,
@@ -48,6 +49,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import numFormat from '@Component/numFormat'
 import {_storeData,_getData} from '@Component/StoreAsync';
 import {urlApi} from '@Config/services';
+import Mailer from "react-native-mail";
 let isMount = false
 // create a component
 class UnitInfo extends Component {
@@ -70,6 +72,9 @@ class UnitInfo extends Component {
       project : null,
       gallery : null,
       plans : null,
+      detail: [],
+      descs_wa: '',
+      
 
     }
     console.log('props UI',props);
@@ -85,8 +90,10 @@ class UnitInfo extends Component {
       userId : await _getData('@UserId'),
       name : await _getData('@Name'),
       handphone : await _getData('@Handphone'),
+      projects : await _getData('@UserProject'),
       descs : 'Saya tertarik reservasi ' +this.props.prevItems.project_descs+ '\n\nLantai ' +this.props.items.level_no+ ' | ' +this.props.items.descs+ ' | ' +this.props.items.lot_no+'\n\nHubungi saya untuk info detail.',
-     projects: await _getData('@UserProject')
+      descs_wa : 'Saya tertarik reservasi ' +this.props.prevItems.project_descs+ '\n\nLantai ' +this.props.items.level_no+ ' | ' +this.props.items.descs+ ' | ' +this.props.items.lot_no,
+      // projects: await _getData('@UserProject')
       // descs : this.props.prevItems.project_descs,
     }
 
@@ -94,7 +101,7 @@ class UnitInfo extends Component {
 
     this.setState(data,()=>{
         this.getPrice()
-        // this.getDataDetails()
+       this.getDetailProject()
     })
   }
 
@@ -118,52 +125,87 @@ class UnitInfo extends Component {
     :null}
   }
 
+  getDetailProject = async() => {
+          const project = await _getData('@UserProject');
+        // console.log('project detail',project);
+        const entity_cd = project[0].entity_cd
+        const project_no = project[0].project_no
+        console.log('entity dan project no',{entity_cd, project_no});
+        {isMount ?
+        fetch(urlApi + 'c_project/getProject2/IFCAPB2/',{
+            method:'POST',
+            body: JSON.stringify({entity_cd,project_no})
+            // headers : this.state.hd,
+        }).then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                const resData = res.Data
+               
+                console.log('data project',res);
+                this.setState({detail:resData});
+            } else {
+                this.setState({isLoaded: !this.state.isLoaded},()=>{
+                    alert(res.Pesan)
+                });
+            }
+            // console.log('datalistprospect',res);
+        }).catch((error) => {
+            console.log(error);
+        })
+        :null}
+
+  }
+
   sendWa(){
-    alert('wa');
-    const noHp = this.state.projects[0].handphone
+    // alert('wa');
+    const noHp = this.state.detail[0].wa_no
+    // const noHp = this.state.projects[0].handphone
     // const noHp = this.state.handphone
-    const descs = this.state.descs
-    // Linking.openURL('https://wa.me/+62'+noHp+'?text='+descs)
+    const descs_ = this.state.descs_wa
+    Linking.openURL('https://wa.me/+62'+noHp+'?text='+descs_)
     console.log('hp wa', noHp);
+    console.log('desc', descs_);
   
   }
   
   sendEmail(){
-    alert('email');
+    // alert('email');
+    const email_add = this.state.detail[0].email_add
+    const descs_ = this.state.descs_wa
     // noHp = '';
     // const email_add = this.state.projects[0].email_add
     // const descs = this.props.items.project_descs
     
     // alert(email_add);
   
-  console.log('email send add', email_add)
-    // Mailer.mail(
-    //   {
-    //     subject: "Saya tertarik reservasi " + descs,
-    //     recipients: [`${email_add}`],
-    //     ccRecipients: [""],
-    //     bccRecipients: [""],
-    //     body: "",
-    //     isHTML: true
-    //   },
-    //   (error, event) => {
-    //     Alert.alert(
-    //       error,
-    //       event,
-    //       [
-    //         {
-    //           text: "Ok",
-    //           onPress: () => console.log("OK: Email Error Response")
-    //         },
-    //         {
-    //           text: "Cancel",
-    //           onPress: () => console.log("CANCEL: Email Error Response")
-    //         }
-    //       ],
-    //       { cancelable: true }
-    //     );
-    //   }
-    // );
+    console.log('email send add', email_add)
+    Mailer.mail(
+      {
+        subject: "Saya tertarik reservasi " + descs_,
+        recipients: [`${email_add}`],
+        ccRecipients: [""],
+        bccRecipients: [""],
+        body: "",
+        isHTML: true
+      },
+      (error, event) => {
+        Alert.alert(
+          error,
+          event,
+          [
+            {
+              text: "Ok",
+              onPress: () => console.log("OK: Email Error Response")
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("CANCEL: Email Error Response")
+            }
+          ],
+          { cancelable: true }
+        );
+      }
+    );
   };
   
 

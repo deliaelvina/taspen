@@ -275,11 +275,14 @@ class NUPPage extends Component {
 
                 }
                 console.log('saveSuksesNUP', res)
+                Actions.home()
 
             }).catch((error) => {
                 // alert(res.Pesan)
                 console.log(error);
             });
+
+           
     }
 
     onValueChange(value: string) {
