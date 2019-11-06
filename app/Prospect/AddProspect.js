@@ -179,7 +179,7 @@ class AddProspect extends Component {
                         alert(res.Pesan)
                     });
                 }
-                console.log('getprov',res);
+                console.log('getocupation',res);
             }).catch((error) => {
                 console.log(error);
             })
@@ -1095,6 +1095,7 @@ class AddProspect extends Component {
                     placeholder="Occupation"
                     selectedValue={this.state.occupation}
                     onValueChange={(val)=>this.setState({occupation:val})}
+                    // onValueChange={(val)=>alert(val)}
                 >
                     <Picker.Item label="Choose Occupation" />
                     {this.state.getocupation.map((data, key) =>

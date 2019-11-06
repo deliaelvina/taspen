@@ -47,6 +47,7 @@ import SearchableDropdown from 'react-native-searchable-dropdown';
 import RNPickerSelect from 'react-native-picker-select';
 import Mailer from "react-native-mail";
 import InterestProjectProspect from './InterestProjectProspect';
+import { DateInput, MinuteInput, DatetimeInput } from "../components/Input";
 
 // import styles, { colors } from "./styles/index";
 
@@ -134,6 +135,7 @@ class DetailPage extends Component {
 
             //tab 3
             // marital_status: '',
+            dob: new Date(),
             sex: '',
             spouse_name: '',
             spouse_hp: '',
@@ -165,6 +167,9 @@ class DetailPage extends Component {
             buy: '',
             provdescs: ''
 
+
+
+
         };
         this.renderAccordionHeader = this.renderAccordionHeader.bind(this)
         this.renderAccordionContent = this.renderAccordionContent.bind(this)
@@ -174,6 +179,7 @@ class DetailPage extends Component {
         this.renderAccordionContentOtherind = this.renderAccordionContentOtherind.bind(this)
         this.renderAccordionContentOthercom = this.renderAccordionContentOthercom.bind(this)
         this.renderAccordionContentInterest = this.renderAccordionContentInterest.bind(this)
+        this.renderAccordionContentAttachment = this.renderAccordionContentAttachment.bind(this)
         console.log('props status prospesct',props);
     }
     async componentDidMount(){
@@ -181,6 +187,9 @@ class DetailPage extends Component {
         const dataProspect = await _getData("statusProspect");
         console.log("_getdata dari ListProspect",dataProspect);
         Actions.refresh({ backTitle: () => dataProspect.status_cd });
+        
+        const parsdob = parseInt(dataProspect.dob);
+        console.log('parsdob',parsdob);
         const data = {
             status_cd : dataProspect.status_cd,
             class_cd : dataProspect.class_cd,
@@ -210,6 +219,8 @@ class DetailPage extends Component {
 
             //tab 3
             // marital_status: '',
+            dob: dataProspect.dob,
+            
             sex: dataProspect.sex,
             spouse_name: dataProspect.spouse_name,
             spouse_hp: dataProspect.spouse_hp,
@@ -923,6 +934,24 @@ class DetailPage extends Component {
         // Actions.IndexProspect
         this.setState({ click : true})
     }
+     AddInterest(){
+
+        // Actions.AddInterest({datas : data});
+        Actions.AddInterest();
+        // console.log('data business id');
+        // Actions.IndexProspect
+        this.setState({ click : true})
+    }
+    AddAttachment(){
+
+        // Actions.AddInterest({datas : data});
+        Actions.AddAttachment();
+        // console.log('data business id');
+        // Actions.IndexProspect
+        this.setState({ click : true})
+    }
+
+
 
     updateProspectType = () => {
         // alert('tes');
@@ -1139,6 +1168,7 @@ class DetailPage extends Component {
             //tab2
             business_id,
             //tab3
+            dob,
             sex,
             spouse_name,
             spouse_hp,
@@ -1160,6 +1190,7 @@ class DetailPage extends Component {
 
             //tab 3
             // marital_status: '',
+            dob:dob,
             sex: sex,
             spouse_name: spouse_name,
             spouse_hp: spouse_hp,
@@ -2078,7 +2109,7 @@ class DetailPage extends Component {
     }
 
     renderAccordionContentOtherind() {
-       let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media,media_cd} = this.state
+       let {sex,spouse_name,spouse_hp,co_name,occupation,contact_person,media,media_cd,dob} = this.state
 
         return <View style={Styles.overview_detail}>
                     <View style={{justifyContent: "flex-end", flexDirection: "row"}}>
@@ -2105,7 +2136,30 @@ class DetailPage extends Component {
                             <ActivityIndicator />
                         :
                     <View>
-                        
+                        <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
+                            <Label>
+                                <Text style={{fontSize: 12}}>Birthday</Text>
+                            </Label>
+                            {/* <Item rounded style={{height: 35}}> */}
+                              
+                                <DatetimeInput
+                                // placeholderTextColor="#fff"
+                                    name="dob"
+                                    // label="Birthday Date"
+                                    mode="date"
+                                    // onChange={this.handleDateChange}
+                                    minimumDate={new Date(1900,1,1)}
+                                    onChange={(name,val)=>this.setState({dob:val})}
+                                    // style={{backgroundColor: Colors.white}}
+                                    // value={this.state.dob}
+                                    value={dob}
+                                />
+
+                            {/* </Item> */}
+                            
+                               
+                            {/* <TextInput style={Styles.textInput} placeholder={'Province'} value={city} onChangeText={(val)=>{this.setState({province:val})}}/> */}
+                        </View>                        
                         <View style={{paddingVertical: 10}} pointerEvents={this.state.disableotherdetail ? 'none' : 'auto'} >
                             <Label>
                                 <Text style={{fontSize: 12}}>Sex</Text>
@@ -2364,15 +2418,18 @@ class DetailPage extends Component {
                                 marginBottom: 5,
                             }}
                             >
-                            <Button
-                                small
-                                rounded
-                                style={Styles.sBtnHeadAdd}
-                                onPress={()=>Actions.AddProject()}>
-                                {/* <Text style={Styles.sLinkHead}>Add Prospect</Text> */}
-                                <Icon name='plus' type="FontAwesome5" style={{color: '#fff', fontSize: 13}}/>
-                                {/* plus */}
-                            </Button>
+                                {/* {this.state.datainterest.map((data, key) => ( */}
+                                    <Button
+                                        small
+                                        rounded
+                                        style={Styles.sBtnHeadAdd}
+                                        onPress={()=>this.AddInterest()} >
+                                        {/* <Text style={Styles.sLinkHead}>Add Prospect</Text> */}
+                                        <Icon name='plus' type="FontAwesome5" style={{color: '#fff', fontSize: 13}}/>
+                                        {/* plus */}
+                                        
+                                    </Button>
+                                {/* ))} */}
                         </View>
                            
                         <ScrollView>
@@ -2425,12 +2482,12 @@ class DetailPage extends Component {
                                                 Lot No : {data.lot_no}
                                                 </Text>
                                                 
-                                                {this.state.datainterest[0].rent_flag == 'A' ? 
+                                                {this.state.datainterest[0].rent_flag == 'Y' ? 
                                                     <Text style={Styles.infoHeader}>Rent : Yes</Text> 
                                                     : 
                                                     <Text style={Styles.infoHeader}>Rent : No</Text>
                                                 }
-                                                {this.state.datainterest[0].buy_flag == 'A' ? 
+                                                {this.state.datainterest[0].buy_flag == 'Y' ? 
                                                     <Text style={Styles.infoHeader}>Buy : Yes</Text> 
                                                     : 
                                                     <Text style={Styles.infoHeader}>Buy : No</Text>
@@ -2457,6 +2514,88 @@ class DetailPage extends Component {
                             <Button style={{backgroundColor: Colors.navyUrban, borderRadius: 5, height: 30, marginVertical: 10}} onPress={()=>alert('add project') }>
                                 <Text style={{fontSize: 12}}>Add Project</Text>
                             </Button> */}
+                        
+                    </View>
+                    }
+                </View>
+    }
+
+    renderAccordionContentAttachment() {
+        let {project_name, property_name, lot_no, rent, buy} = this.state
+
+        return <View style={Styles.overview_detail}>
+                    {this.state.detail.length == 0 ?
+                            <ActivityIndicator />
+                        :
+                        
+                    <View>
+                        <View
+                            style={{
+                                justifyContent: "flex-end",
+                                flexDirection: "row",
+                                right: 5,
+                                top: 0,
+                                marginBottom: 5,
+                            }}
+                            >
+                                {/* {this.state.datainterest.map((data, key) => ( */}
+                                    <Button
+                                        small
+                                        rounded
+                                        style={Styles.sBtnHeadAdd}
+                                        onPress={()=>this.AddAttachment()} >
+                                        {/* <Text style={Styles.sLinkHead}>Add Prospect</Text> */}
+                                        <Icon name='plus' type="FontAwesome5" style={{color: '#fff', fontSize: 13}}/>
+                                        {/* plus */}
+                                        
+                                    </Button>
+                                {/* ))} */}
+                        </View>
+                           
+                        <ScrollView>
+                            <View style={Styles.overview_padhorizontal}>
+                                <View>
+                                    <TouchableOpacity style={{width: '100%'}} onPress={() => alert('tes')}
+                                    
+                                    >
+                                    <Card style={{
+                                        height: null,
+                                        backgroundColor: 'white',
+                                        shadowOffset: { width: 1, height: 1 },
+                                        shadowColor: "#37BEB7",
+                                        shadowOpacity: 0.5,
+                                        elevation: 5,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 10,
+                                        borderRadius: 10,
+                                        flex: 1, 
+                                        alignItems: "flex-start",
+                                        // backgroundColor: 'red'
+                                    }} 
+                                
+                                    >
+                                        <View style={{flexDirection: "row", width: '100%'}}>
+                                            
+                                            <View style={{ alignSelf: "center" }}>
+                                                <Text style={Styles.wrapText}>
+                                                {/* {data.descs} */}
+                                                NPWP
+                                                </Text> 
+                                            </View>
+                                            <View style={{ alignSelf: "center", right: 35 }}>
+                                                <Image
+                                                    source={require("@Asset/images/card2.jpeg")}
+                                                    style={Styles.attach}
+                                                />
+                                            </View>
+                                        </View>
+                                    </Card>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView>
+                
+                            
                         
                     </View>
                     }
@@ -2511,6 +2650,10 @@ class DetailPage extends Component {
                                             type: 'interest',
                                             title: 'Interest Project'
                                         },
+                                        {
+                                            type: 'attachment',
+                                            title: 'Attachment'
+                                        },
                                     ]}
                                     expanded={0}
                                     renderHeader={this.renderAccordionHeader}
@@ -2542,6 +2685,10 @@ class DetailPage extends Component {
                                             {
                                                 type: 'interest',
                                                 title: 'Interest Project'
+                                            },
+                                            {
+                                                type: 'attachment',
+                                                title: 'Attachment'
                                             },
                                         ]}
                                         expanded={0}

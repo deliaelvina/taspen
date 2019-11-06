@@ -117,6 +117,34 @@ class ListProspect extends Component {
         :null}
     }
 
+    getDataFollowUp = () => {
+        // const {status_cd} = this.props.datas
+        // const {email} = this.state
+        // alert(isMount);
+        {isMount ?
+        fetch(urlApi + 'c_prospect/getProspect/IFCAPB/',{
+            method:'POST',
+            body: JSON.stringify({status_cd,email})
+            // headers : this.state.hd,
+        }).then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                const resData = res.Data
+               
+                console.log('datalistprospect',res);
+                this.setState({detail:resData});
+            } else {
+                this.setState({isLoaded: !this.state.isLoaded},()=>{
+                    alert(res.Pesan)
+                });
+            }
+            
+        }).catch((error) => {
+            console.log(error);
+        })
+        :null}
+    }
+
     
 
     tes = () =>{

@@ -59,9 +59,10 @@ class ProspectPage extends Component {
         }
     }
     async componentDidMount(){
+        // const follow_up_date = await _getData("datafollowup");
         isMount = true;
         const data = {
-        
+            
             menuStatus : await _getData('@MenuStatus') ? await _getData('@MenuStatus') : [],
             // agentcd : await _getData('@AgentCd') ? await _getData('@AgentCd') : [],
             email :  await _getData('@User')
@@ -69,7 +70,8 @@ class ProspectPage extends Component {
 
         
         }
-        console.log('email prospect', data)
+        console.log('email prospect', data);
+        // console.log('datafollowup', follow_up_date);
         goToFeed = (val) =>{
             // if(val.isProject == 1){
             //     Actions.project({goTo : val.URL_angular})
@@ -118,8 +120,14 @@ class ProspectPage extends Component {
                 : null;
         }
     }
+    
 
     ListProspect(data) {
+
+        // console.log('_storedata di list prospect',data);
+        // _storeData("statusProspect",data);
+
+
         console.log('data status prospect',data);
         Actions.ListProspect({datas : data});
         this.setState({ click : true})

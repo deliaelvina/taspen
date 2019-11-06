@@ -103,7 +103,9 @@ class DetailFollowUp extends Component {
         }
         isMount = true;
         this.setState(data, () => {
-            console.log('data di list', this.state.time_prospect);
+            console.log('data di list',data);
+            // console.log('_storedata di list prospect',data);
+            
             // this.getDataListProspect(this.props.datas)
             // this.getDataFollowUp(this.props.datas)
             // this.getStatus()
@@ -147,6 +149,7 @@ class DetailFollowUp extends Component {
             // audit_user: audit_user,
             // contact_date: contact_date,
             // contact_person: 'null',
+          
             contact_date: moment(contact_date).format("YYYY-MM-DD HH:mm:ss"),
             follow_up_date: moment(contact_date).format("YYYY-MM-DD HH:mm:ss"),
             time_prospect:  moment(time_prospect).format("HH:mm"),

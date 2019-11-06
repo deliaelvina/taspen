@@ -14,6 +14,7 @@ import Style from "../../Themes/Style";
 
 const DatetimeInput = props => {
     const [time, setTime] = useState(props.value);
+    const [backgroundColor] = useState(props.style);
     const [visible, setVisible] = useState(false);
 
     const handlePicker = (val) =>{
@@ -42,6 +43,7 @@ const DatetimeInput = props => {
                                       "DD/MM/YYYY"
                                   )
                         }
+                        // {...props}
                     />
                 </View>
             </TouchableOpacity>
@@ -49,6 +51,7 @@ const DatetimeInput = props => {
                 mode={props.mode}
                 is24Hour={true}
                 date={time}
+                style={backgroundColor}
                 isVisible={visible}
                 minimumDate={new Date()}
                 onConfirm={handlePicker}

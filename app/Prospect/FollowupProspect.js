@@ -138,7 +138,8 @@ class FollowupProspect extends Component {
         this.getDataFollowUp(this.props.datas);
     }
 
-    DetailFollowUp (data) {
+    async DetailFollowUp (data) {
+        // _storeData("datafollowup", data);
         console.log('all data follow up', data);
         Actions.DetailFollowUp({datas: data, onBack: () => this.receiveProps()});
         this.setState({click : true})

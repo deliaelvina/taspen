@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
+import { Platform, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import { Fonts, Metrics, Colors } from '../Themes/';
 const dh = Dimensions.get("window").height;
 const dw = Dimensions.get("window").width;
@@ -48,6 +48,11 @@ export default {
         width: 60,
         height: 60
       },
+      attach: {
+        marginRight: 10,
+        width: 140,
+        height: 90
+      },
       infoHeader: {
         fontFamily: "Montserrat-Regular",
         color: "#333",
@@ -55,6 +60,14 @@ export default {
         fontSize: 15,
         flexWrap: "wrap",
         width: dw * 0.70
+      },
+      wrapText: {
+        fontFamily: "Montserrat-Regular",
+        color: "#333",
+        marginBottom: 5,
+        fontSize: 15,
+        flexWrap: "wrap",
+        width: dw * 0.50
       },
       infoDesc: {
         
@@ -362,6 +375,41 @@ subWrapLarge: {
   // marginVertical: 5,
   marginHorizontal: 5,
   // width: '45%'
+},
+
+overviewTitles_regular: {
+  flex: 1,
+ 
+  left: 15,
+},
+avatar: {
+  // borderRadius: 75,
+  flex: 1,
+  width: null,
+  height: null,
+  aspectRatio: 1.5,
+  // justifyContent: 'center',
+  // alignItems: 'center',
+},
+avatarContainer: {
+  borderColor: "#9B9B9B",
+  borderWidth: 2 / PixelRatio.get(),
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "transparent",
+  padding: 10,
+  width: 250,
+  height: 200
+},
+label: {
+  paddingLeft: 8,
+  marginLeft: 8
+},
+containers: {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#f3f3f3",
 },
 
 

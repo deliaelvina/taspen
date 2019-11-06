@@ -87,6 +87,11 @@ export default {
         fontFamily: Fonts.type.sfuiDisplaySemibold,
         left: 15,
       },
+      overviewTitles_regular: {
+        flex: 1,
+       
+        left: 15,
+      },
       overviewTitles_Small : {
         flex: 1,
         // fontFamily: Fonts.type.sfuiDisplaySemibold,
@@ -272,6 +277,19 @@ export default {
       color: "#666666",
       // color: "black"
     },
+    textInput_nobottom: {
+      // fontFamily: 'Montserrat-Regular',
+      // borderBottomWidth: 1,
+      // borderColor: "#CCC",
+      fontSize: 16,
+      width: '100%',
+      borderRadius: 5,
+      // textAlignVertical: 'bottom',
+      paddingVertical: .5,
+      paddingHorizontal: 20,
+      // color: "#666666",
+      color: "#333"
+    },
     textInput_medium: {
       fontFamily: 'Montserrat-Regular',
       borderBottomWidth: 1,
@@ -353,6 +371,68 @@ subWrapLarge: {
   marginHorizontal: 5,
   // width: '45%'
 },
+
+
+
+
+//coba
+searchBarContainerStyle: {
+  marginBottom: 10,
+  flexDirection: "row",
+  height: 40,
+  shadowOpacity: 1.0,
+  shadowRadius: 5,
+  shadowOffset: {
+    width: 1,
+    height: 1
+  },
+  backgroundColor: "rgba(255,255,255,1)",
+  shadowColor: "#d3d3d3",
+  borderRadius: 10,
+  elevation: 3,
+  marginLeft: 10,
+  marginRight: 10
+},
+
+selectLabelTextStyle: {
+  color: "#000",
+  textAlign: "left",
+  width: "99%",
+  padding: 10,
+  flexDirection: "row"
+},
+placeHolderTextStyle: {
+  color: "#D3D3D3",
+  padding: 10,
+  textAlign: "left",
+  width: "99%",
+  flexDirection: "row"
+},
+dropDownImageStyle: {
+  marginLeft: 10,
+  width: 10,
+  height: 10,
+  alignSelf: "center"
+},
+
+pickerStyle: {
+  marginLeft: 18,
+  elevation:3,
+  paddingRight: 25,
+  marginRight: 10,
+  marginBottom: 2,
+  shadowOpacity: 1.0,
+  shadowOffset: {
+    width: 1,
+    height: 1
+  },
+  borderWidth:1,
+  shadowRadius: 10,
+  backgroundColor: "rgba(255,255,255,1)",
+  shadowColor: "#d3d3d3",
+  borderRadius: 5,
+  flexDirection: "row"
+}
 
 
 }

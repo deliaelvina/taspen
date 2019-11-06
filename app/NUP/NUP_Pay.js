@@ -127,6 +127,7 @@ class NUPPage extends Component {
             name: await _getData("@Name"),
             no_hp: await _getData("@Handphone"),
             token: await _getData("@Token"),
+            audit_user : await _getData('@UserId'),
             property: nup.project_no,
             project_name: nup.project_name,
 
@@ -210,7 +211,9 @@ class NUPPage extends Component {
     }
 
     onSubmit() {
+        
         const {
+            
             email,
             name,
             no_hp,
@@ -222,6 +225,7 @@ class NUPPage extends Component {
             nuptype,
             ktp,
             npwp,
+            audit_user,
 
             media,
             fotoKtp,
@@ -241,6 +245,8 @@ class NUPPage extends Component {
             name: name,
             ktp: ktp,
             npwp: npwp,
+            audit_user: audit_user,
+            // audit_user : await _getData('@UserId'),
 
             cons: 'IFCAPB',
 
@@ -253,14 +259,14 @@ class NUPPage extends Component {
         console.log('saveFormNUP', formData);
 
         // this.setState({isVisible : true})
-        fetch(urlApi + 'c_nup/insertNup/IFCAMOBILE/', {
+        fetch(urlApi + 'c_nup/insertNup/IFCAPB2/', {
             method: "POST",
             body: JSON.stringify(formData),
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Token': this.state.token
-            }
+            // headers: {
+            //     Accept: 'application/json',
+            //     'Content-Type': 'application/json',
+            //     'Token': this.state.token
+            // }
         })
             .then((response) => response.json())
             .then((res) => {

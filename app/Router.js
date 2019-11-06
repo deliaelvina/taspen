@@ -105,6 +105,8 @@ import DetailFollowUp from './Prospect/DetailFollowUp';
 import AddInterest from './Interest/AddInterest';
 import DetailInterest from './Interest/DetailInterest';
 
+//attachment
+import AddAttachment from './Prospect/AddAttachment';
 
 
 
@@ -519,6 +521,12 @@ class Routes extends Component{
                  <Scene
                   key="DetailInterest"
                   component={DetailInterest}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="AddAttachment"
+                  component={AddAttachment}
                   hideNavBar={true}
                   title=""
                 />

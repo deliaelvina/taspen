@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -108,6 +107,10 @@
 		EEB3B60EAEBE42D9829629B2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD3967D6117D4E6D92BD77B2 /* MaterialIcons.ttf */; };
 		EF4346683811493695B8895A /* SF-UI-Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58218041937448399BA4ABCF /* SF-UI-Display-Bold.ttf */; };
 		F5111DF649FA449F955C11FC /* libPods-SplusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8280633113BC415416F41C /* libPods-SplusTests.a */; };
+		4919D465566E48DC820E393F /* RNModalPicker.app in Resources */ = {isa = PBXBuildFile; fileRef = 122F3299F0314D248FA64A22 /* RNModalPicker.app */; };
+		078814467D3F449B88A9160C /* RNModalPickerTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = F0F0119CD10D4F4184848DC9 /* RNModalPickerTests.xctest */; };
+		BE64161FBF024E2FBBFDD26B /* RNModalPicker-tvOS.app in Resources */ = {isa = PBXBuildFile; fileRef = 003311779F934EAEBB56706E /* RNModalPicker-tvOS.app */; };
+		C66ED0F90AC44BF7AE51D6CB /* RNModalPicker-tvOSTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = A7544B184CEB4A239A3D343A /* RNModalPicker-tvOSTests.xctest */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -629,6 +632,11 @@
 		FB69A5F5348642449CEEC7D7 /* SFUIDisplay_thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFUIDisplay_thin.ttf; path = ../app/Fonts/SFUIDisplay_thin.ttf; sourceTree = "<group>"; };
 		FD645DF7D6284604ABD6822F /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		FDAC4B72BADD0F3E885E14DC /* Pods-Splus-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Splus-tvOS/Pods-Splus-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B6F6BEBE5ABE467A868CCEF5 /* RNModalPicker.xcodeproj */ = {isa = PBXFileReference; name = "RNModalPicker.xcodeproj"; path = "../node_modules/rn-modal-picker/ios/RNModalPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		122F3299F0314D248FA64A22 /* RNModalPicker.app */ = {isa = PBXFileReference; name = "RNModalPicker.app"; path = "RNModalPicker.app"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.application; explicitFileType = undefined; includeInIndex = 0; };
+		F0F0119CD10D4F4184848DC9 /* RNModalPickerTests.xctest */ = {isa = PBXFileReference; name = "RNModalPickerTests.xctest"; path = "RNModalPickerTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
+		003311779F934EAEBB56706E /* RNModalPicker-tvOS.app */ = {isa = PBXFileReference; name = "RNModalPicker-tvOS.app"; path = "RNModalPicker-tvOS.app"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.application; explicitFileType = undefined; includeInIndex = 0; };
+		A7544B184CEB4A239A3D343A /* RNModalPicker-tvOSTests.xctest */ = {isa = PBXFileReference; name = "RNModalPicker-tvOSTests.xctest"; path = "RNModalPicker-tvOSTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -671,6 +679,8 @@
 				96D58C3CE6FD66275C9C8FC4 /* libPods-Splus.a in Frameworks */,
 				245942BCE00C46C39A7AF20C /* libRNDocumentInteractionController.a in Frameworks */,
 				3F43C862B741447DA6C4649E /* libRNFirebase.a in Frameworks */,
+				4919D465566E48DC820E393F /* RNModalPicker.app in Resources */,
+				078814467D3F449B88A9160C /* RNModalPickerTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,6 +701,8 @@
 				5D3EB8D842DF4315B7F14516 /* libRNVectorIcons-tvOS.a in Frameworks */,
 				14C34872532D4F50A011F74E /* libRNDeviceInfo-tvOS.a in Frameworks */,
 				67D2BDF8EFE71DBCEB0EFB20 /* libPods-Splus-tvOS.a in Frameworks */,
+				BE64161FBF024E2FBBFDD26B /* RNModalPicker-tvOS.app in Resources */,
+				C66ED0F90AC44BF7AE51D6CB /* RNModalPicker-tvOSTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1035,6 +1047,7 @@
 				17F8573489344A23AA232057 /* RNDeviceInfo.xcodeproj */,
 				47B5F719800A44C6A8695711 /* RNDocumentInteractionController.xcodeproj */,
 				E19E140869454B208C02619F /* RNFirebase.xcodeproj */,
+				B6F6BEBE5ABE467A868CCEF5 /* RNModalPicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -2052,12 +2065,17 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = SplusTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2090,12 +2108,17 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = SplusTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2130,6 +2153,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = Splus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2165,6 +2189,7 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = Splus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2206,11 +2231,16 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = "Splus-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2252,11 +2282,16 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = "Splus-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2297,11 +2332,16 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = "Splus-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2342,11 +2382,16 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-open-file/ios/RNDocumentInteractionController/RNDocumentInteractionController/**",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
 				INFOPLIST_FILE = "Splus-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (

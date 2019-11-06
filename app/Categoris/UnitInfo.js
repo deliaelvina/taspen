@@ -60,6 +60,17 @@ class UnitInfo extends Component {
       price : null,
       isVisible : false,
       descs : '',
+      // project: '',
+      email_add: '',
+      wa_no: '',
+      projects:[],
+      amenities  : null,
+      feature : null,
+      overview : null,
+      project : null,
+      gallery : null,
+      plans : null,
+
     }
     console.log('props UI',props);
   }
@@ -75,7 +86,7 @@ class UnitInfo extends Component {
       name : await _getData('@Name'),
       handphone : await _getData('@Handphone'),
       descs : 'Saya tertarik reservasi ' +this.props.prevItems.project_descs+ '\n\nLantai ' +this.props.items.level_no+ ' | ' +this.props.items.descs+ ' | ' +this.props.items.lot_no+'\n\nHubungi saya untuk info detail.',
-      
+     projects: await _getData('@UserProject')
       // descs : this.props.prevItems.project_descs,
     }
 
@@ -83,6 +94,7 @@ class UnitInfo extends Component {
 
     this.setState(data,()=>{
         this.getPrice()
+        // this.getDataDetails()
     })
   }
 
@@ -105,6 +117,55 @@ class UnitInfo extends Component {
         })
     :null}
   }
+
+  sendWa(){
+    alert('wa');
+    const noHp = this.state.projects[0].handphone
+    // const noHp = this.state.handphone
+    const descs = this.state.descs
+    // Linking.openURL('https://wa.me/+62'+noHp+'?text='+descs)
+    console.log('hp wa', noHp);
+  
+  }
+  
+  sendEmail(){
+    alert('email');
+    // noHp = '';
+    // const email_add = this.state.projects[0].email_add
+    // const descs = this.props.items.project_descs
+    
+    // alert(email_add);
+  
+  console.log('email send add', email_add)
+    // Mailer.mail(
+    //   {
+    //     subject: "Saya tertarik reservasi " + descs,
+    //     recipients: [`${email_add}`],
+    //     ccRecipients: [""],
+    //     bccRecipients: [""],
+    //     body: "",
+    //     isHTML: true
+    //   },
+    //   (error, event) => {
+    //     Alert.alert(
+    //       error,
+    //       event,
+    //       [
+    //         {
+    //           text: "Ok",
+    //           onPress: () => console.log("OK: Email Error Response")
+    //         },
+    //         {
+    //           text: "Cancel",
+    //           onPress: () => console.log("CANCEL: Email Error Response")
+    //         }
+    //       ],
+    //       { cancelable: true }
+    //     );
+    //   }
+    // );
+  };
+  
 
   render() {
     const item = this.props.items
@@ -241,11 +302,11 @@ class UnitInfo extends Component {
             </Item>
             <Body style={{ paddingVertical:32 }} >
             <Button rounded success full
-            style={{ marginTop:16 }} >
+            style={{ marginTop:16, backgroundColor: Colors.blueUrban }} onPress={()=>this.sendEmail()} >
             <Text>Send Email</Text>
           </Button>
             <Button rounded warning iconRight full
-            style={{ marginTop:16 }}>
+            style={{ marginTop:16, backgroundColor: Colors.loginGreen }} onPress={()=>this.sendWa()}>
             <Text>Send via WhatsApp</Text>
             <Icon name='whatsapp' 
             type="FontAwesome5"/>
