@@ -261,11 +261,25 @@ class AddAttachment extends Component {
         .then(resp => {
             
             let res = JSON.stringify(resp.data);
-            alert('Success')
+            // alert('Success')
             // if(resp=="OK"){
             //     alert('ok')
             // }else{alert('error')}
             console.log("res", resp);
+            Alert.alert(
+                'Alert',
+                'Submit Success',
+                [
+                //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //   {
+                //     text: 'Cancel',
+                //     onPress: () => console.log('Cancel Pressed'),
+                //     style: 'cancel',
+                //   },
+                  {text: 'OK', onPress: () => Actions.home()},
+                ],
+                {cancelable: false},
+              );
            
             
             _storeData("@ProfileUpdate", true);

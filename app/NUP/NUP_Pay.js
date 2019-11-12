@@ -54,6 +54,7 @@ import numFormat from "@Component/numFormat";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import WebView from '@Component/WebView';
 import { existsTypeAnnotation } from "@babel/types";
+import RNFetchBlob from "rn-fetch-blob";
 
 let isMount = false;
 const buttonStepStyle = {
@@ -91,8 +92,10 @@ class NUPPage extends Component {
             cons: "",
 
             // ? Section 2
-            fotoKtp: require('@Asset/images/upload.png'),
-            fotoNpwp: require('@Asset/images/upload.png'),
+            fotoKtp: '',
+            fotoNpwp: '',
+            // buktibayar: require('@Asset/images/upload.png'),
+            buktibayar: '',
 
             // ? Section 3
             property: "",
@@ -108,6 +111,7 @@ class NUPPage extends Component {
             isVisible: false,
             isValid: false,
             errors: false,
+            group:'',
 
             selMedia: "",
             dataMedia: [],
@@ -128,6 +132,8 @@ class NUPPage extends Component {
             no_hp: await _getData("@Handphone"),
             token: await _getData("@Token"),
             audit_user : await _getData('@UserId'),
+            group: await _getData('@Group'),
+            // audit_user: await _getData('@UserId'),
             property: nup.project_no,
             project_name: nup.project_name,
 
@@ -136,9 +142,11 @@ class NUPPage extends Component {
             nupqty: nup.qty,
             cons: nup.db_profile,
             descs: nup.descs,
-            media: ""
+            media: "",
+            // audit_user: '',
+           
         };
-
+        console.log('data nup',data);
         this.setState(data, () => {
             this.getMedia()
         });
@@ -157,60 +165,97 @@ class NUPPage extends Component {
         );
     }
 
-    fromCamera(key) {
+    // fromCamera(key) {
 
+    //     ImagePicker.openCamera({
+    //         cropping: true,
+    //         width: 200,
+    //         height: 200,
+    //     }).then(image => {
+    //         console.log('received image', image);
+
+    //         this.setState({ [key]: { uri: image.path } })
+
+    //     }).catch(e => console.log('tag', e));
+    // }
+    fromCamera(key) {
         ImagePicker.openCamera({
             cropping: true,
-            width: 200,
-            height: 200,
-        }).then(image => {
-            console.log('received image', image);
+            width: 600,
+            height: 400
+        })
+            .then(image => {
+                console.log("received image", image);
 
-            this.setState({ [key]: { uri: image.path } }, () =>
-                console.log('oke')
-                // this.uploadPhoto()
-            )
-
-        }).catch(e => console.log('tag', e));
+                this.setState({ [key]: { uri: image.path } });
+                
+            })
+            .catch(e => console.log("tag", e));
     }
 
-    fromGallery(key) {
+    // fromGallery(key) {
 
+    //     ImagePicker.openPicker({
+    //         multiple: false,
+    //         width: 200,
+    //         height: 200,
+    //     }).then(image => {
+    //         console.log('received image', image);
+
+    //         this.setState({ [key]: { uri: image.path } })
+
+    //     }).catch(e => console.log('tag', e));
+    // }
+    fromGallery(key) {
         ImagePicker.openPicker({
             multiple: false,
-            width: 200,
-            height: 200,
-        }).then(image => {
-            console.log('received image', image);
+            width: 600,
+            height: 400
+        })
+            .then(image => {
+                console.log("received image", image);
 
-            this.setState({ [key]: { uri: image.path } }, () =>
-                // this.uploadPhoto()
-                console.log('oke')
-            )
-
-        }).catch(e => console.log('tag', e));
+                this.setState({ [key]: { uri: image.path } });
+            })
+            .catch(e => console.log("tag", e));
     }
 
     onNext(step) {
-        const { name, email, no_hp, ktp, fotoKtp, fotoNpwp } = this.state
+        const { name, email, no_hp, ktp, fotoKtp, fotoNpwp, npwp, buktibayar } = this.state
 
         if (step == 1) {
-            if (name && email && no_hp && ktp) {
+            if (name && email && no_hp && ktp && npwp && buktibayar ) {
                 this.setState({ errors: false })
             } else {
                 this.setState({ errors: true })
                 alert("Please fill red star form")
             }
-        } else {
-            if (fotoKtp || fotoNpwp) {
+        } 
+        if (step==2) {
+            if ( fotoKtp || fotoNpwp ) {
                 this.setState({ errors: false })
             } else {
                 this.setState({ errors: true })
+                alert("Please upload attachments")
             }
         }
     }
 
     onSubmit() {
+        let fileNameKtp = "ktp.png";
+        let fileNameNpwp = "npwp.png";
+        let fileNameBill = "payment.png";
+
+        let filektp = RNFetchBlob.wrap(
+            this.state.fotoKtp.uri.replace("file://", "")
+        );
+        let filenpwp = RNFetchBlob.wrap(
+            this.state.fotoNpwp.uri.replace("file://", "")
+        );
+        let filebill = RNFetchBlob.wrap(
+            this.state.buktibayar.uri.replace("file://", "")
+        );
+
         
         const {
             
@@ -233,7 +278,7 @@ class NUPPage extends Component {
         } = this.state
 
         const formData = {
-
+            audit_user: audit_user,
             no_hp_alt: no_hp_alt,
             no_telp_alt: no_telp_alt,
             property: property,
@@ -253,34 +298,96 @@ class NUPPage extends Component {
             media: media,
 
 
-            fotoKtp: require('@Asset/images/upload.png'),
-            fotoNpwp: require('@Asset/images/upload.png'),
+            // fotoKtp: require('@Asset/images/upload.png'),
+            // fotoNpwp: require('@Asset/images/upload.png'),
+            fotoKtp: filektp,
+            fotoNpwp: filenpwp,
+            buktibayar: filebill
         }
         console.log('saveFormNUP', formData);
 
-        // this.setState({isVisible : true})
-        fetch(urlApi + 'c_nup/insertNup/IFCAPB2/', {
-            method: "POST",
-            body: JSON.stringify(formData),
-            // headers: {
-            //     Accept: 'application/json',
-            //     'Content-Type': 'application/json',
-            //     'Token': this.state.token
-            // }
+        RNFetchBlob.fetch(
+            "POST",
+            urlApi + "c_nup/insertNup/IFCAPB2/",
+            {
+                "Content-Type": "multipart/form-data",
+                Token: this.state.token
+            },
+            
+            [{ name: "photoktp", filename: fileNameKtp, data: filektp },
+            { name: "photonpwp", filename: fileNameNpwp, data: filenpwp },
+            { name: "photobill", filename: fileNameBill, data: filebill },
+            { name: "data", data: JSON.stringify(formData)}]
+        )
+        .then(resp => {
+            
+            let res = JSON.stringify(resp.data);
+            // alert('Success')
+            // if(resp=="OK"){
+            //     alert('ok')
+            // }else{alert('error')}
+            console.log("res", resp);
+            Alert.alert(
+                'Alert',
+                'Submit Success',
+                [
+                //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                //   {
+                //     text: 'Cancel',
+                //     onPress: () => console.log('Cancel Pressed'),
+                //     style: 'cancel',
+                //   },
+                  {text: 'OK', onPress: () => Actions.home()},
+                ],
+                {cancelable: false},
+              );
+           
+            
+            // _storeData("@ProfileUpdate", true);
         })
-            .then((response) => response.json())
-            .then((res) => {
-                if (!res.Error) {
-                    alert(res.Pesan)
 
-                }
-                console.log('saveSuksesNUP', res)
-                Actions.home()
+        // this.setState({isVisible : true})
+        // fetch(urlApi + 'c_nup/insertNup/IFCAPB2/', {
+        //     method: "POST",
+        //     body: JSON.stringify(formData),
+        //     // headers: {
+        //     //     Accept: 'application/json',
+        //     //     'Content-Type': 'application/json',
+        //     //     'Token': this.state.token
+        //     // }
+        // })
+        //     .then((response) => response.json())
+        //     .then((res) => {
+        //         if (!res.Error) {
+        //             // Alert.alert(res.Pesan)
+        //             Alert.alert(
+        //                 'Alert',
+        //                 'Submit Success',
+        //                 [
+        //                 //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+        //                 //   {
+        //                 //     text: 'Cancel',
+        //                 //     onPress: () => console.log('Cancel Pressed'),
+        //                 //     style: 'cancel',
+        //                 //   },
+        //                   {text: 'OK', onPress: () => Actions.home()},
+        //                 ],
+        //                 {cancelable: false},
+        //               );
+        //             // if(confirm(res.Pesan)) {Actions.home()}
+                    
+        //             // if (alert.onPress)
+        //             // onPress: 
+                    
+        //         }
+        //         // Actions.home()
+        //         console.log('saveSuksesNUP', res)
+                
 
-            }).catch((error) => {
-                // alert(res.Pesan)
-                console.log(error);
-            });
+        //     }).catch((error) => {
+        //         // alert(res.Pesan)
+        //         console.log(error);
+        //     });
 
            
     }
@@ -377,7 +484,12 @@ class NUPPage extends Component {
                     contentContainerStyle={Style.layoutContent}
                 >
                     <ProgressSteps>
-                        <ProgressStep label={`Profile`} onNext={() => this.onNext(1)} errors={this.state.errors}>
+                        <ProgressStep label={`Profile`} onNext={() => this.onNext(1)} errors={this.state.errors}
+                        nextBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 70}} 
+                        nextBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center',}} 
+                        // previousBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 85}} 
+                        // previousBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center'}}
+                        >
                             <View>
                                 {/* <Item>
                                 <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
@@ -394,7 +506,12 @@ class NUPPage extends Component {
                                         <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
                                         <Icon name='user' type="FontAwesome5" style={Styles.iconColor} />
                                     </View>
-                                    <Input placeholder='Enter Your Name' value={this.state.name} style={Styles.positionTextInput} editable={false} />
+                                    {this.state.group == 'AGENT' ? 
+                                        <Input placeholder='Enter Your Name' value={this.state.name} style={Styles.positionTextInput} onChangeText={(val) => this.setState({ name:val })}/> 
+                                        :
+                                        <Input placeholder='Enter Your Name' value={this.state.name} style={Styles.positionTextInput} editable={false} /> 
+                                    }
+                                    
                                 </Item>
 
                                 <Item rounded style={styles.nbInput} style={Styles.marginround}>
@@ -448,9 +565,9 @@ class NUPPage extends Component {
                                     <Input placeholder='NPWP' value={this.state.npwp} onChangeText={(npwp) => this.setState({ npwp })} style={Styles.positionTextInput} />
 
                                 </Item>
-
-
-
+                               
+                                    {/* <Text>{this.state.progress}</Text> */}
+                                   
                                 {/* <Item rounded  style={styles.nbInput} style={Styles.marginround}>
                                     <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
                                         
@@ -477,6 +594,7 @@ class NUPPage extends Component {
                                     {/* end left title media */}
 
                                     {/* right picker media */}
+                                    
                                     <Right style={{ paddingRight: 0, marginRight: 0 }}>
                                         {/* <Item rounded>
                                                 <Input style={{textAlign : 'right'}} value={this.state.media} onChangeText={(media)=>this.setState({media})} placeholder="media"></Input>
@@ -491,8 +609,9 @@ class NUPPage extends Component {
                                                 iosHeader="Select one"
                                                 mode="dropdown"
                                                 style={{ width: 200 }}
-                                                selectedValue={this.state.dataMedia}
-                                            // onValueChange={(val)=>this.setState({dataMedia:val})}
+                                                selectedValue={this.state.media}
+                                                onValueChange={(val)=>this.setState({media:val})}
+                                                // onValueChange ={(val)=> alert(val)}
                                             >
                                                 {this.state.dataMedia.map((data, key) =>
                                                     <Picker.Item key={key} label={data.label} value={data.value} />
@@ -502,10 +621,69 @@ class NUPPage extends Component {
                                     </Right>
                                     {/* end right picker media */}
                                 </CardItem>
-                                <Text></Text>
+                                
+                                <View>
+                                <CardItem style={{ height: 40, marginBottom: 4, borderColor: '#333', width: '100%', paddingRight: 0, marginTop: 2 }}>
+
+                                        {/* left title media */}
+                                        <Left>
+                                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                            <Icon solid name='star' style={Styles.iconSub} type="FontAwesome5" />
+                                                <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban, left: 13, fontSize: 23 }} />
+                                            </View>
+                                            <Text style={Styles.positionTextInput}>Bill Payment</Text>
+                                        </Left>
+                                        {/* end left title media */}
+
+                                        {/* right picker media */}
+                                        
+                                        
+                                        {/* end right picker media */}
+                                    </CardItem>
+                                   
+                                    <View style={styles.container2}>
+                                
+                                        <TouchableOpacity
+                                            onPress={() => this.showAlert("buktibayar")}
+                                        >
+                                            
+                                            <View
+                                                style={[
+                                                    styles.avatar,
+                                                    styles.avatarContainer,
+                                                ]}
+                                            >
+                                                
+                                                {this.state.buktibayar == null || this.state.buktibayar == '' ?
+                                                    <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban, left: 10, fontSize: 50}} />
+                                                    :
+                                                    <Image
+                                                        resizeMode="cover"
+                                                        style={styles.avatar}
+                                                        source={
+                                                            this.state.buktibayar
+                                                        }
+                                                    />
+                                                   
+                                                 }
+                                                <Text style={styles.label}>
+                                                    Upload Bill Payment
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                
+                                
+                                </View>  
+                                    
                             </View>
                         </ProgressStep>
-                        <ProgressStep label={`File Attachment`}>
+                        <ProgressStep label={`File Attachment`} onNext={() => this.onNext(2)} errors={this.state.errors}
+                         nextBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 70}} 
+                         nextBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center',}} 
+                         previousBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 85}} 
+                         previousBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center'}}
+                        >
                             <ScrollView
                                 contentContainerStyle={{ alignItems: "center" }}
                             >
@@ -521,13 +699,24 @@ class NUPPage extends Component {
                                                 styles.avatarContainer,
                                             ]}
                                         >
-                                            <Image
+                                            {/* <Image
                                                 resizeMode="cover"
                                                 style={styles.avatar}
                                                 source={
                                                     this.state.fotoKtp
                                                 }
-                                            />
+                                            /> */}
+                                                {this.state.fotoKtp == null || this.state.fotoKtp == '' ?
+                                                    <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban, left: 10, fontSize: 50}} />
+                                                    :
+                                                    <Image
+                                                        resizeMode="cover"
+                                                        style={styles.avatar}
+                                                        source={
+                                                            this.state.fotoKtp
+                                                        }
+                                                    />
+                                                 }
                                             <Text style={styles.label}>
                                                 Upload ID Card (KTP)
                                             </Text>
@@ -547,13 +736,24 @@ class NUPPage extends Component {
                                                 styles.avatarContainer,
                                             ]}
                                         >
-                                            <Image
+                                            {/* <Image
                                                 resizeMode="cover"
                                                 style={styles.avatar}
                                                 source={
                                                     this.state.fotoNpwp
                                                 }
-                                            />
+                                            /> */}
+                                                {this.state.fotoNpwp == null || this.state.fotoNpwp == '' ?
+                                                    <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban, left: 10, fontSize: 50}} />
+                                                    :
+                                                    <Image
+                                                        resizeMode="cover"
+                                                        style={styles.avatar}
+                                                        source={
+                                                            this.state.fotoNpwp
+                                                        }
+                                                    />
+                                                 }
                                             <Text style={styles.label}>Upload NPWP</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -561,7 +761,12 @@ class NUPPage extends Component {
                             </ScrollView>
                         </ProgressStep>
                         {/* <ProgressStep label={`Product & Payment`} onSubmit={this.onSubmit} finishBtnText={`Checkout`} > */}
-                        <ProgressStep label={`Summary`} onSubmit={this.onSubmit} finishBtnText={`Submit`} >
+                        <ProgressStep label={`Summary`} onSubmit={this.onSubmit} finishBtnText={`Submit`} 
+                         nextBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 70}} 
+                         nextBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center',}} 
+                         previousBtnStyle={{backgroundColor: Colors.navyUrban, borderRadius: 5, width: 85}} 
+                         previousBtnTextStyle={{color: Colors.white, fontSize: 16,textAlign: 'center'}}
+                         >
                             <View style={{ marginHorizontal: 10 }}>
                                 <Card>
                                     <CardItem header style={{ borderBottomWidth: 1 / PixelRatio.get() }}>
@@ -637,6 +842,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#f3f3f3",
+    },
+    container2: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ffffff",
+        // height: 20
+
     },
     nbInput: {
         marginTop: 5
