@@ -11,7 +11,7 @@
 		00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
-		00E356F31AD99517003FC87E /* SplusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SplusTests.m */; };
+		00E356F31AD99517003FC87E /* UrbanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* UrbanTests.m */; };
 		0390B0CFC98647E5A35D3F6A /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6659EEF034A34577A33226AA /* FontAwesome5_Brands.ttf */; };
 		03C5D4BB92CB4598839C0C7E /* Bariol_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 358933B80D2E4BC898007A6A /* Bariol_Regular.ttf */; };
 		0692C65B1E054A8DA6F57458 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF88312C0BE944818B58B93F /* libRNVectorIcons.a */; };
@@ -52,7 +52,7 @@
 		2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E941DF850E9000B6D8A /* libRCTText-tvOS.a */; };
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
-		2DCD954D1E0B4F2C00145EB5 /* SplusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SplusTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* UrbanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* UrbanTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3CF2519FF8A74CBB900019FF /* BariolRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09216B61ADCF4C67874944D6 /* BariolRegular.ttf */; };
 		3F43C862B741447DA6C4649E /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3326C72035D46FEB586D7F3 /* libRNFirebase.a */; };
@@ -68,7 +68,7 @@
 		5FA03635FFF14C1588FD4C16 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0834F278D88B46EA8FE87B95 /* libRNCAsyncStorage.a */; };
 		64A28F4FA45748BDA6E6DD82 /* SFUIDisplay-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B3BC6870EC4E40FFA77F1430 /* SFUIDisplay-Light.ttf */; };
 		657F0C948B054B67A7DBAF55 /* Bariol.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADCCACDA66B34058B45D0A13 /* Bariol.ttf */; };
-		67D2BDF8EFE71DBCEB0EFB20 /* libPods-Splus-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C22C29B2910B25B3CE40DFA /* libPods-Splus-tvOS.a */; };
+		67D2BDF8EFE71DBCEB0EFB20 /* libPods-Urban-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C22C29B2910B25B3CE40DFA /* libPods-Urban-tvOS.a */; };
 		6EAD2BCA52B34552A764AF5D /* SF-UI-Display-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4C25B854031483780A8BCB4 /* SF-UI-Display-Regular.ttf */; };
 		739505F8F13D44C9B371B61F /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C268ABAE6F7440A182D8C180 /* FontAwesome.ttf */; };
 		75B846C3A15748749A3B937B /* SFUIDisplay_thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB69A5F5348642449CEEC7D7 /* SFUIDisplay_thin.ttf */; };
@@ -84,7 +84,7 @@
 		95A8443C0C324B93AF5E8CAE /* HelveticaNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6E80E6C7DE64FCD9882E481 /* HelveticaNeue-Regular.ttf */; };
 		95B815E58DF24766A95789EB /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7272455A5F34251841B3545 /* libRNSVG-tvOS.a */; };
 		969A8FFFAEFF445FA798236F /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F1674347BB749FBB44F533D /* Roboto-Regular.ttf */; };
-		96D58C3CE6FD66275C9C8FC4 /* libPods-Splus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9B6E64121F268E1A87898C /* libPods-Splus.a */; };
+		96D58C3CE6FD66275C9C8FC4 /* libPods-Urban.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9B6E64121F268E1A87898C /* libPods-Urban.a */; };
 		98E0C22EF32E41218BE3297C /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96DE6185580F4A59B4FA2805 /* rubicon-icon-font.ttf */; };
 		9C44E77532984FC68B36D25F /* SFUIDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0D74D80B709A454CA7A9ED0C /* SFUIDisplay-Semibold.otf */; };
 		A0323ACA97F6418DB6367556 /* SFUIDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E74BD392523C40429E245DF3 /* SFUIDisplay-Semibold.ttf */; };
@@ -99,14 +99,14 @@
 		C13A6979E9FA4E8DA03FCC9B /* BebasNeueBook.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 828019D8017F48EFB8FF76CE /* BebasNeueBook.ttf */; };
 		C27D4C4DEFCC425C9AA59442 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EF06D02EF1949FBAE952B90 /* Roboto-Medium.ttf */; };
 		D7D5D5F738CE430889D0B90A /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1738482533384C628056E370 /* libRNGestureHandler.a */; };
-		E28507E66D07D888E5742A10 /* libPods-Splus-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A487B324E845F87D952E7442 /* libPods-Splus-tvOSTests.a */; };
+		E28507E66D07D888E5742A10 /* libPods-Urban-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A487B324E845F87D952E7442 /* libPods-Urban-tvOSTests.a */; };
 		E7794D27F55546E8AF815E0F /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE3F3BFBBAF4433C917534DC /* Montserrat-SemiBold.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		ED6BEEA993BE484382E0C050 /* Helvetica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34A70DA771B34C9B97BAE0AB /* Helvetica.ttf */; };
 		EEB3B60EAEBE42D9829629B2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD3967D6117D4E6D92BD77B2 /* MaterialIcons.ttf */; };
 		EF4346683811493695B8895A /* SF-UI-Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58218041937448399BA4ABCF /* SF-UI-Display-Bold.ttf */; };
-		F5111DF649FA449F955C11FC /* libPods-SplusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8280633113BC415416F41C /* libPods-SplusTests.a */; };
+		F5111DF649FA449F955C11FC /* libPods-UrbanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8280633113BC415416F41C /* libPods-UrbanTests.a */; };
 		4919D465566E48DC820E393F /* RNModalPicker.app in Resources */ = {isa = PBXBuildFile; fileRef = 122F3299F0314D248FA64A22 /* RNModalPicker.app */; };
 		078814467D3F449B88A9160C /* RNModalPickerTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = F0F0119CD10D4F4184848DC9 /* RNModalPickerTests.xctest */; };
 		BE64161FBF024E2FBBFDD26B /* RNModalPicker-tvOS.app in Resources */ = {isa = PBXBuildFile; fileRef = 003311779F934EAEBB56706E /* RNModalPicker-tvOS.app */; };
@@ -154,7 +154,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = Splus;
+			remoteInfo = Urban;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -182,7 +182,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "Splus-tvOS";
+			remoteInfo = "Urban-tvOS";
 		};
 		2D16E6711FA4F8DC00B85C8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -522,12 +522,12 @@
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* SplusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* UrbanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UrbanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* SplusTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplusTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* UrbanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UrbanTests.m; sourceTree = "<group>"; };
 		03E1F913F5CE481EA70EA832 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../app/Fonts/icomoon.ttf; sourceTree = "<group>"; };
-		0459D439F4B694481EA75837 /* Pods-Splus-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Splus-tvOS/Pods-Splus-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		06630634DF16E85BDCD82E14 /* Pods-Splus-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Splus-tvOSTests/Pods-Splus-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		0459D439F4B694481EA75837 /* Pods-Urban-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urban-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Urban-tvOS/Pods-Urban-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		06630634DF16E85BDCD82E14 /* Pods-Urban-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urban-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Urban-tvOSTests/Pods-Urban-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		0834F278D88B46EA8FE87B95 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		09216B61ADCF4C67874944D6 /* BariolRegular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BariolRegular.ttf; path = ../app/Fonts/BariolRegular.ttf; sourceTree = "<group>"; };
 		0B112B89E0684EC3AD17965E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -537,29 +537,29 @@
 		1353418CA6764BA3AA1AB272 /* RNReanimated.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNReanimated.xcodeproj; path = "../node_modules/react-native-reanimated/ios/RNReanimated.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* Splus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Splus.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Splus/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Splus/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Urban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Urban.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Urban/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Urban/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Splus/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Splus/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Splus/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Urban/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Urban/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Urban/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		148A73D2F47F4C52A90C4913 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		1738482533384C628056E370 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		17F8573489344A23AA232057 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
-		1B84E2D469625A6247D58828 /* Pods-Splus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus.debug.xcconfig"; path = "Target Support Files/Pods-Splus/Pods-Splus.debug.xcconfig"; sourceTree = "<group>"; };
+		1B84E2D469625A6247D58828 /* Pods-Urban.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urban.debug.xcconfig"; path = "Target Support Files/Pods-Urban/Pods-Urban.debug.xcconfig"; sourceTree = "<group>"; };
 		1F35725484754D22B7CDB53D /* PlayfairDisplay-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlayfairDisplay-Bold.otf"; path = "../app/Fonts/PlayfairDisplay-Bold.otf"; sourceTree = "<group>"; };
 		2AD915ADE777459E85CACB17 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* Splus-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Splus-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* Splus-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Splus-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* Urban-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Urban-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* Urban-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Urban-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		30864EAEEB844587895BF1E6 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		31070ED302AD4FC2B170303C /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		32ECD8D5F6FC464B8E39DBD8 /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation-locker/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		34A5ABFA570B4557B497E283 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		34A70DA771B34C9B97BAE0AB /* Helvetica.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Helvetica.ttf; path = ../app/Fonts/Helvetica.ttf; sourceTree = "<group>"; };
-		3540E1D7DB22EE12897B6793 /* Pods-SplusTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplusTests.debug.xcconfig"; path = "Target Support Files/Pods-SplusTests/Pods-SplusTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3540E1D7DB22EE12897B6793 /* Pods-UrbanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanTests.debug.xcconfig"; path = "Target Support Files/Pods-UrbanTests/Pods-UrbanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		358933B80D2E4BC898007A6A /* Bariol_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Bariol_Regular.ttf; path = ../app/Fonts/Bariol_Regular.ttf; sourceTree = "<group>"; };
 		37C328C3B6964AD894DD53DC /* SF-UI-Text-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-UI-Text-Regular.ttf"; path = "../app/Fonts/SF-UI-Text-Regular.ttf"; sourceTree = "<group>"; };
 		3A0982CD7CEB4E1EB99735B0 /* BebasNeue Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BebasNeue Bold.ttf"; path = "../app/Fonts/BebasNeue Bold.ttf"; sourceTree = "<group>"; };
@@ -585,16 +585,16 @@
 		858EE88BD1BE4FCA954F32FE /* SFUIDisplay-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Thin.ttf"; path = "../app/Fonts/SFUIDisplay-Thin.ttf"; sourceTree = "<group>"; };
 		859661CAF0984BFE8A682415 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		8C1A19D2424C4FA4869E218A /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		8C22C29B2910B25B3CE40DFA /* libPods-Splus-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Splus-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C22C29B2910B25B3CE40DFA /* libPods-Urban-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Urban-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F1674347BB749FBB44F533D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../app/Fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		92297240BA9D4AB6BA666548 /* SFUIDisplay-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Medium.ttf"; path = "../app/Fonts/SFUIDisplay-Medium.ttf"; sourceTree = "<group>"; };
 		96DE6185580F4A59B4FA2805 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		9C3E7BAEC39E44CD88C46D7E /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		A481216ABBE38787ACE73291 /* Pods-SplusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplusTests.release.xcconfig"; path = "Target Support Files/Pods-SplusTests/Pods-SplusTests.release.xcconfig"; sourceTree = "<group>"; };
-		A487B324E845F87D952E7442 /* libPods-Splus-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Splus-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A481216ABBE38787ACE73291 /* Pods-UrbanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanTests.release.xcconfig"; path = "Target Support Files/Pods-UrbanTests/Pods-UrbanTests.release.xcconfig"; sourceTree = "<group>"; };
+		A487B324E845F87D952E7442 /* libPods-Urban-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Urban-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C25B854031483780A8BCB4 /* SF-UI-Display-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-UI-Display-Regular.ttf"; path = "../app/Fonts/SF-UI-Display-Regular.ttf"; sourceTree = "<group>"; };
 		ACB4EDBEBFCF484EA7ED642E /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		AD2E0AA46DD694AF33846ED9 /* Pods-Splus-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Splus-tvOSTests/Pods-Splus-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AD2E0AA46DD694AF33846ED9 /* Pods-Urban-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urban-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Urban-tvOSTests/Pods-Urban-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		ADCCACDA66B34058B45D0A13 /* Bariol.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Bariol.ttf; path = ../app/Fonts/Bariol.ttf; sourceTree = "<group>"; };
 		AF88312C0BE944818B58B93F /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
@@ -603,7 +603,7 @@
 		C268ABAE6F7440A182D8C180 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C492FB3BF95141E5B34584FC /* PlayfairDisplay-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PlayfairDisplay-Bold.ttf"; path = "../app/Fonts/PlayfairDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		C933FE53871A4D059F4AE689 /* RCTPdf.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTPdf.xcodeproj; path = "../node_modules/react-native-pdf/ios/RCTPdf.xcodeproj"; sourceTree = "<group>"; };
-		CB11FCB78516875E1A684AD0 /* Pods-Splus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus.release.xcconfig"; path = "Target Support Files/Pods-Splus/Pods-Splus.release.xcconfig"; sourceTree = "<group>"; };
+		CB11FCB78516875E1A684AD0 /* Pods-Urban.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urban.release.xcconfig"; path = "Target Support Files/Pods-Urban/Pods-Urban.release.xcconfig"; sourceTree = "<group>"; };
 		CE3F3BFBBAF4433C917534DC /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../app/Fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		D53C5B0FF40340948B288515 /* libRNDocumentInteractionController.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentInteractionController.a; sourceTree = "<group>"; };
 		D7272455A5F34251841B3545 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
@@ -611,8 +611,8 @@
 		D837845409924483AEB653F1 /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOrientation.a; sourceTree = "<group>"; };
 		D9C5076915174772A0278F10 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../app/Fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		DD3967D6117D4E6D92BD77B2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		DD8280633113BC415416F41C /* libPods-SplusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SplusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE9B6E64121F268E1A87898C /* libPods-Splus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Splus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD8280633113BC415416F41C /* libPods-UrbanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UrbanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE9B6E64121F268E1A87898C /* libPods-Urban.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Urban.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E01A2D80D89544B2AC7EF574 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		E0401624CF0D4126AC0D7244 /* Myriad Pro Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Myriad Pro Regular.ttf"; path = "../app/Fonts/Myriad Pro Regular.ttf"; sourceTree = "<group>"; };
 		E08F4A42F7E84B4DA26D25EE /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -631,7 +631,7 @@
 		FAE2467ADDE04073AC7C08BA /* Steelworks_Vintage_Demo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Steelworks_Vintage_Demo.ttf; path = ../app/Fonts/Steelworks_Vintage_Demo.ttf; sourceTree = "<group>"; };
 		FB69A5F5348642449CEEC7D7 /* SFUIDisplay_thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SFUIDisplay_thin.ttf; path = ../app/Fonts/SFUIDisplay_thin.ttf; sourceTree = "<group>"; };
 		FD645DF7D6284604ABD6822F /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
-		FDAC4B72BADD0F3E885E14DC /* Pods-Splus-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splus-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Splus-tvOS/Pods-Splus-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		FDAC4B72BADD0F3E885E14DC /* Pods-Urban-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urban-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Urban-tvOS/Pods-Urban-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B6F6BEBE5ABE467A868CCEF5 /* RNModalPicker.xcodeproj */ = {isa = PBXFileReference; name = "RNModalPicker.xcodeproj"; path = "../node_modules/rn-modal-picker/ios/RNModalPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		122F3299F0314D248FA64A22 /* RNModalPicker.app */ = {isa = PBXFileReference; name = "RNModalPicker.app"; path = "RNModalPicker.app"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.application; explicitFileType = undefined; includeInIndex = 0; };
 		F0F0119CD10D4F4184848DC9 /* RNModalPickerTests.xctest */ = {isa = PBXFileReference; name = "RNModalPickerTests.xctest"; path = "RNModalPickerTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
@@ -645,7 +645,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				F5111DF649FA449F955C11FC /* libPods-SplusTests.a in Frameworks */,
+				F5111DF649FA449F955C11FC /* libPods-UrbanTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,7 +676,7 @@
 				4BF49E2F750B4E7B9226E707 /* libRNReanimated.a in Frameworks */,
 				5FA03635FFF14C1588FD4C16 /* libRNCAsyncStorage.a in Frameworks */,
 				91A3F3F062F442FF9C357DFC /* libRNDeviceInfo.a in Frameworks */,
-				96D58C3CE6FD66275C9C8FC4 /* libPods-Splus.a in Frameworks */,
+				96D58C3CE6FD66275C9C8FC4 /* libPods-Urban.a in Frameworks */,
 				245942BCE00C46C39A7AF20C /* libRNDocumentInteractionController.a in Frameworks */,
 				3F43C862B741447DA6C4649E /* libRNFirebase.a in Frameworks */,
 				4919D465566E48DC820E393F /* RNModalPicker.app in Resources */,
@@ -700,7 +700,7 @@
 				95B815E58DF24766A95789EB /* libRNSVG-tvOS.a in Frameworks */,
 				5D3EB8D842DF4315B7F14516 /* libRNVectorIcons-tvOS.a in Frameworks */,
 				14C34872532D4F50A011F74E /* libRNDeviceInfo-tvOS.a in Frameworks */,
-				67D2BDF8EFE71DBCEB0EFB20 /* libPods-Splus-tvOS.a in Frameworks */,
+				67D2BDF8EFE71DBCEB0EFB20 /* libPods-Urban-tvOS.a in Frameworks */,
 				BE64161FBF024E2FBBFDD26B /* RNModalPicker-tvOS.app in Resources */,
 				C66ED0F90AC44BF7AE51D6CB /* RNModalPicker-tvOSTests.xctest in Resources */,
 			);
@@ -711,7 +711,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
-				E28507E66D07D888E5742A10 /* libPods-Splus-tvOSTests.a in Frameworks */,
+				E28507E66D07D888E5742A10 /* libPods-Urban-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,13 +760,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		00E356EF1AD99517003FC87E /* SplusTests */ = {
+		00E356EF1AD99517003FC87E /* UrbanTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* SplusTests.m */,
+				00E356F21AD99517003FC87E /* UrbanTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = SplusTests;
+			path = UrbanTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -797,7 +797,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* Splus */ = {
+		13B07FAE1A68108700A75B9A /* Urban */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -808,7 +808,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = Splus;
+			name = Urban;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -837,14 +837,14 @@
 		25787B9E4AB69DCEBAFD318B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1B84E2D469625A6247D58828 /* Pods-Splus.debug.xcconfig */,
-				CB11FCB78516875E1A684AD0 /* Pods-Splus.release.xcconfig */,
-				FDAC4B72BADD0F3E885E14DC /* Pods-Splus-tvOS.debug.xcconfig */,
-				0459D439F4B694481EA75837 /* Pods-Splus-tvOS.release.xcconfig */,
-				AD2E0AA46DD694AF33846ED9 /* Pods-Splus-tvOSTests.debug.xcconfig */,
-				06630634DF16E85BDCD82E14 /* Pods-Splus-tvOSTests.release.xcconfig */,
-				3540E1D7DB22EE12897B6793 /* Pods-SplusTests.debug.xcconfig */,
-				A481216ABBE38787ACE73291 /* Pods-SplusTests.release.xcconfig */,
+				1B84E2D469625A6247D58828 /* Pods-Urban.debug.xcconfig */,
+				CB11FCB78516875E1A684AD0 /* Pods-Urban.release.xcconfig */,
+				FDAC4B72BADD0F3E885E14DC /* Pods-Urban-tvOS.debug.xcconfig */,
+				0459D439F4B694481EA75837 /* Pods-Urban-tvOS.release.xcconfig */,
+				AD2E0AA46DD694AF33846ED9 /* Pods-Urban-tvOSTests.debug.xcconfig */,
+				06630634DF16E85BDCD82E14 /* Pods-Urban-tvOSTests.release.xcconfig */,
+				3540E1D7DB22EE12897B6793 /* Pods-UrbanTests.debug.xcconfig */,
+				A481216ABBE38787ACE73291 /* Pods-UrbanTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -855,10 +855,10 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
-				DE9B6E64121F268E1A87898C /* libPods-Splus.a */,
-				8C22C29B2910B25B3CE40DFA /* libPods-Splus-tvOS.a */,
-				A487B324E845F87D952E7442 /* libPods-Splus-tvOSTests.a */,
-				DD8280633113BC415416F41C /* libPods-SplusTests.a */,
+				DE9B6E64121F268E1A87898C /* libPods-Urban.a */,
+				8C22C29B2910B25B3CE40DFA /* libPods-Urban-tvOS.a */,
+				A487B324E845F87D952E7442 /* libPods-Urban-tvOSTests.a */,
+				DD8280633113BC415416F41C /* libPods-UrbanTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1064,9 +1064,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* Splus */,
+				13B07FAE1A68108700A75B9A /* Urban */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* SplusTests */,
+				00E356EF1AD99517003FC87E /* UrbanTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				3CE470628A234CFD92424183 /* Resources */,
@@ -1081,10 +1081,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* Splus.app */,
-				00E356EE1AD99517003FC87E /* SplusTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* Splus-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* Splus-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* Urban.app */,
+				00E356EE1AD99517003FC87E /* UrbanTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* Urban-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* Urban-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1142,9 +1142,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* SplusTests */ = {
+		00E356ED1AD99517003FC87E /* UrbanTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SplusTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "UrbanTests" */;
 			buildPhases = (
 				2A97E30A7249287EBAF14A58 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -1156,14 +1156,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = SplusTests;
-			productName = SplusTests;
-			productReference = 00E356EE1AD99517003FC87E /* SplusTests.xctest */;
+			name = UrbanTests;
+			productName = UrbanTests;
+			productReference = 00E356EE1AD99517003FC87E /* UrbanTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* Splus */ = {
+		13B07F861A680F5B00A75B9A /* Urban */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Splus" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Urban" */;
 			buildPhases = (
 				CECD452D4C174CFB54B64E9D /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -1176,14 +1176,14 @@
 			);
 			dependencies = (
 			);
-			name = Splus;
+			name = Urban;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* Splus.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Urban.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* Splus-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* Urban-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Splus-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Urban-tvOS" */;
 			buildPhases = (
 				B0DB694673D2DBE7168FA717 /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
@@ -1195,14 +1195,14 @@
 			);
 			dependencies = (
 			);
-			name = "Splus-tvOS";
-			productName = "Splus-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* Splus-tvOS.app */;
+			name = "Urban-tvOS";
+			productName = "Urban-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* Urban-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* Splus-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* Urban-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Splus-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Urban-tvOSTests" */;
 			buildPhases = (
 				E817D5FCBDD3B8DF01825573 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -1214,9 +1214,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "Splus-tvOSTests";
-			productName = "Splus-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* Splus-tvOSTests.xctest */;
+			name = "Urban-tvOSTests";
+			productName = "Urban-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* Urban-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1246,7 +1246,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Splus" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Urban" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1357,10 +1357,10 @@
 			);
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* Splus */,
-				00E356ED1AD99517003FC87E /* SplusTests */,
-				2D02E47A1E0B4A5D006451C7 /* Splus-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* Splus-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* Urban */,
+				00E356ED1AD99517003FC87E /* UrbanTests */,
+				2D02E47A1E0B4A5D006451C7 /* Urban-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* Urban-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1866,7 +1866,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SplusTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-UrbanTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1893,7 +1893,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Splus/Pods-Splus-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Urban/Pods-Urban-resources.sh",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/QBImagePickerController/QBImagePicker.bundle",
@@ -1908,7 +1908,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Splus/Pods-Splus-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Urban/Pods-Urban-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B0DB694673D2DBE7168FA717 /* [CP] Check Pods Manifest.lock */ = {
@@ -1926,7 +1926,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Splus-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Urban-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1948,7 +1948,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Splus-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Urban-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1970,7 +1970,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Splus-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Urban-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1984,7 +1984,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* SplusTests.m in Sources */,
+				00E356F31AD99517003FC87E /* UrbanTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2010,7 +2010,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* SplusTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* UrbanTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2019,12 +2019,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* Splus */;
+			target = 13B07F861A680F5B00A75B9A /* Urban */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* Splus-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* Urban-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2036,7 +2036,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = Splus;
+			path = Urban;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2044,7 +2044,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3540E1D7DB22EE12897B6793 /* Pods-SplusTests.debug.xcconfig */;
+			baseConfigurationReference = 3540E1D7DB22EE12897B6793 /* Pods-UrbanTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2067,7 +2067,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = SplusTests/Info.plist;
+				INFOPLIST_FILE = UrbanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2084,13 +2084,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Splus.app/Splus";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Urban.app/Urban";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A481216ABBE38787ACE73291 /* Pods-SplusTests.release.xcconfig */;
+			baseConfigurationReference = A481216ABBE38787ACE73291 /* Pods-UrbanTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -2110,7 +2110,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = SplusTests/Info.plist;
+				INFOPLIST_FILE = UrbanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2127,13 +2127,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Splus.app/Splus";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Urban.app/Urban";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B84E2D469625A6247D58828 /* Pods-Splus.debug.xcconfig */;
+			baseConfigurationReference = 1B84E2D469625A6247D58828 /* Pods-Urban.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2155,7 +2155,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = Splus/Info.plist;
+				INFOPLIST_FILE = Urban/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2163,14 +2163,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Splus;
+				PRODUCT_NAME = Urban;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB11FCB78516875E1A684AD0 /* Pods-Splus.release.xcconfig */;
+			baseConfigurationReference = CB11FCB78516875E1A684AD0 /* Pods-Urban.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2191,7 +2191,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = Splus/Info.plist;
+				INFOPLIST_FILE = Urban/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2199,14 +2199,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = Splus;
+				PRODUCT_NAME = Urban;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FDAC4B72BADD0F3E885E14DC /* Pods-Splus-tvOS.debug.xcconfig */;
+			baseConfigurationReference = FDAC4B72BADD0F3E885E14DC /* Pods-Urban-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2233,7 +2233,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = "Splus-tvOS/Info.plist";
+				INFOPLIST_FILE = "Urban-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2247,7 +2247,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Splus-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Urban-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -2257,7 +2257,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0459D439F4B694481EA75837 /* Pods-Splus-tvOS.release.xcconfig */;
+			baseConfigurationReference = 0459D439F4B694481EA75837 /* Pods-Urban-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -2284,7 +2284,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = "Splus-tvOS/Info.plist";
+				INFOPLIST_FILE = "Urban-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2298,7 +2298,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Splus-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Urban-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -2308,7 +2308,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD2E0AA46DD694AF33846ED9 /* Pods-Splus-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = AD2E0AA46DD694AF33846ED9 /* Pods-Urban-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2334,7 +2334,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = "Splus-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "Urban-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2348,17 +2348,17 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Splus-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Urban-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Splus-tvOS.app/Splus-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Urban-tvOS.app/Urban-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06630634DF16E85BDCD82E14 /* Pods-Splus-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 06630634DF16E85BDCD82E14 /* Pods-Urban-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2384,7 +2384,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/rn-modal-picker/ios/RNModalPicker",
 				);
-				INFOPLIST_FILE = "Splus-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "Urban-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2398,10 +2398,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Splus-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Urban-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Splus-tvOS.app/Splus-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Urban-tvOS.app/Urban-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -2508,7 +2508,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SplusTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "UrbanTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -2517,7 +2517,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Splus" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Urban" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -2526,7 +2526,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Splus-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Urban-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -2535,7 +2535,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Splus-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "Urban-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -2544,7 +2544,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Splus" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Urban" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
