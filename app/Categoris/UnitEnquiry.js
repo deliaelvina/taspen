@@ -149,6 +149,64 @@ class UnitEnquiry extends Component {
         // this.setState({ click: true });
     }
 
+    renderRow = ({item}) => {
+        console.log('item',item);
+        
+        return(
+            // <View style={{flexDirection:'row',justifyContent:'space-around',flex :1}}>
+            //     <View style={[{width :'45%'},styles.GridViewBlockStyle_Left]}>
+            //             <Text style={{color: "#ffffff"}}>{item.descs}</Text>
+            //     </View>
+            // </View>
+           
+            <View>
+                {!this.state.isLoaded ? <Spinner color={Colors.headerOrange} /> : 
+
+                    
+                        <View style={{flexDirection:'row',justifyContent:'space-around',flex :1}}>
+                            <View style={[{width :'45%'},styles.GridViewBlockStyle_Left]}>
+                                <Text style={{color: "#ffffff"}}>{item.descs}</Text>
+                            </View>
+                            <ScrollView style={{width:'55%'}} horizontal showsHorizontalScrollIndicator={false}>
+                                {this.state.dataUnit.map((unit,key)=>{
+                                    if(unit.level_no == item.level_no){
+                                        return (
+                                            <View style={ styles.GridViewBlockStyle } key={key}>
+                                                <TouchableOpacity
+                                                    style={[{backgroundColor : unit.status !=="A" ? '#eb4034' :'#34eb6e'},styles.childGridView]}
+                                                    onPress={()=>this.clickUnitInfo(unit)}
+                                                >
+                                                    <Text
+                                                        style={{
+                                                            fontSize: 10,
+                                                            color: "#ffffff"
+                                                        }}
+                                                        
+                                                    >
+                                                        {" "}
+                                                        {unit.lot_no}{" "}
+                                                    </Text>
+                                                    <Text style={{
+                                                            fontSize: 10,
+                                                            color: "#ffffff"
+                                                        }}>{unit.descs}</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )
+                                    } else {
+                                        return null
+                                    }
+                                })}
+                            </ScrollView>
+                        </View>
+                    }
+            </View>
+            // <Text style={{color: "#000000"}}>{item.descs}</Text>
+            
+        )
+
+    }
+   
     state = {
         isVisible: false,
         //state of modal default false
@@ -256,7 +314,16 @@ class UnitEnquiry extends Component {
                             </View>
                         </View>
 
-                        {!this.state.isLoaded ? <Spinner color={Colors.headerOrange} /> : 
+                        {/* <View style={{height: 100}}>  */}
+                        <FlatList
+                            style={styles.container}
+                            data={this.state.dataLevel}
+                            renderItem={this.renderRow}
+                            keyExtractor={(item,index) => index.toString()}
+                        />
+                        {/* </View> */}
+                        
+                        {/* {!this.state.isLoaded ? <Spinner color={Colors.headerOrange} /> : 
 
                         this.state.dataLevel.map((level, key)=>
                             <View key={key} style={{flexDirection:'row',justifyContent:'space-around',flex :1}}>
@@ -295,100 +362,8 @@ class UnitEnquiry extends Component {
                                     })}
                                 </ScrollView>
                             </View>
-                        )}
+                        )} */}
 
-                        {/* <View
-                            style={{
-                                backgroundColor: "#ffffff",
-                                width: "100%",
-                                height: 50
-                            }}
-                        >
-                            <View style={{ flexDirection: "row" }}>
-                                <View style={{ padding: 10, width: "30%" }}>
-                                    <Text
-                                        style={{
-                                            color: "#000000",
-                                            fontSize: 15
-                                        }}
-                                    >
-                                        Block / Floor
-                                    </Text>
-                                </View>
-                                <View style={{ padding: 10, width: "70%" }}>
-                                    <Text
-                                        style={{
-                                            color: "#000000",
-                                            fontSize: 15,
-                                            textAlign: "center"
-                                        }}
-                                    >
-                                        Unit
-                                    </Text>
-                                </View>
-                            </View>
-                        </View> */}
-                        {/* end top fixed */}
-
-                        {/* <ScrollView>
-                            <View style={{ flexDirection: "row" }}>
-                                <FlatList
-                                    style={{ width: "35%" }}
-                                    data={dataLevel}
-                                    keyExtractor= {item => item.level_no}
-                                    renderItem={({ item }) => (
-                                        <View style={ styles.GridViewBlockStyle_Left }>
-                                            <Text
-                                                style={{
-                                                    fontSize: 14,
-                                                    color: "#ffffff"
-                                                }}
-                                                onPress={this.GetGridViewItem.bind(
-                                                    this,
-                                                    item.level_no
-                                                )}
-                                            >
-                                                {" "}
-                                                {item.descs}{" "}
-                                            </Text>
-                                        </View>
-                                    )}
-                                    numColumns={1}
-                                />
-
-                                <ScrollView horizontal>
-                                    <FlatList
-                                        style={{ width: "65%" }}
-                                        data={dataUnit}
-                                        keyExtractor={item => item.level_no}
-                                        renderItem={({ item }) => (
-                                            <View style={ styles.GridViewBlockStyle }>
-                                                <TouchableOpacity
-                                                    style={[{backgroundColor : item.status !=="A" ? '#eb4034' :'#34eb6e'},styles.childGridView]}
-                                                    onPress={()=>this.clickUnitInfo(item)}
-                                                >
-                                                    <Text
-                                                        style={{
-                                                            fontSize: 10,
-                                                            color: "#ffffff"
-                                                        }}
-                                                        
-                                                    >
-                                                        {" "}
-                                                        {item.lot_no}{" "}
-                                                    </Text>
-                                                    <Text style={{
-                                                            fontSize: 10,
-                                                            color: "#ffffff"
-                                                        }}>{item.descs}</Text>
-                                                </TouchableOpacity>
-                                            </View>
-                                        )}
-                                        numColumns={23}
-                                    />
-                                </ScrollView>
-                            </View>
-                        </ScrollView> */}
                     </View>
                 </Content>
             </Container>
