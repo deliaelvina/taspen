@@ -433,7 +433,8 @@ export default class Intro extends React.Component {
                             <FBLoginButton onPress={this.signInFacebook} />
                         </View>
                         <View style={styles.socialSec}>
-                            <TouchableOpacity onPress={() => Actions.SignupAgent()}>
+                            {/* <TouchableOpacity onPress={() => Actions.SignupAgent()}> */}
+                            <TouchableOpacity onPress={() => Actions.chooseRegist()}>
                                 <Text style={styles.fbButtonText}>
                                     New here? Register Agent
                                 </Text>

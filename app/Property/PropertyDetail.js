@@ -15,7 +15,7 @@ import {
   ActivityIndicator,
   Linking,
   Alert,
-WebView
+// WebView
 } from "react-native";
 import {
   Container,
@@ -56,7 +56,7 @@ import Styles from "./Style";
 import ImageViewer from 'react-native-image-zoom-viewer';
 import HTML from 'react-native-render-html';
 import Mailer from "react-native-mail";
-
+import { WebView } from 'react-native-webview';
 
 
 //const {width, height} = Dimensions.get('window')
@@ -81,6 +81,7 @@ export default class extends React.Component {
         active: false,
         isVisible: false,
         isView : false,
+        isUnitView : false,
         isLogin : false,
 
         hd : new Headers,
@@ -97,6 +98,7 @@ export default class extends React.Component {
         plans : null,
 
         imagesPreview :[],
+        unitPlanPreview : [],
         dataPromo:[],
         index : 0,
         wa_no: '',
@@ -231,7 +233,7 @@ getDataUnitPlan = (item) => {
           this.setState({plans : resData.plans})
           resData.plans.map((item)=>{
             this.setState(prevState=>({
-              imagesPreview : [...prevState.imagesPreview, {url:item.plan_url}]
+              unitPlanPreview : [...prevState.unitPlanPreview, {url:item.plan_url}]
             }))
           })
       } else {
@@ -576,7 +578,7 @@ showAlert = () => {
                     <TouchableOpacity
                       underlayColor="transparent"
                       onPress={() => {
-                        this.setState({isView:true,index:index})
+                        this.setState({isUnitView:true,index:index})
                       }}
                     >
                       <View>
@@ -738,7 +740,7 @@ showAlert = () => {
           </Tabs>
           
                
-          <View>
+          {/* <View>
             <Text style={Styles.overviewTitle_youtube}>Video</Text>
               
               {this.state.overview ? 
@@ -748,6 +750,20 @@ showAlert = () => {
 
               
              
+          </View> */}
+          <View style={{flex: 1, paddingHorizontal: 10}} >
+          <Text style={Styles.overviewTitle_youtube}>Video</Text>
+            {/* <Text>{this.state.overview[0].youtube_link}</Text> */}
+            {this.state.overview ? 
+              // <Text>{this.state.overview[0].youtube_link}</Text>
+              <WebView
+                style={{height: 300}}
+                source={{ uri: this.state.overview[0].youtube_link }}
+               
+                javaScriptEnabled={true}
+                domStorageEnabled={true}   
+              />
+              :<ActivityIndicator /> }
           </View>
                  
           <View style={Styles.overview_location}>
@@ -769,7 +785,7 @@ showAlert = () => {
                   scalesPageToFit={false}
                   bounces={false}
                   javaScriptEnabled
-                  style={{ height: 300, width: null }}
+                  style={{ height: 300, width: null, marginHorizontal: 10, right: 4 }}
                   source={{
                     html: `
                           <!DOCTYPE html>
@@ -868,7 +884,8 @@ showAlert = () => {
                   style={Style.actionBtnRight}
                   onPress={() => {
                     this.setState({ isView: !this.state.isView })
-                  }}            >
+                  }}            
+                  >
                   <Icon
                     active
                     name="close"
@@ -879,6 +896,35 @@ showAlert = () => {
               </View>
             </Header>
             {this.state.imagesPreview ? <ImageViewer enableImageZoom={true} enableSwipeDown={true} onSwipeDown={()=>this.setState({ isView: !this.state.isView })} index={this.state.index} imageUrls={this.state.imagesPreview}/> : null}
+          </Modal>
+
+          <Modal visible={this.state.isUnitView} transparent={true}
+          onRequestClose={() => {
+            this.setState({ isUnitView: !this.state.isUnitView })
+          }}>
+            <Header style={Style.navigationModal}>
+              <StatusBar
+                backgroundColor={Colors.statusBarNavy}
+                animated
+                barStyle="light-content"
+              />
+              <View style={Style.actionBarRight}>
+                <Button
+                  transparent
+                  style={Style.actionBtnRight}
+                  onPress={() => {
+                    this.setState({ isUnitView: !this.state.isUnitView })
+                  }}            >
+                  <Icon
+                    active
+                    name="close"
+                    style={Style.actionIcon}
+                    type="FontAwesome"
+                  />
+                </Button>
+              </View>
+            </Header>
+            {this.state.unitPlanPreview ? <ImageViewer enableImageZoom={true} enableSwipeDown={true} onSwipeDown={()=>this.setState({ isUnitView: !this.state.isUnitView })} index={this.state.index} imageUrls={this.state.unitPlanPreview}/> : null}
           </Modal>
 
           <Modal

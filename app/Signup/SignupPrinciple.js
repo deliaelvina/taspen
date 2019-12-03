@@ -13,10 +13,7 @@ import {
     BackHandler,
     I18nManager,
     StyleSheet,
-    Alert,
-    FlatList,
-    TextInput,
-    Modal
+    Alert
 } from "react-native";
 import {
     Container,
@@ -32,13 +29,12 @@ import {
     ListItem
     // CheckBox
 } from "native-base";
-import {SearchBar} from "react-native-elements";
 import { CheckBox } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import all the required component
 import AppIntroSlider from "react-native-app-intro-slider";
 import styles from "./styles";
-import { Style, Colors, Metrics } from "../Themes";
+import { Style, Colors } from "../Themes";
 import { Actions } from "react-native-router-flux";
 import { _storeData, _getData } from "@Component/StoreAsync";
 import DeviceInfo from "react-native-device-info";
@@ -47,7 +43,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { ScrollView } from "react-native-gesture-handler";
 import ImagePicker from "react-native-image-crop-picker";
 import RNFetchBlob from "rn-fetch-blob";
-let isMount = false;
+
 const userType = [
     {
         key: 1,
@@ -61,84 +57,33 @@ const userType = [
     }
 ];
 
-class SignupGuest extends React.Component {
+class SignupPrinciple extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             dataProject: [],
-            dataProject2: [],
             isLoaded: true,
 
             email: "",
             fullname: "",
             nik: "",
-            npwp: "",
-            bank_name: "",
-            acc_name: "",
-            acc_no: "",
             nohp: "",
-            // pictUrlKtp: require("../../assets/images/ktp.png"),
-            // pictUrlNPWP: require("../../assets/images/ktp.png"),
-            // pictUrlSuratAnggota: require("../../assets/images/ktp.png"),
-            // pictUrlBukuTabungan: require("../../assets/images/ktp.png"),
-
-            pictUrlKtp: '',
-            pictUrlNPWP: '',
-            pictUrlSuratAnggota: '',
-            pictUrlBukuTabungan: '',
             pictUrl: require("../../assets/images/ktp.png"),
 
             selectedType: "",
             selectedProject: [],
-
-            search: '',
-            getPrin: [],
-            principle_cd: '',
-            modalVisible: false,
+            errornik: false,
         };
     }
 
     componentDidMount() {
         this.getProject();
-        // this.getProject2();
-        this.getPrinciples();
-        isMount = true;
-        // const { email } = this.state.email;
-        // console.log("email",email);
     }
 
     chooseType = val => {
         this.setState({ selectedType: val });
     };
-
-
-    renderRow = ({item}) => {
-        console.log('item',item);
-        return(
-            // <TouchableOpacity >
-            <ListItem style={{height: 10}} 
-            // onValueChange={(val)=>this.alert(val)}
-            onPress={()=>this.selectedItem(item.value)}
-            // onPress={()=>alert(item.value)}
-            // onPress={(val)=>{
-            // //    const valvalue = this.state.getocupation.filter(item=>item.value==val)
-            //     console.log('value', this.state.getlot.filter(item=>item.value==val));
-            // //    this.setState({occupation:val,occupation:statuspros})
-            // }}
-            >
-                <Text style={{fontFamily: "Montserrat-Regular",alignSelf:'flex-start',color: "#333",marginBottom: 5,fontSize: 15}}>
-                {item.value}
-                </Text>
-            </ListItem>
-
-            // </TouchableOpacity>
-            
-            // <Text>tes</Text>
-        )
-
-    }
-    
 
     getProject = () => {
         fetch(urlApi + "c_auth/getProjects/", {
@@ -156,39 +101,6 @@ class SignupGuest extends React.Component {
             });
     };
 
-    getPrinciples = () => {
-        fetch(urlApi+"c_principal/zoomPrincipal/IFCAPB/", {
-            method: "GET"
-        })
-            .then(response => response.json())
-            .then(res => {
-                console.log("principle", res);
-                if (!res.Error) {
-                    this.setState({ getPrin: res.Data });
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
-
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-      }
-      selectedItem = (item)=>{
-        console.log('item select principle',item);
-        
-        // alert(val);
-        
-        
-        // alert(val);
-        if(item){
-            this.setState({principle_cd : item})
-            // this.setModalVisible(!this.state.modalVisible)
-        }
-        this.setModalVisible(!this.state.modalVisible)
-       
-    }
     validating = validationData => {
         const keys = Object.keys(validationData);
         const errorKey = [];
@@ -218,13 +130,6 @@ class SignupGuest extends React.Component {
     };
 
     submit = () => {
-        // const { email } = this.state.email;
-        // console.log("email",email);
-        let filektp = RNFetchBlob.wrap(
-            this.state.pictUrlKtp.uri.replace("file://", "")
-        );
-        
-
         const {
             selectedType,
             email,
@@ -232,8 +137,7 @@ class SignupGuest extends React.Component {
             nik,
             nohp,
             pictUrl,
-            selectedProject,
-           
+            selectedProject
         } = this.state;
 
         const frmData = {
@@ -244,13 +148,8 @@ class SignupGuest extends React.Component {
             phone_no: nohp,
             pictUrl: pictUrl,
             projek: selectedProject,
-            pictUrlKtp: filektp,
-            // fotoNPWP: filenpwp,
-            // fotoBukutabungan: filebukutabungan,
-            // fotoSuratanggota: filesuratanggota
-
+            filename: "KTP_RegisAgent_" + email + ".png"
         };
-        
 
         const isValid = this.validating({
             email: { require: true },
@@ -261,34 +160,13 @@ class SignupGuest extends React.Component {
             selectedProject: { require: true }
         });
 
-        let fileNameKtp = "KTP_RegisAgent_"+fullname+".png";
-        console.log('filenamektp', fileNameKtp);
-        // let fileNameNpwp = "npwp_RegisAgent_" + fullname + ".png";
-        // let fileNameSuratAnggota = "bukutabungan_RegisAgent_" + fullname + ".png";
-        // let fileNameBukuTabungan = "suratanggota_RegisAgent_" + fullname + ".png";
+        let fileName = "KTP_RegisAgent.png";
+        let fileImg = "";
 
-       
-        // let filenpwp = RNFetchBlob.wrap(
-        //     this.state.pictUrlNPWP.uri.replace("file://", "")
-        // );
-        // let filebukutabungan = RNFetchBlob.wrap(
-        //     this.state.pictUrlBukuTabungan.uri.replace("file://", "")
-        // );
-        // let filesuratanggota = RNFetchBlob.wrap(
-        //     this.state.pictUrlSuratAnggota.uri.replace("file://", "")
-        // );
-
-        console.log('saveFormNUP', frmData);
-
-        // let fileName = "KTP_RegisAgent.png";
-        // let fileImg = "";
-
-        
-
-        if ( isValid ) {
-            // fileImg = RNFetchBlob.wrap(
-            //     this.state.pictUrl.uri.replace("file://", "")
-            // );
+        if (pictUrl.uri && isValid ) {
+            fileImg = RNFetchBlob.wrap(
+                this.state.pictUrl.uri.replace("file://", "")
+            );
 
             RNFetchBlob.fetch(
                 "POST",
@@ -297,11 +175,7 @@ class SignupGuest extends React.Component {
                     "Content-Type": "multipart/form-data"
                 },
                 [
-                    // { name: "photo", filename: fileName, data: fileImg },
-                    { name: "photoktp", filename: fileNameKtp, data: filektp },
-                    // { name: "photonpwp", filename: fileNameNpwp, data: filenpwp },
-                    // { name: "photobukutabungan", filename: fileNameBukuTabungan, data: filebukutabungan },
-                    // { name: "photosuratanggota", filename: fileNameSuratAnggota, data: filesuratanggota},
+                    { name: "photo", filename: fileName, data: fileImg },
                     { name: "data", data: JSON.stringify(frmData) }
                 ]
             ).then(resp => {
@@ -338,13 +212,13 @@ class SignupGuest extends React.Component {
         });
     };
 
-    showAlert = (key) => {
+    showAlert = () => {
         Alert.alert(
             "Select a Photo",
             "Choose the place where you want to get a photo",
             [
-                { text: "Gallery", onPress: () => this.fromGallery(key) },
-                { text: "Camera", onPress: () => this.fromCamera(key) },
+                { text: "Gallery", onPress: () => this.fromGallery() },
+                { text: "Camera", onPress: () => this.fromCamera() },
                 {
                     text: "Cancel",
                     onPress: () => console.log("User Cancel"),
@@ -355,30 +229,30 @@ class SignupGuest extends React.Component {
         );
     };
 
-    fromCamera(key) {
+    fromCamera() {
         ImagePicker.openCamera({
             cropping: true,
-            width: 600,
-            height: 500
+            width: 200,
+            height: 200
         })
             .then(image => {
                 console.log("received image", image);
 
-                this.setState({ [key]: { uri: image.path } });
+                this.setState({ pictUrl: { uri: image.path } });
             })
             .catch(e => console.log("tag", e));
     }
 
-    fromGallery(key) {
+    fromGallery(cropping, mediaType = "photo") {
         ImagePicker.openPicker({
             multiple: false,
-            width: 600,
-            height: 500
+            width: 200,
+            height: 200
         })
             .then(image => {
                 console.log("received image", image);
 
-                this.setState({ [key]: { uri: image.path } });
+                this.setState({ pictUrl: { uri: image.path } });
             })
             .catch(e => console.log("tag", e));
     }
@@ -417,82 +291,6 @@ class SignupGuest extends React.Component {
                             ]}
                         >
                             <View>
-                            <View style={{paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star'  type="FontAwesome5" />
-                                <Text >Lot No</Text>
-                            </View>
-                            <Item rounded style={{height: 35}}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        this.setModalVisible(true);
-                                    }}
-                                    style={{width: '100%'}}>
-                                        
-                                        <TextInput  placeholder={'Lot No'} value={this.state.principle_cd} onChangeText={(val)=>{this.setState({principle_cd:val})}} editable={false}/>
-                                        {/* <Right style={{position:'absolute',right:10}}>
-                                            <Icon solid name='sort-down' type="FontAwesome5" style={{fontSize: 15,top: 3,right:1, color: '#666'}} />
-                                        </Right>     */}
-                                    
-                                </TouchableOpacity>
-                            </Item>
-                            <View>
-                                <Modal
-                                animationType="slide"
-                                transparent={true}
-                                visible={this.state.modalVisible}
-                                onRequestClose={() => this.alert('Modal has been closed.')}
-                                >
-                                    
-                                    <View style={{
-                                            flex: 1,
-                                            flexDirection: 'column',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                          
-                                            // backgroundColor: Colors.twitter,
-                                            }}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                            this.setModalVisible(!this.state.modalVisible);
-                                            }}
-                                            >
-                                            <Text>Hide Modal</Text>
-                                        </TouchableOpacity>
-                                        
-                                        <View style={{
-                                                width: 300,
-                                                height: 300, 
-                                                backgroundColor: Colors.white,
-                                                borderRadius: 8,
-                                                borderColor: '#555',
-                                                borderWidth: 1,
-                                                
-                                                }}
-                                                >
-                                        
-                                        {/* loadmore looping in here */}
-                                    
-                                            <View style={{height: 300}}> 
-                                                <SearchBar
-                                                placeholder="Search Here..."
-                                                onChangeText={this.updateSearch}
-                                                value={this.state.search}
-                                                containerStyle={{backgroundColor: Colors.white, height: 40, borderRadius: 8, borderWidth: 0, borderColor: Colors.white, borderBottomColor: Colors.white}}
-                                                inputContainerStyle={{height: 30, borderBottomColor: Colors.white}}
-                                                />
-                                                <FlatList data={this.state.getPrin} 
-                                                renderItem={this.renderRow}
-                                                keyExtractor={(item,index)=>item.value} 
-                                                
-                                                />
-                                            </View>
-                                        </View>
-                                    </View>
-                                </Modal>
-                            </View>
-                        </View>   
-                            
                                 <View style={styles.containEmail}>
                                     <Input
                                         ref="email"
@@ -602,7 +400,7 @@ class SignupGuest extends React.Component {
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ npwp: val })
+                                            this.setState({ nik: val })
                                         }
                                         keyboardType="numeric"
                                         returnKeyType="next"
@@ -657,7 +455,7 @@ class SignupGuest extends React.Component {
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ acc_name: val })
+                                            this.setState({ nik: val })
                                         }
                                         returnKeyType="next"
                                         autoCapitalize="none"
@@ -678,7 +476,7 @@ class SignupGuest extends React.Component {
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ acc_no: val })
+                                            this.setState({ nik: val })
                                         }
                                         keyboardType="numeric"
                                         returnKeyType="next"
@@ -694,11 +492,7 @@ class SignupGuest extends React.Component {
                                     />
                                     
                                 </View>
-                              
-
-                                
-                               
-                                {/* <View style={[styles.containMid]}>
+                                <View style={[styles.containMid]}>
                                     <RNPickerSelect
                                         style={pickerSelectStyles}
                                         items={userType}
@@ -723,8 +517,8 @@ class SignupGuest extends React.Component {
                                         >
                                             ! Select User Type Required
                                         </Text>
-                                    ) : null} */}
-                                {/* </View> */}
+                                    ) : null}
+                                </View>
                                 <View style={styles.containMid}>
                                     <Input
                                         ref="nohp"
@@ -759,7 +553,34 @@ class SignupGuest extends React.Component {
                                             ! No Hp Required
                                         </Text>
                                     ) : null}
-                                </View>                               
+                                </View>
+                                {/* <View style={[styles.containMid]}>
+                                    <RNPickerSelect
+                                        style={pickerSelectStyles}
+                                        items={userType}
+                                        onValueChange={val =>
+                                            this.chooseType(val)
+                                        }
+                                        placeholder={{
+                                            key: 0,
+                                            label: "Select User Type"
+                                        }}
+                                        useNativeAndroidPickerStyle={false}
+                                    />
+                                    {this.state.errorselectedType ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! Select User Type Required
+                                        </Text>
+                                    ) : null}
+                                </View> */}
                                 <View
                                     style={[
                                         styles.containMid,
@@ -807,7 +628,7 @@ class SignupGuest extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={[styles.containImageTop]}>
+                                <View style={[styles.containImage]}>
                                     <Text
                                         style={[
                                             Style.textBlack,
@@ -823,143 +644,14 @@ class SignupGuest extends React.Component {
                                             borderColor: "#d3d3d3",
                                             margin: 10
                                         }}
-                                        onPress={() => this.showAlert("pictUrlKtp")}
+                                        onPress={this.showAlert}
                                     >
-                                        {/* <Image
+                                        <Image
                                             style={{ width: 200, height: 100 }}
-                                            source={this.state.pictUrlKtp}
-                                        /> */}
-                                        {this.state.pictUrlKtp == null || this.state.pictUrlKtp == '' ?
-                                             <View >
-                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
-                                                <Image
-                                                    style={{ width: 200, height: 130 }}
-                                                    source={uri = require("../../assets/images/ktp.png")}
-                                                />
-                                            </View>
-                                            :
-                                            <Image
-                                                // resizeMode="cover"
-                                                style={{ width: 200, height: 130 }}
-                                                source={
-                                                    this.state.pictUrlKtp
-                                                }
-                                            />
-                                        }
+                                            source={this.state.pictUrl}
+                                        />
                                     </TouchableOpacity>
                                 </View>
-                                <View style={[styles.containImageTop]}>
-                                    <Text
-                                        style={[
-                                            Style.textBlack,
-                                            { paddingTop: 5 }
-                                        ]}
-                                    >
-                                        Upload Photo NPWP
-                                    </Text>
-                                    <TouchableOpacity
-                                        style={{
-                                            padding: 2,
-                                            borderWidth: 1,
-                                            borderColor: "#d3d3d3",
-                                            margin: 10
-                                        }}
-                                        onPress={() => this.showAlert("pictUrlNPWP")}
-                                    >
-                                        {this.state.pictUrlNPWP == null || this.state.pictUrlNPWP == '' ?
-                                            <View >
-                                                {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
-                                                <Image
-                                                    style={{ width: 200, height: 130 }}
-                                                    source={uri = require("../../assets/images/ktp.png")}
-                                                />
-                                            </View>
-                                            :
-                                            <Image
-                                                // resizeMode="cover"
-                                                style={{ width: 200, height: 130 }}
-                                                source={
-                                                    this.state.pictUrlNPWP
-                                                }
-                                            />
-                                        }
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={[styles.containImageTop]}>
-                                    <Text
-                                        style={[
-                                            Style.textBlack,
-                                            { paddingTop: 5 }
-                                        ]}
-                                    >
-                                        Upload Photo Surat Anggota
-                                    </Text>
-                                    <TouchableOpacity
-                                        style={{
-                                            padding: 2,
-                                            borderWidth: 1,
-                                            borderColor: "#d3d3d3",
-                                            margin: 10
-                                        }}
-                                        onPress={() => this.showAlert("pictUrlSuratAnggota")}
-                                    >
-                                        {this.state.pictUrlSuratAnggota == null || this.state.pictUrlSuratAnggota == '' ?
-                                            <View >
-                                                {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
-                                                <Image
-                                                    style={{ width: 200, height: 130 }}
-                                                    source={uri = require("../../assets/images/ktp.png")}
-                                                />
-                                            </View>
-                                            :
-                                            <Image
-                                                // resizeMode="cover"
-                                                style={{ width: 200, height: 130 }}
-                                                source={
-                                                    this.state.pictUrlSuratAnggota
-                                                }
-                                            />
-                                        }
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={[styles.containImage]}>
-                                    <Text
-                                        style={[
-                                            Style.textBlack,
-                                            { paddingTop: 5 }
-                                        ]}
-                                    >
-                                        Upload Photo Buku Tabungan
-                                    </Text>
-                                    <TouchableOpacity
-                                        style={{
-                                            padding: 2,
-                                            borderWidth: 1,
-                                            borderColor: "#d3d3d3",
-                                            margin: 10
-                                        }}
-                                        onPress={() => this.showAlert("pictUrlBukuTabungan")}
-                                    >
-                                        {this.state.pictUrlBukuTabungan == null || this.state.pictUrlBukuTabungan == '' ?
-                                            <View >
-                                                {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
-                                                <Image
-                                                    style={{ width: 200, height: 130 }}
-                                                    source={uri = require("../../assets/images/ktp.png")}
-                                                />
-                                            </View>
-                                            :
-                                            <Image
-                                                // resizeMode="cover"
-                                                style={{ width: 200, height: 130 }}
-                                                source={
-                                                    this.state.pictUrlBukuTabungan
-                                                }
-                                            />
-                                        }
-                                    </TouchableOpacity>
-                                </View>
-                                
                             </View>
                         </View>
                     </ScrollView>
@@ -985,7 +677,7 @@ class SignupGuest extends React.Component {
         );
     }
 }
-export default SignupGuest;
+export default SignupPrinciple;
 
 const pickerSelectStyles = StyleSheet.create({
     inputIOS: {

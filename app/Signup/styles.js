@@ -107,6 +107,16 @@ const styles = {
         alignSelf: "center",
         elevation: 3
     },
+    containImageTop: {
+        backgroundColor: "#fff",
+        width: Metrics.WIDTH * 0.92,
+        // borderBottomLeftRadius: 15,
+        // borderBottomRightRadius: 15,
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignSelf: "center",
+        elevation: 3
+    },
     containImage: {
         backgroundColor: "#fff",
         width: Metrics.WIDTH * 0.92,
@@ -135,6 +145,18 @@ const styles = {
         alignSelf: "center",
         elevation: 3,
         shadowColor: "#000",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    signInBtnLarge: {
+        backgroundColor: Colors.loginBlue,
+        height: Metrics.HEIGHT * 0.10,
+        paddingLeft: 20,
+        paddingRight: 20,
+        // width: '100%',
+        alignSelf: "center",
+        elevation: 3,
+        // shadowColor: "#000",
         alignItems: "center",
         justifyContent: "center"
     },
@@ -194,6 +216,9 @@ const styles = {
         height: null,
         paddingTop: 8,
         paddingLeft: 0
-    }
+    },
+    iconSub : {
+        fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: 3
+      },
 };
 export default styles;
