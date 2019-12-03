@@ -96,6 +96,13 @@ const styles = {
         paddingLeft: Fonts.moderateScale(10),
         fontFamily: Fonts.type.sfuiDisplayRegular
     },
+    inputEmailPrinciple:{
+        height: Metrics.HEIGHT * 0.08,
+        width: Metrics.WIDTH * 0.84,
+        color: "#000",
+        paddingLeft: Fonts.moderateScale(23),
+        fontFamily: Fonts.type.sfuiDisplayRegular
+    },
     containPassword: {
         backgroundColor: "#fff",
         height: Metrics.HEIGHT * 0.08,

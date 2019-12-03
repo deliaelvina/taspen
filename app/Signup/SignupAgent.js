@@ -174,8 +174,8 @@ class SignupGuest extends React.Component {
 
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
-      }
-      selectedItem = (item)=>{
+    }
+    selectedItem = (item)=>{
         console.log('item select principle',item);
         
         // alert(val);
@@ -223,6 +223,15 @@ class SignupGuest extends React.Component {
         let filektp = RNFetchBlob.wrap(
             this.state.pictUrlKtp.uri.replace("file://", "")
         );
+        let filenpwp = RNFetchBlob.wrap(
+            this.state.pictUrlNPWP.uri.replace("file://", "")
+        );
+        let filebukutabungan = RNFetchBlob.wrap(
+            this.state.pictUrlBukuTabungan.uri.replace("file://", "")
+        );
+        let filesuratanggota = RNFetchBlob.wrap(
+            this.state.pictUrlSuratAnggota.uri.replace("file://", "")
+        );
         
 
         const {
@@ -231,23 +240,41 @@ class SignupGuest extends React.Component {
             fullname,
             nik,
             nohp,
-            pictUrl,
+            // pictUrl,
             selectedProject,
+            principle_cd,
+            bank_name,
+            acc_name,
+            acc_no,
+
+            npwp,
+            project_no
            
         } = this.state;
 
         const frmData = {
-            group_type: selectedType,
+            // group_type: selectedType,
+            group_type: 'M',
+            npwp: npwp,
             user_email: email,
             full_name: fullname,
             nomor_induk: nik,
             phone_no: nohp,
-            pictUrl: pictUrl,
-            projek: selectedProject,
-            pictUrlKtp: filektp,
-            // fotoNPWP: filenpwp,
-            // fotoBukutabungan: filebukutabungan,
-            // fotoSuratanggota: filesuratanggota
+            // pictUrl: pictUrl,
+            projek: selectedProject[0].project_no,
+
+            //---------foto attachment
+            pictUrlKtp: filektp, //ktp
+            pictUrlNPWP: filenpwp,
+            pictUrlBukuTabungan: filebukutabungan,
+            pictUrlSuratAnggota: filesuratanggota,
+            //---------end foto attachment
+
+            bankname: bank_name,
+            accname: acc_name,
+            accno: acc_no,
+
+            principle: principle_cd,
 
         };
         
@@ -257,26 +284,18 @@ class SignupGuest extends React.Component {
             fullname: { require: true },
             nik: { require: true },
             nohp: { require: true },
-            selectedType: { require: true },
+            // selectedType: { require: true },
             selectedProject: { require: true }
         });
 
         let fileNameKtp = "KTP_RegisAgent_"+fullname+".png";
         console.log('filenamektp', fileNameKtp);
-        // let fileNameNpwp = "npwp_RegisAgent_" + fullname + ".png";
-        // let fileNameSuratAnggota = "bukutabungan_RegisAgent_" + fullname + ".png";
-        // let fileNameBukuTabungan = "suratanggota_RegisAgent_" + fullname + ".png";
+        let fileNameNpwp = "npwp_RegisAgent_" + fullname + ".png";
+        let fileNameSuratAnggota = "bukutabungan_RegisAgent_" + fullname + ".png";
+        let fileNameBukuTabungan = "suratanggota_RegisAgent_" + fullname + ".png";
 
        
-        // let filenpwp = RNFetchBlob.wrap(
-        //     this.state.pictUrlNPWP.uri.replace("file://", "")
-        // );
-        // let filebukutabungan = RNFetchBlob.wrap(
-        //     this.state.pictUrlBukuTabungan.uri.replace("file://", "")
-        // );
-        // let filesuratanggota = RNFetchBlob.wrap(
-        //     this.state.pictUrlSuratAnggota.uri.replace("file://", "")
-        // );
+        
 
         console.log('saveFormNUP', frmData);
 
@@ -292,25 +311,43 @@ class SignupGuest extends React.Component {
 
             RNFetchBlob.fetch(
                 "POST",
-                urlApi + "/c_auth/SignUpAgent",
+                urlApi + "c_auth/SignUpAgent",
                 {
                     "Content-Type": "multipart/form-data"
                 },
                 [
                     // { name: "photo", filename: fileName, data: fileImg },
                     { name: "photoktp", filename: fileNameKtp, data: filektp },
-                    // { name: "photonpwp", filename: fileNameNpwp, data: filenpwp },
-                    // { name: "photobukutabungan", filename: fileNameBukuTabungan, data: filebukutabungan },
-                    // { name: "photosuratanggota", filename: fileNameSuratAnggota, data: filesuratanggota},
+                    { name: "photonpwp", filename: fileNameNpwp, data: filenpwp },
+                    { name: "photobukutabungan", filename: fileNameBukuTabungan, data: filebukutabungan },
+                    { name: "photosuratanggota", filename: fileNameSuratAnggota, data: filesuratanggota},
                     { name: "data", data: JSON.stringify(frmData) }
                 ]
             ).then(resp => {
-                const res = JSON.parse(resp.data);
+                // const res = JSON.parse(resp.data);
+                let res = JSON.stringify(resp.data);
                 console.log("res", res);
-                alert(res.Pesan);
-                if (!res.Error) {
-                    Actions.pop();
+                if(!res.Error){
+                    Alert.alert(
+                        'Great!',
+                        'Sign Up Success,'+'\n'+'Please wait 24hour until Account Active.',
+                        [
+                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                        //   {
+                        //     text: 'Cancel',
+                        //     onPress: () => console.log('Cancel Pressed'),
+                        //     style: 'cancel',
+                        //   },
+                          {text: 'Ok', onPress: () => Actions.pop()},
+                        ],
+                        {cancelable: false},
+                      );
                 }
+                
+                // alert(res.Pesan);
+                // if (!res.Error) {
+                //     Actions.pop();
+                // }
             });
         } else {
             alert("Please assign your ID Picture");
@@ -417,82 +454,6 @@ class SignupGuest extends React.Component {
                             ]}
                         >
                             <View>
-                            <View style={{paddingVertical: 10}}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                <Icon solid name='star'  type="FontAwesome5" />
-                                <Text >Lot No</Text>
-                            </View>
-                            <Item rounded style={{height: 35}}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        this.setModalVisible(true);
-                                    }}
-                                    style={{width: '100%'}}>
-                                        
-                                        <TextInput  placeholder={'Lot No'} value={this.state.principle_cd} onChangeText={(val)=>{this.setState({principle_cd:val})}} editable={false}/>
-                                        {/* <Right style={{position:'absolute',right:10}}>
-                                            <Icon solid name='sort-down' type="FontAwesome5" style={{fontSize: 15,top: 3,right:1, color: '#666'}} />
-                                        </Right>     */}
-                                    
-                                </TouchableOpacity>
-                            </Item>
-                            <View>
-                                <Modal
-                                animationType="slide"
-                                transparent={true}
-                                visible={this.state.modalVisible}
-                                onRequestClose={() => this.alert('Modal has been closed.')}
-                                >
-                                    
-                                    <View style={{
-                                            flex: 1,
-                                            flexDirection: 'column',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                          
-                                            // backgroundColor: Colors.twitter,
-                                            }}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                            this.setModalVisible(!this.state.modalVisible);
-                                            }}
-                                            >
-                                            <Text>Hide Modal</Text>
-                                        </TouchableOpacity>
-                                        
-                                        <View style={{
-                                                width: 300,
-                                                height: 300, 
-                                                backgroundColor: Colors.white,
-                                                borderRadius: 8,
-                                                borderColor: '#555',
-                                                borderWidth: 1,
-                                                
-                                                }}
-                                                >
-                                        
-                                        {/* loadmore looping in here */}
-                                    
-                                            <View style={{height: 300}}> 
-                                                <SearchBar
-                                                placeholder="Search Here..."
-                                                onChangeText={this.updateSearch}
-                                                value={this.state.search}
-                                                containerStyle={{backgroundColor: Colors.white, height: 40, borderRadius: 8, borderWidth: 0, borderColor: Colors.white, borderBottomColor: Colors.white}}
-                                                inputContainerStyle={{height: 30, borderBottomColor: Colors.white}}
-                                                />
-                                                <FlatList data={this.state.getPrin} 
-                                                renderItem={this.renderRow}
-                                                keyExtractor={(item,index)=>item.value} 
-                                                
-                                                />
-                                            </View>
-                                        </View>
-                                    </View>
-                                </Modal>
-                            </View>
-                        </View>   
-                            
                                 <View style={styles.containEmail}>
                                     <Input
                                         ref="email"
@@ -692,6 +653,99 @@ class SignupGuest extends React.Component {
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.acc_no}
                                     />
+                                    
+                                </View>
+
+                                <View style={styles.containMid}>
+                                    <Item style={styles.containMid}>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setModalVisible(true);
+                                            }}
+                                            style={{width: '100%'}}>
+                                                <Input
+                                                        ref="principle_cd"
+                                                        style={styles.inputEmailPrinciple}
+                                                        editable={false}
+                                                        onChangeText={val =>
+                                                            this.setState({ principle_cd: val })
+                                                        }
+                                                        // keyboardType="numeric"
+                                                        returnKeyType="next"
+                                                        autoCapitalize="none"
+                                                        autoCorrect={false}
+                                                        underlineColorAndroid="transparent"
+                                                        textAlign={
+                                                            I18nManager.isRTL ? "right" : "left"
+                                                        }
+                                                        placeholder="Principle Code"
+                                                        placeholderTextColor="rgba(0,0,0,0.20)"
+                                                        value={this.state.principle_cd}
+                                                    />
+                                                {/* <TextInput  placeholder={'Lot No'} value={this.state.principle_cd} onChangeText={(val)=>{this.setState({principle_cd:val})}} editable={false}/> */}
+                                                {/* <Right style={{position:'absolute',right:10}}>
+                                                    <Icon solid name='sort-down' type="FontAwesome5" style={{fontSize: 15,top: 3,right:1, color: '#666'}} />
+                                                </Right>     */}
+                                            
+                                        </TouchableOpacity>
+                                    </Item>
+                                    <View>
+                                        <Modal
+                                        animationType="slide"
+                                        transparent={true}
+                                        visible={this.state.modalVisible}
+                                        onRequestClose={() => this.alert('Modal has been closed.')}
+                                        >
+                                            
+                                            <View style={{
+                                                    flex: 1,
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                
+                                                    // backgroundColor: Colors.twitter,
+                                                    }}>
+                                                <TouchableOpacity
+                                                    onPress={() => {
+                                                    this.setModalVisible(!this.state.modalVisible);
+                                                    }}
+                                                    style={{backgroundColor: Colors.twitter, paddingVertical: 2, paddingHorizontal: 2, borderRadius: 5}}
+                                                    >
+                                                    <Text style={{color: '#000'}}>Close Modal</Text>
+                                                </TouchableOpacity>
+                                                
+                                                <View style={{
+                                                        width: 300,
+                                                        height: 300, 
+                                                        backgroundColor: Colors.white,
+                                                        borderRadius: 8,
+                                                        borderColor: '#555',
+                                                        borderWidth: 1,
+                                                        
+                                                        }}
+                                                        >
+                                                
+                                                {/* loadmore looping in here */}
+                                            
+                                                    <View style={{height: 300}}> 
+                                                        <SearchBar
+                                                        placeholder="Search Here..."
+                                                        onChangeText={this.updateSearch}
+                                                        value={this.state.search}
+                                                        containerStyle={{backgroundColor: Colors.white, height: 40, borderRadius: 8, borderWidth: 0, borderColor: Colors.white, borderBottomColor: Colors.white}}
+                                                        inputContainerStyle={{height: 30, borderBottomColor: Colors.white}}
+                                                        />
+                                                        <FlatList data={this.state.getPrin} 
+                                                        renderItem={this.renderRow}
+                                                        keyExtractor={(item,index)=>item.value} 
+                                                        
+                                                        />
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </Modal>
+                                    </View>
+                                   
                                     
                                 </View>
                               
