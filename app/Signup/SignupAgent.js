@@ -291,8 +291,8 @@ class SignupGuest extends React.Component {
         let fileNameKtp = "KTP_RegisAgent_"+fullname+".png";
         console.log('filenamektp', fileNameKtp);
         let fileNameNpwp = "npwp_RegisAgent_" + fullname + ".png";
-        let fileNameSuratAnggota = "bukutabungan_RegisAgent_" + fullname + ".png";
-        let fileNameBukuTabungan = "suratanggota_RegisAgent_" + fullname + ".png";
+        let fileNameBukuTabungan = "bukutabungan_RegisAgent_" + fullname + ".png";
+        let fileNameSuratAnggota= "suratanggota_RegisAgent_" + fullname + ".png";
 
        
         
@@ -342,6 +342,8 @@ class SignupGuest extends React.Component {
                         ],
                         {cancelable: false},
                       );
+                }else{
+                    alert(res.Pesan);
                 }
                 
                 // alert(res.Pesan);
@@ -441,7 +443,7 @@ class SignupGuest extends React.Component {
                         </Left>
                         <Body style={styles.body}>
                             <Text style={[Style.textBlack, Style.textMedium]}>
-                                {"Sign Up as Principle"}
+                                {"Sign Up as Agent"}
                             </Text>
                         </Body>
                         <Right style={styles.right}></Right>
@@ -499,7 +501,7 @@ class SignupGuest extends React.Component {
                                             this.setState({ fullname: val })
                                         }
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
@@ -600,7 +602,7 @@ class SignupGuest extends React.Component {
                                             this.setState({ bank_name: val })
                                         }
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
@@ -621,7 +623,7 @@ class SignupGuest extends React.Component {
                                             this.setState({ acc_name: val })
                                         }
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
@@ -711,7 +713,7 @@ class SignupGuest extends React.Component {
                                                     }}
                                                     style={{backgroundColor: Colors.twitter, paddingVertical: 2, paddingHorizontal: 2, borderRadius: 5}}
                                                     >
-                                                    <Text style={{color: '#000'}}>Close Modal</Text>
+                                                    <Text style={{color: '#000'}}>Close</Text>
                                                 </TouchableOpacity>
                                                 
                                                 <View style={{
@@ -946,7 +948,7 @@ class SignupGuest extends React.Component {
                                             { paddingTop: 5 }
                                         ]}
                                     >
-                                        Upload Photo Surat Anggota
+                                        Upload Photo Member File
                                     </Text>
                                     <TouchableOpacity
                                         style={{
@@ -983,7 +985,7 @@ class SignupGuest extends React.Component {
                                             { paddingTop: 5 }
                                         ]}
                                     >
-                                        Upload Photo Buku Tabungan
+                                        Upload Photo Saving Book
                                     </Text>
                                     <TouchableOpacity
                                         style={{

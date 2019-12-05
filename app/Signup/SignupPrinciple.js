@@ -13,7 +13,10 @@ import {
     BackHandler,
     I18nManager,
     StyleSheet,
-    Alert
+    Alert,
+    FlatList,
+    TextInput,
+    Modal
 } from "react-native";
 import {
     Container,
@@ -26,15 +29,18 @@ import {
     Left,
     Body,
     Title,
-    ListItem
+    ListItem,
+    Textarea,
+    Picker
     // CheckBox
 } from "native-base";
+import {SearchBar} from "react-native-elements";
 import { CheckBox } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 //import all the required component
 import AppIntroSlider from "react-native-app-intro-slider";
 import styles from "./styles";
-import { Style, Colors } from "../Themes";
+import { Style, Colors, Metrics } from "../Themes";
 import { Actions } from "react-native-router-flux";
 import { _storeData, _getData } from "@Component/StoreAsync";
 import DeviceInfo from "react-native-device-info";
@@ -43,7 +49,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { ScrollView } from "react-native-gesture-handler";
 import ImagePicker from "react-native-image-crop-picker";
 import RNFetchBlob from "rn-fetch-blob";
-
+let isMount = false;
 const userType = [
     {
         key: 1,
@@ -66,40 +72,110 @@ class SignupPrinciple extends React.Component {
             isLoaded: true,
 
             email: "",
-            fullname: "",
-            nik: "",
-            nohp: "",
-            pictUrl: require("../../assets/images/ktp.png"),
+            agencyname: "",
+            companyname: "",
+            address: "",
+            npwp: "",
+            bank_name: "",
+            acc_name: "",
+            acc_no: "",
+            getLeadCode: [],
+            
+            contactperson: "",
+            contactno: "",
 
-            selectedType: "",
+            
+            pictUrlKtp: '',
+            pictUrlNPWP: '',
+            pictUrlSIUP: '',
+            pictUrlTDP: '',
+            pictUrlDomisili: '',
+            pictUrlAktePendirian: '',
+           
             selectedProject: [],
-            errornik: false,
+
+            search: '',
+            modalVisible: false,
+            _agencyname: '',
         };
     }
 
     componentDidMount() {
-        this.getProject();
+        this.getLeadCd();
+        isMount = true;
+        // const { email } = this.state.email;
+        // console.log("email",email);
     }
 
-    chooseType = val => {
-        this.setState({ selectedType: val });
+    showAlert = (key) => {
+        Alert.alert(
+            "Select a Photo",
+            "Choose the place where you want to get a photo",
+            [
+                { text: "Gallery", onPress: () => this.fromGallery(key) },
+                { text: "Camera", onPress: () => this.fromCamera(key) },
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("User Cancel"),
+                    style: "cancel"
+                }
+            ],
+            { cancelable: false }
+        );
     };
 
-    getProject = () => {
-        fetch(urlApi + "c_auth/getProjects/", {
-            method: "GET"
+    fromCamera(key) {
+        ImagePicker.openCamera({
+            cropping: true,
+            width: 600,
+            height: 600
         })
-            .then(response => response.json())
-            .then(res => {
-                console.log("res", res);
-                if (!res.Error) {
-                    this.setState({ dataProject: res.Data });
-                }
+            .then(image => {
+                console.log("received image", image);
+
+                this.setState({ [key]: { uri: image.path } });
             })
-            .catch(error => {
-                console.log(error);
-            });
-    };
+            .catch(e => console.log("tag", e));
+    }
+
+    fromGallery(key) {
+        ImagePicker.openPicker({
+            multiple: false,
+            width: 600,
+            height: 600
+        })
+            .then(image => {
+                console.log("received image", image);
+
+                this.setState({ [key]: { uri: image.path } });
+            })
+            .catch(e => console.log("tag", e));
+    }
+
+    getLeadCd = () =>{
+        // const item = this.props.items
+        fetch(urlApi+'c_principal/zoomLeadCode/IFCAPB/',{
+            method:'GET'
+            // headers : this.state.hd,
+        }).then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                const resData = res.Data
+                resData.map((data)=>{
+                    this.setState(prevState=>({
+                        getLeadCode : [...prevState.getLeadCode, {label: data.lead_name, value:data.lead_cd}]
+                    }))
+                })
+            } else {
+                this.setState({isLoaded: !this.state.isLoaded},()=>{
+                    alert(res.Pesan)
+                });
+            }
+            console.log('leadcd',res);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
     validating = validationData => {
         const keys = Object.keys(validationData);
@@ -130,132 +206,152 @@ class SignupPrinciple extends React.Component {
     };
 
     submit = () => {
+        // const { email } = this.state.email;
+        // console.log("email",email);
+        let filektp = RNFetchBlob.wrap(
+            this.state.pictUrlKtp.uri.replace("file://", "")
+        );
+        let filenpwp = RNFetchBlob.wrap(
+            this.state.pictUrlNPWP.uri.replace("file://", "")
+        );
+        let filesiup = RNFetchBlob.wrap(
+            this.state.pictUrlSIUP.uri.replace("file://", "")
+        );
+        let filetdp = RNFetchBlob.wrap(
+            this.state.pictUrlTDP.uri.replace("file://", "")
+        );
+        let filedomisili = RNFetchBlob.wrap(
+            this.state.pictUrlDomisili.uri.replace("file://", "")
+        );
+        const valid_domisili = this.state.pictUrlDomisili.uri;
+        console.log('url domisili',this.state.pictUrlDomisili);
+        
+        // if (valid_domisili == 0 && valid_domisili == ''){
+
+        // }
+        
+        // let fileakte = RNFetchBlob.wrap(
+        //     this.state.pictUrlAktePendirian.uri.replace("file://", "")
+        // );
+        
+
         const {
-            selectedType,
             email,
-            fullname,
-            nik,
-            nohp,
-            pictUrl,
-            selectedProject
+            agencyname,
+            companyname,
+            address,
+            npwp,
+            bank_name,
+            acc_name,
+            acc_no,
+            contactperson,
+            contactno,
+            lead_cd,
+            // pictUrlDomisili
         } = this.state;
 
         const frmData = {
-            group_type: selectedType,
-            user_email: email,
-            full_name: fullname,
-            nomor_induk: nik,
-            phone_no: nohp,
-            pictUrl: pictUrl,
-            projek: selectedProject,
-            filename: "KTP_RegisAgent_" + email + ".png"
+            // group_type: selectedType,
+            
+            email: email,
+            agencyname: agencyname,
+            companyname: companyname,
+            address: address,
+            npwp:npwp,
+            bank_name: bank_name,
+            acc_name: acc_name,
+            acc_no: acc_no,
+           
+            contactperson: contactperson,
+            contactno: contactno,
+
+            
+            pictUrlKtp: filektp,
+            pictUrlNPWP: filenpwp,
+            pictUrlSIUP: filesiup,
+            pictUrlTDP: filetdp,
+            pictUrlDomisili: filedomisili,
+            pictUrlAktePendirian: fileakte,
+            lead_cd: lead_cd
         };
+        
 
         const isValid = this.validating({
             email: { require: true },
-            fullname: { require: true },
-            nik: { require: true },
-            nohp: { require: true },
-            selectedType: { require: true },
-            selectedProject: { require: true }
+            agencyname: { require: true },
+            companyname: { require: true },
+            address: { require: true },
+            npwp: { require: true },
+            bank_name: { require: true },
+            acc_name: { require: true },
+            acc_no: { require: true },
+            contactperson: { require: true },
+            contactno: { require: true },
+            lead_cd: { require: true }
+            // filedomisili: { require: true}
+            // address: { require: true },
+            // selectedType: { require: true },
+            // selectedProject: { require: true }
         });
+        const _agencyname = agencyname.replace(/\s+/g, '_');
 
-        let fileName = "KTP_RegisAgent.png";
-        let fileImg = "";
+        let fileNameKtp = "KTP_RegisPrincipal_"+_agencyname+".png";
+        let fileNameNpwp = "NWPW_RegisPrincipal_"+_agencyname+".png";
+        let fileNameSIUP = "SIUP_RegisPrincipal_"+_agencyname+".png";
+        let fileNameTDP = "TDP_RegisPrincipal_"+_agencyname+".png";
+        let fileNameDomisili = "Domisili_RegisPrincipal_"+_agencyname+".png";
+        let fileNameAktePendirian = "APPP_RegisPrincipal_"+_agencyname+".png";
+       
 
-        if (pictUrl.uri && isValid ) {
-            fileImg = RNFetchBlob.wrap(
-                this.state.pictUrl.uri.replace("file://", "")
-            );
+       
+        
+
+        console.log('saveFormNUP', frmData);
+
+        // let fileName = "KTP_RegisAgent.png";
+        // let fileImg = "";
+
+        // console.log('url', fileNameDomisili);
+
+        if ( isValid ) {
+            // console.log('valid domisili', valid_domisili);
+            // fileImg = RNFetchBlob.wrap(
+            //     this.state.pictUrl.uri.replace("file://", "")
+            // );
 
             RNFetchBlob.fetch(
                 "POST",
-                urlApi + "/c_auth/SignUpAgent",
+                urlApi + "c_auth/SignUpPrinciple",
                 {
                     "Content-Type": "multipart/form-data"
                 },
                 [
                     { name: "photo", filename: fileName, data: fileImg },
+                    { name: "photoktp", filename: fileNameKtp, data: filektp },
+                    { name: "photonpwp", filename: fileNameNpwp, data: filenpwp },
+                    { name: "photosiup", filename: fileNameSIUP, data: filesiup },
+                    { name: "phototdp", filename: fileNameTDP, data: filetdp},
+                    { name: "photodomisili", filename: fileNameDomisili, data: filedomisili},
+                    { nama: "photoappp", filename: fileNameAktePendirian, data: fileakte},
                     { name: "data", data: JSON.stringify(frmData) }
                 ]
             ).then(resp => {
                 const res = JSON.parse(resp.data);
-                console.log("res", res);
-                alert(res.Pesan);
-                if (!res.Error) {
-                    Actions.pop();
+                // let res = JSON.stringify(resp.data);
+                console.log("res", resp);
+                alert(res.Pesan)
+                if(!res.Error){
+                    Actions.pop()
                 }
+                // alert(res.Pesan); 
             });
+            // .then((response) => response.json())
+            
         } else {
             alert("Please assign your ID Picture");
         }
     };
-
-    handleCheck = data => {
-        const { dataProject } = this.state;
-
-        dataProject.forEach(datas => {
-            if (datas.project_no === data.project_no) {
-                if (datas.checked) {
-                    datas.checked = false;
-                } else {
-                    datas.checked = true;
-                }
-            }
-        });
-
-        this.setState({ dataProject }, () => {
-            const selectedProject = this.state.dataProject.filter(
-                item => item.checked
-            );
-            this.setState({ selectedProject });
-        });
-    };
-
-    showAlert = () => {
-        Alert.alert(
-            "Select a Photo",
-            "Choose the place where you want to get a photo",
-            [
-                { text: "Gallery", onPress: () => this.fromGallery() },
-                { text: "Camera", onPress: () => this.fromCamera() },
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("User Cancel"),
-                    style: "cancel"
-                }
-            ],
-            { cancelable: false }
-        );
-    };
-
-    fromCamera() {
-        ImagePicker.openCamera({
-            cropping: true,
-            width: 200,
-            height: 200
-        })
-            .then(image => {
-                console.log("received image", image);
-
-                this.setState({ pictUrl: { uri: image.path } });
-            })
-            .catch(e => console.log("tag", e));
-    }
-
-    fromGallery(cropping, mediaType = "photo") {
-        ImagePicker.openPicker({
-            multiple: false,
-            width: 200,
-            height: 200
-        })
-            .then(image => {
-                console.log("received image", image);
-
-                this.setState({ pictUrl: { uri: image.path } });
-            })
-            .catch(e => console.log("tag", e));
-    }
+    
 
     render() {
         return (
@@ -329,22 +425,22 @@ class SignupPrinciple extends React.Component {
                                 </View>
                                 <View style={styles.containMid}>
                                     <Input
-                                        ref="fullname"
+                                        ref="agencyname"
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ fullname: val })
+                                            this.setState({ agencyname: val })
                                         }
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
                                             I18nManager.isRTL ? "right" : "left"
                                         }
-                                        placeholder="Full Name"
+                                        placeholder="Agency Name"
                                         placeholderTextColor="rgba(0,0,0,0.20)"
-                                        value={this.state.fullname}
+                                        value={this.state.agencyname}
                                     />
                                     {this.state.errorfullname ? (
                                         <Text
@@ -356,31 +452,30 @@ class SignupPrinciple extends React.Component {
                                                 fontSize: 12
                                             }}
                                         >
-                                            ! Full Name Required
+                                            ! Agency Name Required
                                         </Text>
                                     ) : null}
                                 </View>
                                 <View style={styles.containMid}>
                                     <Input
-                                        ref="nik"
+                                        ref="companyyname"
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ nik: val })
+                                            this.setState({ companyname: val })
                                         }
-                                        keyboardType="numeric"
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
                                             I18nManager.isRTL ? "right" : "left"
                                         }
-                                        placeholder="NIK"
+                                        placeholder="Company Name"
                                         placeholderTextColor="rgba(0,0,0,0.20)"
-                                        value={this.state.nik}
+                                        value={this.state.companyname}
                                     />
-                                    {this.state.errornik ? (
+                                    {this.state.errorfullname ? (
                                         <Text
                                             style={{
                                                 position: "absolute",
@@ -390,7 +485,41 @@ class SignupPrinciple extends React.Component {
                                                 fontSize: 12
                                             }}
                                         >
-                                            ! NIK Required
+                                            ! Company Name Required
+                                        </Text>
+                                    ) : null}
+                                </View>
+                                <View style={styles.containMidAddress}>
+                                    <Textarea 
+                                        textAlign={
+                                            I18nManager.isRTL ? "right" : "left"
+                                        } 
+                                        style={styles.inputAddress} 
+                                        value={this.state.address} 
+                                        onChangeText={val =>
+                                            this.setState({ address: val })
+                                        } 
+                                        placeholder="Address" 
+                                        editable={true} 
+                                        placeholderTextColor="rgba(0,0,0,0.20)"
+                                        autoCorrect={false}
+                                        underlineColorAndroid="transparent"
+                                        autoCapitalize="words"
+                                        returnKeyType="next"
+                                        ref="address">
+
+                                    </Textarea>
+                                    {this.state.errorfullname ? (
+                                        <Text
+                                            style={{
+                                                position: "absolute",
+                                                bottom: 0,
+                                                left: 25,
+                                                color: "red",
+                                                fontSize: 12
+                                            }}
+                                        >
+                                            ! Address Required
                                         </Text>
                                     ) : null}
                                 </View>
@@ -400,11 +529,11 @@ class SignupPrinciple extends React.Component {
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ nik: val })
+                                            this.setState({ npwp: val })
                                         }
                                         keyboardType="numeric"
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
@@ -414,7 +543,7 @@ class SignupPrinciple extends React.Component {
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.npwp}
                                     />
-                                    {this.state.errornik ? (
+                                    {this.state.errorfullname ? (
                                         <Text
                                             style={{
                                                 position: "absolute",
@@ -437,7 +566,7 @@ class SignupPrinciple extends React.Component {
                                             this.setState({ bank_name: val })
                                         }
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
@@ -455,10 +584,10 @@ class SignupPrinciple extends React.Component {
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ nik: val })
+                                            this.setState({ acc_name: val })
                                         }
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
                                         textAlign={
@@ -476,7 +605,7 @@ class SignupPrinciple extends React.Component {
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ nik: val })
+                                            this.setState({ acc_no: val })
                                         }
                                         keyboardType="numeric"
                                         returnKeyType="next"
@@ -492,16 +621,14 @@ class SignupPrinciple extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={[styles.containMid]}>
+                                <View style={styles.containMid}>
                                     <RNPickerSelect
                                         style={pickerSelectStyles}
-                                        items={userType}
-                                        onValueChange={val =>
-                                            this.chooseType(val)
-                                        }
+                                        items={this.state.getLeadCode}
+                                        onValueChange={(val)=>this.setState({lead_cd:val})}
                                         placeholder={{
                                             key: 0,
-                                            label: "Select Principle"
+                                            label: "Select Lead Code"
                                         }}
                                         useNativeAndroidPickerStyle={false}
                                     />
@@ -518,124 +645,57 @@ class SignupPrinciple extends React.Component {
                                             ! Select User Type Required
                                         </Text>
                                     ) : null}
-                                </View>
+                                </View> 
                                 <View style={styles.containMid}>
                                     <Input
-                                        ref="nohp"
+                                        ref="contactperson"
                                         style={styles.inputEmail}
                                         editable={true}
                                         onChangeText={val =>
-                                            this.setState({ nohp: val })
+                                            this.setState({ contactperson: val })
                                         }
-                                        keyboardType="numeric"
                                         returnKeyType="next"
-                                        autoCapitalize="none"
+                                        autoCapitalize="words"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
-                                        lkk
                                         textAlign={
                                             I18nManager.isRTL ? "right" : "left"
                                         }
-                                        placeholder="Handphone"
+                                        placeholder="Contact Person"
                                         placeholderTextColor="rgba(0,0,0,0.20)"
-                                        value={this.state.nohp}
+                                        value={this.state.contactperson}
                                     />
-                                    {this.state.errornohp ? (
-                                        <Text
-                                            style={{
-                                                position: "absolute",
-                                                bottom: 0,
-                                                left: 25,
-                                                color: "red",
-                                                fontSize: 12
-                                            }}
-                                        >
-                                            ! No Hp Required
-                                        </Text>
-                                    ) : null}
+                                    
                                 </View>
-                                {/* <View style={[styles.containMid]}>
-                                    <RNPickerSelect
-                                        style={pickerSelectStyles}
-                                        items={userType}
-                                        onValueChange={val =>
-                                            this.chooseType(val)
+                                <View style={styles.containMid}>
+                                    <Input
+                                        ref="contactno"
+                                        style={styles.inputEmail}
+                                        editable={true}
+                                        onChangeText={val =>
+                                            this.setState({ contactno: val })
                                         }
-                                        placeholder={{
-                                            key: 0,
-                                            label: "Select User Type"
-                                        }}
-                                        useNativeAndroidPickerStyle={false}
+                                        keyboardType="numeric"
+                                        returnKeyType="next"
+                                        autoCapitalize="words"
+                                        autoCorrect={false}
+                                        underlineColorAndroid="transparent"
+                                        textAlign={
+                                            I18nManager.isRTL ? "right" : "left"
+                                        }
+                                        placeholder="Contact Number"
+                                        placeholderTextColor="rgba(0,0,0,0.20)"
+                                        value={this.state.contactno}
                                     />
-                                    {this.state.errorselectedType ? (
-                                        <Text
-                                            style={{
-                                                position: "absolute",
-                                                bottom: 0,
-                                                left: 25,
-                                                color: "red",
-                                                fontSize: 12
-                                            }}
-                                        >
-                                            ! Select User Type Required
-                                        </Text>
-                                    ) : null}
-                                </View> */}
-                                <View
-                                    style={[
-                                        styles.containMid,
-                                        { height: null, paddingBottom: 10 }
-                                    ]}
-                                >
-                                    {this.state.dataProject.map((data, key) => {
-                                        return (
-                                            <View
-                                                style={styles.checkboxWrap}
-                                                key={key}
-                                            >
-                                                <CheckBox
-                                                    onPress={() =>
-                                                        this.handleCheck(data)
-                                                    }
-                                                    checked={data.checked}
-                                                    title={data.descs}
-                                                    iconType="material"
-                                                    checkedIcon="check-circle"
-                                                    uncheckedIcon="check-circle"
-                                                    checkedColor="green"
-                                                />
-                                                {/* <Text
-                                                    style={{
-                                                        fontSize: 16
-                                                    }}
-                                                >
-                                                    {data.descs}
-                                                </Text> */}
-                                            </View>
-                                        );
-                                    })}
-                                    {this.state.errorselectedProject ? (
-                                        <Text
-                                            style={{
-                                                position: "absolute",
-                                                bottom: 0,
-                                                left: 25,
-                                                color: "red",
-                                                fontSize: 12
-                                            }}
-                                        >
-                                            ! Select Project Required
-                                        </Text>
-                                    ) : null}
                                 </View>
-                                <View style={[styles.containImage]}>
+                                <View style={[styles.containImageTop]}>
                                     <Text
                                         style={[
                                             Style.textBlack,
                                             { paddingTop: 5 }
                                         ]}
                                     >
-                                        Upload Photo KTP
+                                        Upload Photo SIUP
                                     </Text>
                                     <TouchableOpacity
                                         style={{
@@ -644,14 +704,238 @@ class SignupPrinciple extends React.Component {
                                             borderColor: "#d3d3d3",
                                             margin: 10
                                         }}
-                                        onPress={this.showAlert}
+                                        onPress={() => this.showAlert("pictUrlSIUP")}
                                     >
-                                        <Image
+                                        {/* <Image
                                             style={{ width: 200, height: 100 }}
-                                            source={this.state.pictUrl}
-                                        />
+                                            source={this.state.pictUrlKtp}
+                                        /> */}
+                                        {this.state.pictUrlSIUP == null || this.state.pictUrlSIUP == '' ?
+                                             <View >
+                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
+                                                <Image
+                                                    style={{ width: 200, height: 130 }}
+                                                    source={uri = require("../../assets/images/ktp.png")}
+                                                />
+                                            </View>
+                                            :
+                                            <Image
+                                                // resizeMode="cover"
+                                                style={{ width: 200, height: 130 }}
+                                                source={
+                                                    this.state.pictUrlSIUP
+                                                }
+                                            />
+                                        }
                                     </TouchableOpacity>
                                 </View>
+                                <View style={[styles.containImageTop]}>
+                                    <Text
+                                        style={[
+                                            Style.textBlack,
+                                            { paddingTop: 5 }
+                                        ]}
+                                    >
+                                        Upload Photo TDP
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            padding: 2,
+                                            borderWidth: 1,
+                                            borderColor: "#d3d3d3",
+                                            margin: 10
+                                        }}
+                                        onPress={() => this.showAlert("pictUrlTDP")}
+                                    >
+                                        {/* <Image
+                                            style={{ width: 200, height: 100 }}
+                                            source={this.state.pictUrlKtp}
+                                        /> */}
+                                        {this.state.pictUrlTDP == null || this.state.pictUrlTDP == '' ?
+                                             <View >
+                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
+                                                <Image
+                                                    style={{ width: 200, height: 130 }}
+                                                    source={uri = require("../../assets/images/ktp.png")}
+                                                />
+                                            </View>
+                                            :
+                                            <Image
+                                                // resizeMode="cover"
+                                                style={{ width: 200, height: 130 }}
+                                                source={
+                                                    this.state.pictUrlTDP
+                                                }
+                                            />
+                                        }
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={[styles.containImageTop]}>
+                                    <Text
+                                        style={[
+                                            Style.textBlack,
+                                            { paddingTop: 5 }
+                                        ]}
+                                    >
+                                        Upload Photo NPWP
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            padding: 2,
+                                            borderWidth: 1,
+                                            borderColor: "#d3d3d3",
+                                            margin: 10
+                                        }}
+                                        onPress={() => this.showAlert("pictUrlNPWP")}
+                                    >
+                                        {/* <Image
+                                            style={{ width: 200, height: 100 }}
+                                            source={this.state.pictUrlKtp}
+                                        /> */}
+                                        {this.state.pictUrlNPWP == null || this.state.pictUrlNPWP == '' ?
+                                             <View >
+                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
+                                                <Image
+                                                    style={{ width: 200, height: 130 }}
+                                                    source={uri = require("../../assets/images/ktp.png")}
+                                                />
+                                            </View>
+                                            :
+                                            <Image
+                                                // resizeMode="cover"
+                                                style={{ width: 200, height: 130 }}
+                                                source={
+                                                    this.state.pictUrlNPWP
+                                                }
+                                            />
+                                        }
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={[styles.containImageTop]}>
+                                    <Text
+                                        style={[
+                                            Style.textBlack,
+                                            { paddingTop: 5 }
+                                        ]}
+                                    >
+                                        Upload Photo Domicile
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            padding: 2,
+                                            borderWidth: 1,
+                                            borderColor: "#d3d3d3",
+                                            margin: 10
+                                        }}
+                                        onPress={() => this.showAlert("pictUrlDomisili")}
+                                    >
+                                        {/* <Image
+                                            style={{ width: 200, height: 100 }}
+                                            source={this.state.pictUrlKtp}
+                                        /> */}
+                                        {this.state.pictUrlDomisili == null || this.state.pictUrlDomisili == '' ?
+                                             <View >
+                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
+                                                <Image
+                                                    style={{ width: 200, height: 130 }}
+                                                    source={uri = require("../../assets/images/ktp.png")}
+                                                />
+                                            </View>
+                                            :
+                                            <Image
+                                                // resizeMode="cover"
+                                                style={{ width: 200, height: 130 }}
+                                                source={
+                                                    this.state.pictUrlDomisili
+                                                }
+                                            />
+                                        }
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={[styles.containImageTop]}>
+                                    <Text
+                                        style={[
+                                            Style.textBlack,
+                                            { paddingTop: 5,textAlign:'center' }
+                                        ]}
+                                    >
+                                        Upload Photo Akte Pendirian & Perubahan Perusahaan
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            padding: 2,
+                                            borderWidth: 1,
+                                            borderColor: "#d3d3d3",
+                                            margin: 10
+                                        }}
+                                        onPress={() => this.showAlert("pictUrlAktePendirian")}
+                                    >
+                                        {/* <Image
+                                            style={{ width: 200, height: 100 }}
+                                            source={this.state.pictUrlKtp}
+                                        /> */}
+                                        {this.state.pictUrlAktePendirian == null || this.state.pictUrlAktePendirian == '' ?
+                                             <View >
+                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
+                                                <Image
+                                                    style={{ width: 200, height: 130 }}
+                                                    source={uri = require("../../assets/images/ktp.png")}
+                                                />
+                                            </View>
+                                            :
+                                            <Image
+                                                // resizeMode="cover"
+                                                style={{ width: 200, height: 130 }}
+                                                source={
+                                                    this.state.pictUrlAktePendirian
+                                                }
+                                            />
+                                        }
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={[styles.containImage]}>
+                                    <Text
+                                        style={[
+                                            Style.textBlack,
+                                            { paddingTop: 5}
+                                        ]}
+                                    >
+                                        Upload Photo KTP (Commissioner + Director)
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            padding: 2,
+                                            borderWidth: 1,
+                                            borderColor: "#d3d3d3",
+                                            margin: 10
+                                        }}
+                                        onPress={() => this.showAlert("pictUrlKtp")}
+                                    >
+                                        {/* <Image
+                                            style={{ width: 200, height: 100 }}
+                                            source={this.state.pictUrlKtp}
+                                        /> */}
+                                        {this.state.pictUrlKtp == null || this.state.pictUrlKtp == '' ?
+                                             <View >
+                                             {/* <Icon name='image' type="FontAwesome5" style={{ color: Colors.navyUrban,fontSize: 50, top: Metrics.WIDTH * 0.05,justifyContent: 'space-between', textAlign: 'center', alignSelf: 'center', alignItems: 'center'}} /> */}
+                                                <Image
+                                                    style={{ width: 200, height: 130 }}
+                                                    source={uri = require("../../assets/images/ktp.png")}
+                                                />
+                                            </View>
+                                            :
+                                            <Image
+                                                // resizeMode="cover"
+                                                style={{ width: 200, height: 130 }}
+                                                source={
+                                                    this.state.pictUrlKtp
+                                                }
+                                            />
+                                        }
+                                    </TouchableOpacity>
+                                </View>
+
+
                             </View>
                         </View>
                     </ScrollView>

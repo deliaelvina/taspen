@@ -13,7 +13,8 @@ import {
     BackHandler,
     I18nManager,
     StyleSheet,
-    Alert
+    Alert,
+    // Content
 } from "react-native";
 import {
     Container,
@@ -26,7 +27,8 @@ import {
     Left,
     Body,
     Title,
-    ListItem
+    ListItem,
+    Content
     // CheckBox
 } from "native-base";
 import { CheckBox } from "react-native-elements";
@@ -84,12 +86,12 @@ class chooseRegist extends React.Component {
                         <Right style={styles.right}></Right>
                     </Header>
 
-                    <ScrollView>
-                        <View style={{justifyContent: 'center',alignSelf: 'center',alignItems: 'center',width:100}}>
+                    
+                        <View style={{flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                             <TouchableOpacity onPress={() => Actions.SignupPrinciple()}>
                                 <View
-                                    style={{height: 80, width: 300, backgroundColor: Colors.loginBlue, alignItems: "center",
-                                    justifyContent: "center", alignSelf: "center",}}
+                                    style={{height: 80, width: 300, backgroundColor: Colors.blueUrban, alignItems: "center",
+                                    justifyContent: "center", alignSelf: "center",borderRadius: 10}}
                                     pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     
                                 >
@@ -110,7 +112,7 @@ class chooseRegist extends React.Component {
                             <TouchableOpacity onPress={() => Actions.SignupAgent()}>
                                 <View
                                     style={{height: 80, width: 300, backgroundColor: Colors.loginBlue, alignItems: "center",
-                                    justifyContent: "center", alignSelf: "center",}}
+                                    justifyContent: "center", alignSelf: "center",borderRadius: 10}}
                                     pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     
                                 >
@@ -124,7 +126,7 @@ class chooseRegist extends React.Component {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                    </ScrollView>
+                    
                    
                 </ImageBackground>
             </Container>

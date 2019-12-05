@@ -86,6 +86,28 @@ const styles = {
         justifyContent: "space-between",
         alignItems: "center",
 		alignSelf: "center",
+		borderBottomWidth : 0.11,
+		borderBottomColor : '#f3f3f3'
+    },
+    containMidLeadCode: {
+        // backgroundColor: "#fff",
+        height: Metrics.HEIGHT * 0.08,
+        width: Metrics.WIDTH * 0.52,
+        justifyContent: "space-between",
+        alignItems: "center",
+		alignSelf: "center",
+		borderBottomWidth : 0.18,
+        borderBottomColor : '#f3f3f3',
+        // backgroundColor: '#999',
+        marginRight: 1
+    },
+    containMidAddress: {
+        backgroundColor: "#fff",
+        height: Metrics.HEIGHT * 0.20,
+        width: Metrics.WIDTH * 0.92,
+        justifyContent: "space-between",
+        alignItems: "center",
+		alignSelf: "center",
 		borderBottomWidth : 0.18,
 		borderBottomColor : '#f3f3f3'
     },
@@ -95,6 +117,14 @@ const styles = {
         color: "#000",
         paddingLeft: Fonts.moderateScale(10),
         fontFamily: Fonts.type.sfuiDisplayRegular
+    },
+    inputAddress: {
+        height: Metrics.HEIGHT * 0.20,
+        width: Metrics.WIDTH * 0.84,
+        color: "#000",
+        paddingLeft: Fonts.moderateScale(10),
+        fontFamily: Fonts.type.sfuiDisplayRegular,
+        fontSize: 18
     },
     inputEmailPrinciple:{
         height: Metrics.HEIGHT * 0.08,

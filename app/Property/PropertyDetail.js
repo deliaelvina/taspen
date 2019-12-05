@@ -759,7 +759,7 @@ showAlert = () => {
               <WebView
                 style={{height: 300}}
                 source={{ uri: this.state.overview[0].youtube_link }}
-               
+                // allowsFullscreenVideo={true}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}   
               />
