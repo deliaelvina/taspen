@@ -97,6 +97,8 @@ class SignupPrinciple extends React.Component {
             search: '',
             modalVisible: false,
             _agencyname: '',
+            lead_cd: '',
+            lead_name: '',
         };
     }
 
@@ -206,6 +208,7 @@ class SignupPrinciple extends React.Component {
     };
 
     submit = () => {
+        this.setState({ isLoaded: !this.state.isLoaded });
         // const { email } = this.state.email;
         // console.log("email",email);
         let filektp = RNFetchBlob.wrap(
@@ -223,16 +226,17 @@ class SignupPrinciple extends React.Component {
         let filedomisili = RNFetchBlob.wrap(
             this.state.pictUrlDomisili.uri.replace("file://", "")
         );
-        const valid_domisili = this.state.pictUrlDomisili.uri;
-        console.log('url domisili',this.state.pictUrlDomisili);
+        let fileakte = RNFetchBlob.wrap(
+            this.state.pictUrlAktePendirian.uri.replace("file://", "")
+        );
+        // const valid_domisili = this.state.pictUrlDomisili.uri;
+        // console.log('url domisili',this.state.pictUrlDomisili);
         
         // if (valid_domisili == 0 && valid_domisili == ''){
 
         // }
         
-        // let fileakte = RNFetchBlob.wrap(
-        //     this.state.pictUrlAktePendirian.uri.replace("file://", "")
-        // );
+        
         
 
         const {
@@ -247,6 +251,9 @@ class SignupPrinciple extends React.Component {
             contactperson,
             contactno,
             lead_cd,
+            lead_name,
+            // lead_name,
+            // getLeadCode,
             // pictUrlDomisili
         } = this.state;
 
@@ -272,7 +279,9 @@ class SignupPrinciple extends React.Component {
             pictUrlTDP: filetdp,
             pictUrlDomisili: filedomisili,
             pictUrlAktePendirian: fileakte,
-            lead_cd: lead_cd
+            lead_cd: lead_cd,
+            lead_name: lead_name[0].label
+            // lead_name: getLeadCode[0].lead_name,
         };
         
 
@@ -326,22 +335,29 @@ class SignupPrinciple extends React.Component {
                     "Content-Type": "multipart/form-data"
                 },
                 [
-                    { name: "photo", filename: fileName, data: fileImg },
+                    // { name: "photo", filename: fileName, data: fileImg },
                     { name: "photoktp", filename: fileNameKtp, data: filektp },
                     { name: "photonpwp", filename: fileNameNpwp, data: filenpwp },
                     { name: "photosiup", filename: fileNameSIUP, data: filesiup },
                     { name: "phototdp", filename: fileNameTDP, data: filetdp},
                     { name: "photodomisili", filename: fileNameDomisili, data: filedomisili},
-                    { nama: "photoappp", filename: fileNameAktePendirian, data: fileakte},
+                    { name: "photoakte", filename: fileNameAktePendirian, data: fileakte},
                     { name: "data", data: JSON.stringify(frmData) }
                 ]
             ).then(resp => {
                 const res = JSON.parse(resp.data);
                 // let res = JSON.stringify(resp.data);
                 console.log("res", resp);
-                alert(res.Pesan)
                 if(!res.Error){
-                    Actions.pop()
+                    // Actions.pop()
+                    this.setState({ isLogin: true }, () => {
+                        alert(res.Pesan);
+                        Actions.pop()
+                    });
+                }else {
+                    this.setState({ isLoaded: !this.state.isLoaded }, () => {
+                        alert(res.Pesan);
+                    });
                 }
                 // alert(res.Pesan); 
             });
@@ -379,7 +395,7 @@ class SignupPrinciple extends React.Component {
                         </Body>
                         <Right style={styles.right}></Right>
                     </Header>
-                    <ScrollView contentContainerStyle={{ paddingVertical: 10 }}>
+                    <ScrollView contentContainerStyle={{ paddingVertical: 10 }} scrollEnabled={this.state.isLoaded ? true : false}>
                         <View
                             style={[
                                 styles.inputFieldStyles,
@@ -387,7 +403,7 @@ class SignupPrinciple extends React.Component {
                             ]}
                         >
                             <View>
-                                <View style={styles.containEmail}>
+                                <View style={styles.containEmail} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="email"
                                         style={styles.inputEmail}
@@ -423,7 +439,7 @@ class SignupPrinciple extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="agencyname"
                                         style={styles.inputEmail}
@@ -456,7 +472,7 @@ class SignupPrinciple extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="companyyname"
                                         style={styles.inputEmail}
@@ -489,7 +505,7 @@ class SignupPrinciple extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMidAddress}>
+                                <View style={styles.containMidAddress} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Textarea 
                                         textAlign={
                                             I18nManager.isRTL ? "right" : "left"
@@ -523,7 +539,7 @@ class SignupPrinciple extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="npwp"
                                         style={styles.inputEmail}
@@ -557,7 +573,7 @@ class SignupPrinciple extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="bankname"
                                         style={styles.inputEmail}
@@ -578,7 +594,7 @@ class SignupPrinciple extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="accname"
                                         style={styles.inputEmail}
@@ -599,7 +615,7 @@ class SignupPrinciple extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="accno"
                                         style={styles.inputEmail}
@@ -621,11 +637,18 @@ class SignupPrinciple extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <RNPickerSelect
                                         style={pickerSelectStyles}
                                         items={this.state.getLeadCode}
-                                        onValueChange={(val)=>this.setState({lead_cd:val})}
+                                        selectedValue={this.state.lead_cd}
+                                        // onValueChange={(val)=>this.setState({lead_cd:val})}
+                                        onValueChange={(val)=>{
+                                            const leadname = this.state.getLeadCode.filter(item=>item.value==val);
+                                            // console.log('lead name', this.state.getLeadCode.filter(item=>item.value==val))
+                                            this.setState({lead_cd:val,lead_name:leadname});
+                                            // console.log('lead name nih', this.setState({lead_cd:val,lead_name:item}))
+                                        }}
                                         placeholder={{
                                             key: 0,
                                             label: "Select Lead Code"
@@ -646,7 +669,7 @@ class SignupPrinciple extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View> 
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="contactperson"
                                         style={styles.inputEmail}
@@ -667,7 +690,7 @@ class SignupPrinciple extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="contactno"
                                         style={styles.inputEmail}
@@ -705,6 +728,7 @@ class SignupPrinciple extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlSIUP")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}
@@ -746,6 +770,7 @@ class SignupPrinciple extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlTDP")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}
@@ -787,6 +812,7 @@ class SignupPrinciple extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlNPWP")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}
@@ -828,6 +854,7 @@ class SignupPrinciple extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlDomisili")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}
@@ -869,6 +896,7 @@ class SignupPrinciple extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlAktePendirian")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}
@@ -910,6 +938,7 @@ class SignupPrinciple extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlKtp")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}

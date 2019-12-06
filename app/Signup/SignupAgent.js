@@ -96,6 +96,10 @@ class SignupGuest extends React.Component {
             getPrin: [],
             principle_cd: '',
             modalVisible: false,
+
+            // query: '',
+            fullData: [],
+            principle_name:''
         };
     }
 
@@ -113,13 +117,15 @@ class SignupGuest extends React.Component {
     };
 
 
+
+
     renderRow = ({item}) => {
         console.log('item',item);
         return(
             // <TouchableOpacity >
             <ListItem style={{height: 10}} 
             // onValueChange={(val)=>this.alert(val)}
-            onPress={()=>this.selectedItem(item.value)}
+            onPress={()=>this.selectedItem(item)}
             // onPress={()=>alert(item.value)}
             // onPress={(val)=>{
             // //    const valvalue = this.state.getocupation.filter(item=>item.value==val)
@@ -128,7 +134,7 @@ class SignupGuest extends React.Component {
             // }}
             >
                 <Text style={{fontFamily: "Montserrat-Regular",alignSelf:'flex-start',color: "#333",marginBottom: 5,fontSize: 15}}>
-                {item.value}
+                {item.label}
                 </Text>
             </ListItem>
 
@@ -183,7 +189,8 @@ class SignupGuest extends React.Component {
         
         // alert(val);
         if(item){
-            this.setState({principle_cd : item})
+            this.setState({principle_cd : item.value})
+            this.setState({principle_name: item.label})
             // this.setModalVisible(!this.state.modalVisible)
         }
         this.setModalVisible(!this.state.modalVisible)
@@ -218,6 +225,7 @@ class SignupGuest extends React.Component {
     };
 
     submit = () => {
+        this.setState({ isLoaded: !this.state.isLoaded });
         // const { email } = this.state.email;
         // console.log("email",email);
         let filektp = RNFetchBlob.wrap(
@@ -238,6 +246,7 @@ class SignupGuest extends React.Component {
             selectedType,
             email,
             fullname,
+            principle_name,
             nik,
             nohp,
             // pictUrl,
@@ -275,6 +284,7 @@ class SignupGuest extends React.Component {
             accno: acc_no,
 
             principle: principle_cd,
+            principlename: principle_name
 
         };
         
@@ -285,25 +295,34 @@ class SignupGuest extends React.Component {
             nik: { require: true },
             nohp: { require: true },
             // selectedType: { require: true },
-            selectedProject: { require: true }
+            // selectedProject: { require: true }
         });
 
-        let fileNameKtp = "KTP_RegisAgent_"+fullname+".png";
-        console.log('filenamektp', fileNameKtp);
-        let fileNameNpwp = "npwp_RegisAgent_" + fullname + ".png";
-        let fileNameBukuTabungan = "bukutabungan_RegisAgent_" + fullname + ".png";
-        let fileNameSuratAnggota= "suratanggota_RegisAgent_" + fullname + ".png";
+        let fileNameKtp = "KTP_RegisAgent_"+nik+".png";
+        console.log('filenamektp', nik);
+        let fileNameNpwp = "npwp_RegisAgent_" + nik + ".png";
+        let fileNameBukuTabungan = "bukutabungan_RegisAgent_" + nik + ".png";
+        let fileNameSuratAnggota= "suratanggota_RegisAgent_" + nik + ".png";
 
        
         
 
         console.log('saveFormNUP', frmData);
+        console.log('leng nik',this.state.nik.length);
+        console.log('leng foto ktp',this.state.pictUrlKtp.length);
+        // if(this.state.pictUrlKtp.length == 7 || filektp.length == 7){
+        //     console.log(this.state.pictUrlKtp.length)
+        //     alert('panjang 7')
+        // }else{
+        //     console.log(this.state.pictUrlKtp.length)
+        //     alert('lebih dari 7')
+        // }
 
         // let fileName = "KTP_RegisAgent.png";
         // let fileImg = "";
 
         
-
+// 
         if ( isValid ) {
             // fileImg = RNFetchBlob.wrap(
             //     this.state.pictUrl.uri.replace("file://", "")
@@ -324,33 +343,24 @@ class SignupGuest extends React.Component {
                     { name: "data", data: JSON.stringify(frmData) }
                 ]
             ).then(resp => {
-                // const res = JSON.parse(resp.data);
-                let res = JSON.stringify(resp.data);
-                console.log("res", res);
-                if(!res.Error){
-                    Alert.alert(
-                        'Great!',
-                        'Sign Up Success,'+'\n'+'Please wait 24hour until Account Active.',
-                        [
-                        //   {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                        //   {
-                        //     text: 'Cancel',
-                        //     onPress: () => console.log('Cancel Pressed'),
-                        //     style: 'cancel',
-                        //   },
-                          {text: 'Ok', onPress: () => Actions.pop()},
-                        ],
-                        {cancelable: false},
-                      );
-                }else{
-                    alert(res.Pesan);
-                }
+                const res = JSON.parse(resp.data);
+                // let res = JSON.stringify(resp.data);
+                console.log("res", resp);
                 
-                // alert(res.Pesan);
-                // if (!res.Error) {
-                //     Actions.pop();
-                // }
+                if(!res.Error){
+                    // Actions.pop()
+                    this.setState({ isLogin: true }, () => {
+                        alert(res.Pesan);
+                        Actions.pop()
+                    });
+                }else {
+                    this.setState({ isLoaded: !this.state.isLoaded }, () => {
+                        alert(res.Pesan);
+                    });
+                }
+                // alert(res.Pesan); 
             });
+            
         } else {
             alert("Please assign your ID Picture");
         }
@@ -422,6 +432,11 @@ class SignupGuest extends React.Component {
             .catch(e => console.log("tag", e));
     }
 
+    updateSearch = text => {
+        console.log('input search',text);
+        this.setState({ search: text });
+    };
+
     render() {
         return (
             <Container>
@@ -448,15 +463,16 @@ class SignupGuest extends React.Component {
                         </Body>
                         <Right style={styles.right}></Right>
                     </Header>
-                    <ScrollView contentContainerStyle={{ paddingVertical: 10 }}>
-                        <View
+                    
+                    <ScrollView contentContainerStyle={{ paddingVertical: 10 }} scrollEnabled={this.state.isLoaded ? true : false}>
+                        <View pointerEvents={this.state.isLoaded ? "auto" : "none"}
                             style={[
                                 styles.inputFieldStyles,
                                 { justifyContent: "flex-start" }
                             ]}
                         >
                             <View>
-                                <View style={styles.containEmail}>
+                                <View style={styles.containEmail} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="email"
                                         style={styles.inputEmail}
@@ -492,7 +508,7 @@ class SignupGuest extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="fullname"
                                         style={styles.inputEmail}
@@ -525,7 +541,7 @@ class SignupGuest extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="nik"
                                         style={styles.inputEmail}
@@ -544,6 +560,7 @@ class SignupGuest extends React.Component {
                                         placeholder="NIK"
                                         placeholderTextColor="rgba(0,0,0,0.20)"
                                         value={this.state.nik}
+                                        maxLength={20}
                                     />
                                     {this.state.errornik ? (
                                         <Text
@@ -559,7 +576,7 @@ class SignupGuest extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="npwp"
                                         style={styles.inputEmail}
@@ -593,7 +610,7 @@ class SignupGuest extends React.Component {
                                         </Text>
                                     ) : null}
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="bankname"
                                         style={styles.inputEmail}
@@ -614,7 +631,7 @@ class SignupGuest extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="accname"
                                         style={styles.inputEmail}
@@ -635,7 +652,7 @@ class SignupGuest extends React.Component {
                                     />
                                     
                                 </View>
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="accno"
                                         style={styles.inputEmail}
@@ -658,7 +675,7 @@ class SignupGuest extends React.Component {
                                     
                                 </View>
 
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Item style={styles.containMid}>
                                         <TouchableOpacity
                                             onPress={() => {
@@ -682,7 +699,7 @@ class SignupGuest extends React.Component {
                                                         }
                                                         placeholder="Principle Code"
                                                         placeholderTextColor="rgba(0,0,0,0.20)"
-                                                        value={this.state.principle_cd}
+                                                        value={this.state.principle_name}
                                                     />
                                                 {/* <TextInput  placeholder={'Lot No'} value={this.state.principle_cd} onChangeText={(val)=>{this.setState({principle_cd:val})}} editable={false}/> */}
                                                 {/* <Right style={{position:'absolute',right:10}}>
@@ -733,13 +750,14 @@ class SignupGuest extends React.Component {
                                                         <SearchBar
                                                         placeholder="Search Here..."
                                                         onChangeText={this.updateSearch}
+                                                        // ref={search => this.state.search = search}
                                                         value={this.state.search}
                                                         containerStyle={{backgroundColor: Colors.white, height: 40, borderRadius: 8, borderWidth: 0, borderColor: Colors.white, borderBottomColor: Colors.white}}
                                                         inputContainerStyle={{height: 30, borderBottomColor: Colors.white}}
                                                         />
                                                         <FlatList data={this.state.getPrin} 
                                                         renderItem={this.renderRow}
-                                                        keyExtractor={(item,index)=>item.value} 
+                                                        keyExtractor={(item,index)=>item.label} 
                                                         
                                                         />
                                                     </View>
@@ -781,7 +799,7 @@ class SignupGuest extends React.Component {
                                         </Text>
                                     ) : null} */}
                                 {/* </View> */}
-                                <View style={styles.containMid}>
+                                <View style={styles.containMid} pointerEvents={this.state.isLoaded ? "auto" : "none"}>
                                     <Input
                                         ref="nohp"
                                         style={styles.inputEmail}
@@ -827,6 +845,7 @@ class SignupGuest extends React.Component {
                                             <View
                                                 style={styles.checkboxWrap}
                                                 key={key}
+                                                pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                             >
                                                 <CheckBox
                                                     onPress={() =>
@@ -838,6 +857,7 @@ class SignupGuest extends React.Component {
                                                     checkedIcon="check-circle"
                                                     uncheckedIcon="check-circle"
                                                     checkedColor="green"
+                                                    
                                                 />
                                                 {/* <Text
                                                     style={{
@@ -880,6 +900,7 @@ class SignupGuest extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlKtp")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {/* <Image
                                             style={{ width: 200, height: 100 }}
@@ -921,6 +942,7 @@ class SignupGuest extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlNPWP")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {this.state.pictUrlNPWP == null || this.state.pictUrlNPWP == '' ?
                                             <View >
@@ -958,6 +980,7 @@ class SignupGuest extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlSuratAnggota")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {this.state.pictUrlSuratAnggota == null || this.state.pictUrlSuratAnggota == '' ?
                                             <View >
@@ -995,6 +1018,7 @@ class SignupGuest extends React.Component {
                                             margin: 10
                                         }}
                                         onPress={() => this.showAlert("pictUrlBukuTabungan")}
+                                        pointerEvents={this.state.isLoaded ? "auto" : "none"}
                                     >
                                         {this.state.pictUrlBukuTabungan == null || this.state.pictUrlBukuTabungan == '' ?
                                             <View >
