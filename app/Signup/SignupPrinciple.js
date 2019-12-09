@@ -16,7 +16,8 @@ import {
     Alert,
     FlatList,
     TextInput,
-    Modal
+    Modal,
+    Dimensions
 } from "react-native";
 import {
     Container,
@@ -49,6 +50,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { ScrollView } from "react-native-gesture-handler";
 import ImagePicker from "react-native-image-crop-picker";
 import RNFetchBlob from "rn-fetch-blob";
+
 let isMount = false;
 const userType = [
     {
@@ -66,8 +68,11 @@ const userType = [
 class SignupPrinciple extends React.Component {
     constructor(props) {
         super(props);
+        this.handleCheck = this.handleCheck.bind(this);
+        // this.handleBuy = this.handleBuy.bind(this);
 
         this.state = {
+            checked : false,
             dataProject: [],
             isLoaded: true,
 
@@ -99,15 +104,60 @@ class SignupPrinciple extends React.Component {
             _agencyname: '',
             lead_cd: '',
             lead_name: '',
+            title: 'I have read and accept the terms & conditions',
+            files: [],
         };
+        // console.log('statte', this.state.title);
     }
 
     componentDidMount() {
         this.getLeadCd();
         isMount = true;
+        // this.getPDF()
+        this.getFile();
         // const { email } = this.state.email;
         // console.log("email",email);
+        console.log('statte', this.state.title);
     }
+
+    
+
+    handleCheck(){
+        this.setState({checked : !this.state.checked});
+        // Actions.pagePDF();
+        // Actions.pagePDF({item : item})
+    }
+
+    getFile = () =>{
+
+        fetch(urlApi+'c_termcondition/getTermCondition/IFCAMOBILE',{
+            method:'GET'
+            // headers : this.state.hd,
+        }).then((response) => response.json())
+        .then((res)=>{
+            if(!res.Error){
+                const resData = res.Data
+                this.setState({files:resData})
+            } else {
+                this.setState({isLoaded: !this.state.isLoaded},()=>{
+                    alert(res.Pesan)
+                });
+            }
+            console.log('getFiles',res);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
+    downloadFile = (item) =>{
+        // const android = RNFetchBlob.android
+    console.log('donload item', item);
+        Actions.PDFViewer({item : item})
+    }
+
+    // handleBuy(){
+    //     Actions.NUPPay({nup : this.props.nup});
+    // }
 
     showAlert = (key) => {
         Alert.alert(
@@ -368,9 +418,29 @@ class SignupPrinciple extends React.Component {
         }
     };
     
-
-    render() {
+    titleCheckbox() {
         return (
+            
+            <View style={{justifyContent: 'center',alignItems: 'center'}}>
+                <View style={{flexDirection: 'row'}}>
+                    <Text>
+                        I have read and accept{' '}
+                    </Text>
+                    <Text onPress={()=>alert('terms')} style={{textDecorationLine: 'underline'}}>
+                        the terms & conditions
+                    </Text>
+
+                </View>
+            </View>
+        
+        )
+        
+    }
+    render() {
+        const item = this.props.items
+        console.log('item apasih', item);
+        return (
+            
             <Container>
                 <ImageBackground style={styles.backgroundImage}>
                     <Header style={styles.header}>
@@ -968,13 +1038,52 @@ class SignupPrinciple extends React.Component {
                             </View>
                         </View>
                     </ScrollView>
+                    <View style={[pickerSelectStyles.checkBoxWrap, {flexDirection: 'row', backgroundColor: "#fff", height: 30, marginTop: 8, marginBottom: 8, borderRadius: 10} ]}>
+                        <CheckBox 
+                        // title={`I have read and accept the terms & conditions`}
+                        // title={this.titleCheckbox}
+                        
+                        checked= {this.state.checked}
+                        onPress = {this.handleCheck}
+                        style={{justifyContent: 'center',alignItems: 'center'}}
+                        />
+                        
+                        <View style={{justifyContent: 'center',alignItems: 'center'}}>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text>
+                                    I have read and accept{' '}
+                                </Text>
+                                <Text onPress={()=>alert('terms')} style={{textDecorationLine: 'underline'}}>
+                                    the terms & conditions
+                                </Text>
+
+                            </View>
+                        </View>
+
+                   
+                        
+                        {/* {this.state.files.map((val,key)=> 
+                        <View key={key} >
+                            <Text onPress={()=>this.downloadFile(val)}>
+                            I have read and accept the terms & conditions
+                            </Text>
+                        </View>
+                        
+                        )} */}
+                    </View>
+                    
+                    
+                    {/* <Button onPress={this.handleBuy}  style={{alignSelf : 'center', marginTop : 20}}>
+                        <Text style={{fontFamily :'Montserrat-Regular'}}>Accept</Text>
+                    </Button> */}
                     <View
                         style={styles.signbtnSec}
                         pointerEvents={this.state.isLoaded ? "auto" : "none"}
                     >
                         <Button
-                            style={styles.signInBtn}
+                            style={[styles.signInBtn, { backgroundColor: !this.state.checked ? "#cccccc": "#0691ce" }]}
                             onPress={() => this.submit()}
+                            disabled={!this.state.checked}
                         >
                             {!this.state.isLoaded ? (
                                 <ActivityIndicator color="#fff" />
@@ -1006,5 +1115,19 @@ const pickerSelectStyles = StyleSheet.create({
     inputAndroid: {
         ...styles.inputEmail,
         fontSize: 17
+    },
+    textBox : {
+        flex : 1,
+        height : Dimensions.get('window').height * 0.6,
+        backgroundColor:'#fff', 
+        marginHorizontal : 30,
+        paddingHorizontal : 20, 
+        marginTop : 20,
+        paddingTop : 10,
+        borderColor : '#333',
+        borderWidth : 1
+    },
+    checkBoxWrap : {
+        marginHorizontal : 10
     }
 });

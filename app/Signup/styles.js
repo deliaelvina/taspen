@@ -176,7 +176,7 @@ const styles = {
         backgroundColor : '#f3f3'
     },
     signInBtn: {
-        backgroundColor: Colors.loginBlue,
+        // backgroundColor: Colors.loginBlue,
         height: Metrics.HEIGHT * 0.08,
         width: '100%',
         alignSelf: "center",
@@ -257,5 +257,10 @@ const styles = {
     iconSub : {
         fontSize: 6,color : 'red',position: 'absolute',  left: 4,top: 3
       },
+      pdf: {
+        flex:1,
+        width:Dimensions.get('window').width,
+        backgroundColor : '#333'
+    }
 };
 export default styles;

@@ -15,6 +15,7 @@ import SignupGuest from './Signup/SignupGuest';
 import SignupAgent from './Signup/SignupAgent';
 import chooseRegist from './Signup/chooseRegist';
 import SignupPrinciple from './Signup/SignupPrinciple';
+import pagePDF from './Signup/pagePDF';
 import Reset from './ResetPass/Reset';
 import Search from "./Find/Search";
 import Calcu from "./Calcu/Calcu";
@@ -418,6 +419,12 @@ class Routes extends Component{
                 <Scene
                   key="SignupPrinciple"
                   component={SignupPrinciple}
+                  hideNavBar={true}
+                  title=""
+                />
+                <Scene
+                  key="pagePDF"
+                  component={pagePDF}
                   hideNavBar={true}
                   title=""
                 />
