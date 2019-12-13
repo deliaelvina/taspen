@@ -18,7 +18,8 @@
     "add-remote" : "git remote add origin",
     "push-master": "git push -u origin master",
     "push-origin": "git push -u origin",
-    "push-from-branch": "git push -u origin (branch):master" 
+    "push-from-branch": "git push -u origin (branch):master",
+    "run-android": "npx jetify && react-native run-android"
 
   },
   "dependencies": {
