@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Urban' do
+target 'taspenmobile' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for Urban
+  # Pods for taspenmobile
   platform :ios, '9.0'
   pod "yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
@@ -31,7 +31,7 @@ target 'Urban' do
   pod 'react-native-mail', :path => '../node_modules/react-native-mail'
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
-  target 'UrbanTests' do
+  target 'taspenmobileTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -55,13 +55,13 @@ target 'Urban' do
 
 end
 
-target 'Urban-tvOS' do
+target 'taspenmobile-tvOS' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  # Pods for Urban-tvOS
+  # Pods for taspenmobile-tvOS
 
-  target 'Urban-tvOSTests' do
+  target 'taspenmobile-tvOSTests' do
     inherit! :search_paths
   end
 
