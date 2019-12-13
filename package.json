@@ -78,7 +78,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "rn-fetch-blob": "^0.10.15",
-    "yarn": "^1.15.2"
+    "yarn": "^1.17.3"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
