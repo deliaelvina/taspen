@@ -27,7 +27,7 @@
     "@monterosa/react-native-parallax-scroll": "^1.8.0",
     "@react-native-community/async-storage": "^1.2.4",
     "add": "^2.0.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "native-base": "^2.12.1",
     "react": "16.8.3",
     "react-native": "0.59.0",
